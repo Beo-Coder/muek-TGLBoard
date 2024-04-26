@@ -88,7 +88,7 @@ void Player::animate(Color (*display)[MATRIX_HEIGHT][MATRIX_LENGTH]) {
     }
 }
 
-bool Player::checkAndMarkCollision(Entity entity, Color (*display)[MATRIX_HEIGHT][MATRIX_LENGTH]) {
+bool Player::checkAndMarkCollision(const Entity& entity, Color (*display)[MATRIX_HEIGHT][MATRIX_LENGTH]) {
     bool returnData = false;
     for (int8_t py = posY; py < posY + sizeY; py++) {
         for (int8_t px = posX; px < posX + sizeX; px++) {
@@ -116,8 +116,6 @@ bool Player::checkAndMarkCollision(Entity entity, Color (*display)[MATRIX_HEIGHT
 
 DinoGame::DinoGame(MatrixOutput *ledMatrix) {
     matrix = ledMatrix;
-
-
 
 
 
@@ -230,7 +228,7 @@ int8_t* getRandomEnemy() {
             return enemyHeights[i];
         }
     }
-    return 0;
+    return nullptr;
 
 
 }

@@ -174,7 +174,7 @@ public:
 
     void animate(Color (*display)[MATRIX_HEIGHT][MATRIX_LENGTH]) override;
 
-    bool checkAndMarkCollision(Entity entity, Color (*display)[MATRIX_HEIGHT][MATRIX_LENGTH]);
+    bool checkAndMarkCollision(const Entity& entity, Color (*display)[MATRIX_HEIGHT][MATRIX_LENGTH]);
 
 };
 
@@ -201,7 +201,7 @@ public:
     uint32_t score;
     uint8_t speed;
 
-    DinoGame(MatrixOutput *ledMatrix);
+    explicit DinoGame(MatrixOutput *ledMatrix);
 
 
     void button1ISR(bool data);
