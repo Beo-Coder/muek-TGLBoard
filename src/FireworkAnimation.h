@@ -53,7 +53,7 @@ static Color *randomColor[] = {&colorBla, &colorBla2, &colorBla3, &colorBla4}; /
 #define NUMBER_POSITIONS 6
 static uint8_t postions[] = {3, 5, 7, 9, 11, 13}; // Array of all valid x-cord positions for a firework to start
 
-namespace detailsFirework {
+namespace details_firework {
     class Pixel {
 
     public:
@@ -109,7 +109,7 @@ class FireworkAnimation : public display_program {
     uint8_t lastFireWorkPostion; // Index in position array
     uint8_t fireworkColor; // index in color array
 
-    detailsFirework::Firework *firework[MAX_NUMBER_FIREWORKS];
+    details_firework::Firework *firework[MAX_NUMBER_FIREWORKS];
 
 
     void calcFrame();

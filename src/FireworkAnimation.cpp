@@ -4,7 +4,7 @@
 
 #include "FireworkAnimation.h"
 
-detailsFirework::Pixel::Pixel() {
+details_firework::Pixel::Pixel() {
     posX = -1;
     posY = -1;
     dirX = 0;
@@ -13,7 +13,7 @@ detailsFirework::Pixel::Pixel() {
 }
 
 
-detailsFirework::Firework::Firework() {
+details_firework::Firework::Firework() {
     dead = true;
     arrived = true;
     exploded = true;
@@ -27,7 +27,7 @@ detailsFirework::Firework::Firework() {
 
 
 
-void detailsFirework::Firework::start(int8_t posX, int8_t posY, Color *color) {
+void details_firework::Firework::start(int8_t posX, int8_t posY, Color *color) {
     lifeTime = 0;
     dead = false;
     arrived = false;
@@ -67,7 +67,7 @@ void detailsFirework::Firework::start(int8_t posX, int8_t posY, Color *color) {
 
 }
 
-void detailsFirework::Firework::calcFrame(Color (*display)[MATRIX_HEIGHT][MATRIX_LENGTH]) {
+void details_firework::Firework::calcFrame(Color (*display)[MATRIX_HEIGHT][MATRIX_LENGTH]) {
     if (!exploded) {
         calcFireworkTrail(display);
 
@@ -78,7 +78,7 @@ void detailsFirework::Firework::calcFrame(Color (*display)[MATRIX_HEIGHT][MATRIX
 
 }
 
-void detailsFirework::Firework::calcFireworkTrail(Color (*display)[MATRIX_HEIGHT][MATRIX_LENGTH]) {
+void details_firework::Firework::calcFireworkTrail(Color (*display)[MATRIX_HEIGHT][MATRIX_LENGTH]) {
 
 
     if(startPosY >= int(pixel[0]->posY)){
@@ -111,7 +111,7 @@ void detailsFirework::Firework::calcFireworkTrail(Color (*display)[MATRIX_HEIGHT
 
 }
 
-void detailsFirework::Firework::calcFireworkExplosion(Color (*display)[MATRIX_HEIGHT][MATRIX_LENGTH]) {
+void details_firework::Firework::calcFireworkExplosion(Color (*display)[MATRIX_HEIGHT][MATRIX_LENGTH]) {
 
     if (lifeTime < FIREWORK_LIFE_TIME) {
         for (Pixel* & i : pixel) {
@@ -144,8 +144,8 @@ FireworkAnimation::FireworkAnimation(MatrixOutput *ledMatrix) {
     lastFireWorkPostion = 0;
     fireworkColor = 0;
 
-    for(detailsFirework::Firework* & i : firework){
-        i = new detailsFirework::Firework();
+    for(details_firework::Firework* & i : firework){
+        i = new details_firework::Firework();
     }
     blankFrame();
 
@@ -182,7 +182,7 @@ void FireworkAnimation::calcFrame() {
 
     blankFrame();
 
-    for (detailsFirework::Firework* & i : firework) {
+    for (details_firework::Firework* & i : firework) {
         i->calcFrame(&frame);
     }
 
@@ -206,7 +206,7 @@ void FireworkAnimation::createNewFirework() {
 }
 
 void FireworkAnimation::addNewFirework(int8_t explodePosX, int8_t explodePosY, Color *color) {
-    for (detailsFirework::Firework* & i : firework) {
+    for (details_firework::Firework* & i : firework) {
         if (i->dead) {
             i->start(explodePosX, explodePosY, color);
             break;
