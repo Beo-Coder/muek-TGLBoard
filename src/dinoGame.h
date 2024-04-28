@@ -9,12 +9,13 @@
 #include "pioMatrixOutput.h"
 #include "color.h"
 #include "display_program.h"
+#include "BeoCommon.h"
 
 
-#define JUMP_HEIGHT 3
-#define JUMP_LENGTH 9
-#define DUCK_HEIGHT (-1)
 
+
+// Enemy section
+#define MAX_ENEMIES 2
 
 #define ENEMY_BIRD 0
 #define ENEMY_WORM 1
@@ -32,14 +33,27 @@ static int8_t enemyHeights[ENEMY_TYPES][4] = {{0, 2, ENEMY_ENEMY, ENEMY_SIZE_2},
                                               {6, 1, ENEMY_BIRD,  ENEMY_SIZE_1},
                                               {5, 1, ENEMY_BIRD,  ENEMY_SIZE_1},
                                               {4, 1, ENEMY_BIRD,  ENEMY_SIZE_1}
-}; //0: height; 1: probability; 2: enemySkin; 3: enemySizeIndex;
+}; // 0: height; 1: probability; 2: enemySkin; 3: enemySizeIndex;
 
 static int8_t enemySize[3][2] = {
         {3, 2},
         {2, 3},
 };
+// Enemy section END
 
+// Player section
+#define PLAYER_POS_X 2
+#define PLAYER_POS_Y 0
 
+#define PLAYER_SIZE_X 2
+#define PLAYER_SIZE_Y 4
+
+#define PLAYER_JUMP_HEIGHT 3
+#define PLAYER_JUMP_LENGTH 9
+#define PLAYER_DUCK_HEIGHT (-1)
+// Player section END
+
+// Level section
 #define LEVELS 12
 
 static uint32_t levels[LEVELS][3] = {
@@ -56,7 +70,7 @@ static uint32_t levels[LEVELS][3] = {
         {2700, 55,  2},
         {3000, 50,  2}}; // score, speed, enemies
 
-
+// Level section END
 
 
 
@@ -144,47 +158,73 @@ static Color **enemySkin[10][4][4] = {
         }
 };
 
+namespace details_dino_game {
+    class Entity {
+    public:
+        int8_t posX;
+        int8_t posY;
+        int8_t sizeX;
+        int8_t sizeY;
 
-class Entity {
-public:
-    int8_t posX = 16;
-    int8_t posY;
-    int8_t sizeX;
-    int8_t sizeY;
-    uint8_t skinIndex = 0;
-    uint8_t entityType;
-
-    bool alive;
-
-    void move();
-
-    virtual void animate(Color (*display)[MATRIX_HEIGHT][MATRIX_LENGTH]);
+        uint8_t skinIndex = 0;
 
 
-};
-
-class Player : public Entity {
-    int32_t lastJump = 0;
+        Entity(int8_t startPosX, int8_t startPosY, int8_t sizeX, int8_t sizeY);
+        Entity();
 
 
-public:
-
-    void jump();
-
-    void duck(bool pressed);
-
-    void animate(Color (*display)[MATRIX_HEIGHT][MATRIX_LENGTH]) override;
-
-    bool checkAndMarkCollision(const Entity& entity, Color (*display)[MATRIX_HEIGHT][MATRIX_LENGTH]);
-
-};
-
-class DinoGame : public display_program{
+        virtual void animate(Color (*display)[MATRIX_HEIGHT][MATRIX_LENGTH]) = 0;
 
 
-    Entity enemies[2];
+    };
+
+    class Enemy : public Entity {
+    public:
+
+        Enemy(int8_t startPosX, int8_t startPosY, int8_t sizeX, int8_t sizeY);
+        Enemy();
+
+        uint8_t enemyType;
+        bool alive;
+
+
+
+
+        void animate(Color (*display)[MATRIX_HEIGHT][MATRIX_LENGTH]) override;
+        void move();
+
+
+
+    };
+
+
+    class Player : public Entity {
+        int32_t lastJump;
+
+
+    public:
+
+        Player(int8_t startPosX, int8_t startPosY, int8_t sizeX, int8_t sizeY);
+
+        void jump();
+
+        void duck(bool pressed);
+
+        void checkJumped();
+
+        void animate(Color (*display)[MATRIX_HEIGHT][MATRIX_LENGTH]) override;
+
+        bool checkAndMarkCollision(const Enemy &entity, Color (*display)[MATRIX_HEIGHT][MATRIX_LENGTH]);
+
+    };
+}
+
+class DinoGame : public display_program {
+
+
+    details_dino_game::Enemy *enemies[MAX_ENEMIES];
     uint8_t numberEnemies;
-    Player player;
+    details_dino_game::Player *player;
 
     bool dead = false;
 
@@ -194,12 +234,13 @@ class DinoGame : public display_program{
 
     void createNewEnemy(uint8_t index);
 
+    void checkScore();
+
 
 public:
     uint32_t score;
 
     explicit DinoGame(MatrixOutput *ledMatrix);
-
 
     void button1ISR(bool data) override;
 

@@ -5,39 +5,67 @@
 #include "dinoGame.h"
 
 
-void Entity::animate(Color (*display)[MATRIX_HEIGHT][MATRIX_LENGTH]) {
+details_dino_game::Entity::Entity(int8_t startPosX, int8_t startPosY, int8_t sizeX, int8_t sizeY) {
+    posX = startPosX;
+    posY = startPosY;
+    this->sizeX = sizeX;
+    this->sizeY = sizeY;
+
+}
+
+details_dino_game::Entity::Entity() {
+    posX = -1;
+    posY = -1;
+    sizeX = 0;
+    sizeY = 0;
+}
+
+
+details_dino_game::Enemy::Enemy(int8_t startPosX, int8_t startPosY, int8_t sizeX, int8_t sizeY) : Entity(startPosX,
+                                                                                                         startPosY,
+                                                                                                         sizeX, sizeY) {
+    alive = false;
+    enemyType = 0;
+}
+
+details_dino_game::Enemy::Enemy() : Entity() {
+    alive = false;
+    enemyType = 0;
+}
+
+
+void details_dino_game::Enemy::animate(Color (*display)[MATRIX_HEIGHT][MATRIX_LENGTH]) {
     if (alive) {
         uint8_t localSkinIndex;
-        switch(entityType){
+        switch (enemyType) {
             case ENEMY_BIRD:
                 skinIndex = (skinIndex + 1) % 4;
-                localSkinIndex = skinIndex /2;
+                localSkinIndex = skinIndex / 2;
                 break;
             case ENEMY_WORM:
                 skinIndex = (skinIndex + 1) % 6;
-                localSkinIndex = (skinIndex /3) + 2;
+                localSkinIndex = (skinIndex / 3) + 2;
                 break;
             case ENEMY_ENEMY:
                 skinIndex = (skinIndex + 1) % 2;
                 localSkinIndex = (skinIndex) + 4;
                 break;
-
-
         }
 
 
         for (int8_t i = 0; i < sizeY; i++) {
             for (int8_t j = 0; j < sizeX; j++) {
                 if (posX + j < MATRIX_LENGTH && posX + j >= 0 && posY + i < MATRIX_HEIGHT && posY + i >= 0) {
-                    (*display)[MATRIX_HEIGHT - (posY + i) - 1][posX + j] = *(*enemySkin[localSkinIndex][sizeY-i-1][j]);
+                    (*display)[MATRIX_HEIGHT - (posY + i) - 1][posX + j] = *(*enemySkin[localSkinIndex][sizeY - i -
+                                                                                                        1][j]);
                 }
             }
         }
     }
 }
 
-void Entity::move() {
-    if (posX + sizeX == 0) {
+void details_dino_game::Enemy::move() {
+    if (posX + sizeX <= 0) {
         alive = false;
     } else {
         posX--;
@@ -45,59 +73,69 @@ void Entity::move() {
 
 }
 
-void Player::jump() {
-    if (lastJump - JUMP_LENGTH > 0 && posY != DUCK_HEIGHT) {
-        posY = JUMP_HEIGHT;
+
+details_dino_game::Player::Player(int8_t startPosX, int8_t startPosY, int8_t sizeX, int8_t sizeY) : Entity(startPosX,
+                                                                                                           startPosY,
+                                                                                                           sizeX,
+                                                                                                           sizeY) {
+    lastJump = 0;
+}
+
+void details_dino_game::Player::jump() {
+    if (lastJump - PLAYER_JUMP_LENGTH > 0 && posY != PLAYER_DUCK_HEIGHT) {
+        posY = PLAYER_JUMP_HEIGHT;
         lastJump = 0;
     }
 }
 
-void Player::duck(bool pressed) {
-    if(pressed){
-        posY = DUCK_HEIGHT;
-        lastJump = JUMP_LENGTH;
-    }else{
-        posY = 0;
-        lastJump = JUMP_LENGTH;
+void details_dino_game::Player::duck(bool pressed) {
+    if (pressed) {
+        posY = PLAYER_DUCK_HEIGHT;
+        lastJump = PLAYER_JUMP_LENGTH;
+    } else {
+        posY = PLAYER_POS_Y;
+        lastJump = PLAYER_JUMP_LENGTH;
     }
 
 
 }
 
-void Player::animate(Color (*display)[MATRIX_HEIGHT][MATRIX_LENGTH]) {
-    if (lastJump - JUMP_LENGTH >= 0 && posY != DUCK_HEIGHT) {
-        posY = 0;
+void details_dino_game::Player::checkJumped() {
+    if (lastJump - PLAYER_JUMP_LENGTH >= 0 && posY != PLAYER_DUCK_HEIGHT) {
+        posY = PLAYER_POS_Y;
     }
-
-
     lastJump++;
+}
 
 
-    skinIndex = (skinIndex + 1) %2;
-    if(posY == DUCK_HEIGHT){
-        skinIndex = skinIndex+2;
+void details_dino_game::Player::animate(Color (*display)[MATRIX_HEIGHT][MATRIX_LENGTH]) {
+
+    skinIndex = (skinIndex + 1) % 2;
+    if (posY == PLAYER_DUCK_HEIGHT) {
+        skinIndex = skinIndex + 2;
     }
 
 
     for (int i = 0; i < sizeY; i++) {
         for (int j = 0; j < sizeX; j++) {
             if (posX + j < MATRIX_LENGTH && posX + j >= 0 && posY + i < MATRIX_HEIGHT && posY + i >= 0) {
-                (*display)[MATRIX_HEIGHT - (posY + i) - 1][posX + j] = *(*playerSkin[skinIndex][sizeY-i-1][j]);
+                (*display)[MATRIX_HEIGHT - (posY + i) - 1][posX + j] = *(*playerSkin[skinIndex][sizeY - i - 1][j]);
             }
         }
     }
 }
 
-bool Player::checkAndMarkCollision(const Entity& entity, Color (*display)[MATRIX_HEIGHT][MATRIX_LENGTH]) {
+bool
+details_dino_game::Player::checkAndMarkCollision(const Enemy &entity, Color (*display)[MATRIX_HEIGHT][MATRIX_LENGTH]) {
     bool returnData = false;
     for (int8_t py = posY; py < posY + sizeY; py++) {
         for (int8_t px = posX; px < posX + sizeX; px++) {
             for (int8_t ey = entity.posY; ey < entity.posY + entity.sizeY; ey++) {
                 for (int8_t ex = entity.posX; ex < entity.posX + entity.sizeX; ex++) {
                     if (py == ey && px == ex) {
-                        if(((*display)[MATRIX_HEIGHT - (py) - 1][px]).calc() ==  colorDarkRed.calc()){
+                        if (((*display)[MATRIX_HEIGHT - (py) - 1][px]).calc() == colorDarkRed.calc()) {
                             (*display)[MATRIX_HEIGHT - (py) - 1][px] = colorBlank;
-                        }else{
+                        } else {
                             (*display)[MATRIX_HEIGHT - (py) - 1][px] = colorDarkRed;
                         }
 
@@ -114,17 +152,34 @@ bool Player::checkAndMarkCollision(const Entity& entity, Color (*display)[MATRIX
 }
 
 
+
+
+
+
+
+
 DinoGame::DinoGame(MatrixOutput *ledMatrix) {
     matrix = ledMatrix;
 
+    numberEnemies = 1;
+    score = 0;
+
+    refreshSpeed = 0;
+    dead = false;
 
 
-    player.posX = 2;
-    player.posY = 0;
-    player.sizeX = 2;
-    player.sizeY = 4;
+    for (details_dino_game::Enemy *&enemy: enemies) {
+        enemy = new details_dino_game::Enemy(-1, -1, 0, 0);
+    }
 
 
+    player = new details_dino_game::Player(PLAYER_POS_X, PLAYER_POS_Y, PLAYER_SIZE_X, PLAYER_SIZE_Y);
+
+
+    createNewEnemy(0);
+
+
+    // Color shit
     colorDarkRed.red = 3;
     colorRed.red = 1;
 
@@ -156,61 +211,50 @@ DinoGame::DinoGame(MatrixOutput *ledMatrix) {
 
     enemyColor5 = &colorRed;
 
-    restart();
-
-
-
-
-
 
 }
 
 void DinoGame::restart() {
 
-    player.posY = 0;
-
-
+    player->posY = PLAYER_POS_Y;
 
     numberEnemies = 1;
     score = 0;
     refreshSpeed = 100;
     dead = false;
 
-    enemies[1].alive = false;
+    for (int i = 1; i < MAX_ENEMIES; i++) {
+        enemies[i]->alive = false;
+    }
 
     createNewEnemy(0);
-
-
-
 
 }
 
 
 void DinoGame::button1ISR(bool data) {
     if (!dead) {
-        player.duck(data);
-        animateFrame();
+        player->duck(data);
+        // animateFrame();
     }
 
 }
-
-
-
 
 
 void DinoGame::button2ISR(bool data) {
-    if (!dead) {
-        player.jump();
-    } else {
-        restart();
+    if(data){
+        if (!dead) {
+            player->jump();
+        } else {
+            restart();
+        }
+        // animateFrame();
     }
-    animateFrame();
-
 
 }
 
 
-int8_t* getRandomEnemy() {
+int8_t *getRandomEnemy() {
 
 
     unsigned int totalWeight = 0;
@@ -236,18 +280,17 @@ int8_t* getRandomEnemy() {
 
 void DinoGame::createNewEnemy(uint8_t index) {
 
+    int8_t *enemy = getRandomEnemy();
 
-    int8_t* enemy = getRandomEnemy();
+    enemies[index]->posY = enemy[0];
+    enemies[index]->enemyType = enemy[2];
 
-    enemies[index].posY = enemy[0];
-    enemies[index].entityType = enemy[2];
+    enemies[index]->sizeX = enemySize[enemy[3]][0];
+    enemies[index]->sizeY = enemySize[enemy[3]][1];
 
-    enemies[index].sizeX = enemySize[enemy[3]][0];
-    enemies[index].sizeY = enemySize[enemy[3]][1];
 
-    //enemies[index].posX = 16;
-    enemies[index].posX = 16 + enemies[numberEnemies - 1 - index].sizeX - (rand() % 1) + (rand() % 1);
-    enemies[index].alive = true;
+    enemies[index]->posX = MATRIX_LENGTH + enemies[numberEnemies - 1 - index]->sizeX; // For more randomness (could make the levels impossible): - (randomInt(0,2)) + (randomInt(0,2));
+    enemies[index]->alive = true;
 
 
 }
@@ -260,20 +303,37 @@ void DinoGame::animateFrame() {
     }
 
     for (int i = 0; i < numberEnemies; i++) {
-        enemies[i].animate(&frame);
+        enemies[i]->animate(&frame);
     }
+    player->checkJumped();
+    player->animate(&frame);
 
-    player.animate(&frame);
-
-    //matrix->setDisplayData(&frame);
-    //matrix->sendData();
 
 }
 
 void DinoGame::moveEntities() {
     for (int i = 0; i < numberEnemies; i++) {
-        enemies[i].move();
+        enemies[i]->move();
     }
+}
+
+void DinoGame::checkScore() {
+    for (int i = 0; i < LEVELS; i++) {
+        if (score > levels[i][0]) {
+            refreshSpeed = levels[i][1];
+            if (numberEnemies < levels[i][2]) {
+                if (enemies[numberEnemies - 1]->posX == 15) {
+                    createNewEnemy(numberEnemies);
+                    enemies[numberEnemies]->posX =
+                            enemies[numberEnemies - 1]->posX + enemies[numberEnemies - 1]->sizeX + 8;
+
+                    numberEnemies++;
+                }
+
+            }
+        }
+    }
+
 }
 
 void DinoGame::refresh() {
@@ -282,40 +342,26 @@ void DinoGame::refresh() {
 
         moveEntities();
         animateFrame();
-
-        for(int i=0;i<LEVELS;i++){
-            if(score > levels[i][0]){
-                refreshSpeed = levels[i][1];
-                if(numberEnemies < levels[i][2]){
-                    if(enemies[numberEnemies-1].posX == 15){
-                        createNewEnemy(numberEnemies);
-                        enemies[numberEnemies].posX = enemies[numberEnemies-1].posX + enemies[numberEnemies-1].sizeX + 8;
-
-                        numberEnemies++;
-                    }
-
-                }
-            }
-        }
+        checkScore();
 
 
 
         for (int i = 0; i < numberEnemies; i++) {
-            if (!enemies[i].alive) {
+            // Create a new enemy if one is dead
+            if (!enemies[i]->alive) {
                 createNewEnemy(i);
             }
-            if (player.checkAndMarkCollision(enemies[i], &frame)) {
+            // Check for collision between player and enemy
+            if (player->checkAndMarkCollision(*enemies[i], &frame)) {
                 dead = true;
                 refreshSpeed = 250;
             }
-
-
-
         }
 
-    }else{
+    } else {
+        // Let the collision pixel blink
         for (int i = 0; i < numberEnemies; i++) {
-            if (player.checkAndMarkCollision(enemies[i], &frame)) {
+            if (player->checkAndMarkCollision(*enemies[i], &frame)) {
                 dead = true;
                 refreshSpeed = 250;
             }
@@ -326,6 +372,8 @@ void DinoGame::refresh() {
 
 
 }
+
+
 
 
 
