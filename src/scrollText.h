@@ -9,6 +9,7 @@
 #include "letters.h"
 #include "pioMatrixOutput.h"
 #include "color.h"
+#include "display_program.h"
 
 #define MAX_TEXT_LENGTH 500
 #define SPACE_BETWEEN_LETTERS 1
@@ -16,9 +17,8 @@
 
 
 
-class scrollText {
+class scrollText : public display_program{
 
-    MatrixOutput *displayController;
 
     uint8_t idTextArray[MAX_TEXT_LENGTH];
     uint16_t idTextArraySize;
@@ -29,7 +29,6 @@ class scrollText {
     Color *textColor;
     Color *backgroundColor;
 
-    Color displayData[MATRIX_HEIGHT][MATRIX_LENGTH];
 
     void createIDTextArray(String *text);
 
@@ -41,6 +40,12 @@ public:
     void setColor(Color *textColor, Color *backgroundColor);
 
     void shiftText();
+
+    void refresh() override;
+    void restart() override;
+
+    void button1ISR(bool state) override;
+    void button2ISR(bool state) override;
 
 
 };

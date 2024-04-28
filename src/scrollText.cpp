@@ -5,10 +5,12 @@
 #include "scrollText.h"
 
 scrollText::scrollText(MatrixOutput *displayController) {
-    this->displayController = displayController;
+    this->matrix = displayController;
     idTextArraySize = 0;
     idTextArrayIndex = 0;
     matrixBitOffset = 0;
+
+    refreshSpeed = 90;
 
 }
 
@@ -41,17 +43,17 @@ void scrollText::shiftText() {
     for (int row = 0; row < 8; row++) {
 
         for (int column = 0; column < 15; column++) {
-            displayData[row][column] = displayData[row][column + 1];
+            frame[row][column] = frame[row][column + 1];
 
         }
 
 
         if (letter[row] >> (((letter[8] - 1 + SPACE_BETWEEN_LETTERS - matrixBitOffset) %
                              (letter[8] + SPACE_BETWEEN_LETTERS))) & 0x01) {
-            displayData[row][15] = *textColor;
+            frame[row][15] = *textColor;
 
         } else {
-            displayData[row][15] = *backgroundColor;
+            frame[row][15] = *backgroundColor;
 
         }
 
@@ -64,7 +66,25 @@ void scrollText::shiftText() {
     }
     idTextArrayIndex = idTextArrayIndex % idTextArraySize;
 
-    displayController->addToFrameBuffer(&displayData);
+    matrix->addToFrameBuffer(&frame);
+
+}
+
+void scrollText::refresh() {
+    shiftText();
+    matrix->sendData();
+
+}
+
+void scrollText::restart() {
+
+}
+
+void scrollText::button1ISR(bool state) {
+
+}
+
+void scrollText::button2ISR(bool state) {
 
 }
 

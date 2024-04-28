@@ -8,6 +8,7 @@
 #include "Arduino.h"
 #include "pioMatrixOutput.h"
 #include "color.h"
+#include "display_program.h"
 
 
 #define JUMP_HEIGHT 3
@@ -178,16 +179,13 @@ public:
 
 };
 
-class DinoGame {
+class DinoGame : public display_program{
 
-    Color frame[MATRIX_HEIGHT][MATRIX_LENGTH];
 
     Entity enemies[2];
     uint8_t numberEnemies;
     Player player;
 
-
-    MatrixOutput *matrix;
     bool dead = false;
 
     void animateFrame();
@@ -199,18 +197,17 @@ class DinoGame {
 
 public:
     uint32_t score;
-    uint8_t speed;
 
     explicit DinoGame(MatrixOutput *ledMatrix);
 
 
-    void button1ISR(bool data);
+    void button1ISR(bool data) override;
 
-    void button2ISR();
+    void button2ISR(bool data) override;
 
-    void refresh();
+    void refresh() override;
 
-    void restart();
+    void restart() override;
 
 
 };

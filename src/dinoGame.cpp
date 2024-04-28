@@ -173,7 +173,7 @@ void DinoGame::restart() {
 
     numberEnemies = 1;
     score = 0;
-    speed = 100;
+    refreshSpeed = 100;
     dead = false;
 
     enemies[1].alive = false;
@@ -198,7 +198,7 @@ void DinoGame::button1ISR(bool data) {
 
 
 
-void DinoGame::button2ISR() {
+void DinoGame::button2ISR(bool data) {
     if (!dead) {
         player.jump();
     } else {
@@ -285,7 +285,7 @@ void DinoGame::refresh() {
 
         for(int i=0;i<LEVELS;i++){
             if(score > levels[i][0]){
-                speed = levels[i][1];
+                refreshSpeed = levels[i][1];
                 if(numberEnemies < levels[i][2]){
                     if(enemies[numberEnemies-1].posX == 15){
                         createNewEnemy(numberEnemies);
@@ -306,7 +306,7 @@ void DinoGame::refresh() {
             }
             if (player.checkAndMarkCollision(enemies[i], &frame)) {
                 dead = true;
-                speed = 250;
+                refreshSpeed = 250;
             }
 
 
@@ -317,7 +317,7 @@ void DinoGame::refresh() {
         for (int i = 0; i < numberEnemies; i++) {
             if (player.checkAndMarkCollision(enemies[i], &frame)) {
                 dead = true;
-                speed = 250;
+                refreshSpeed = 250;
             }
         }
     }
