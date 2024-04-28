@@ -1,0 +1,32 @@
+//
+// Created by leo on 28.04.24.
+//
+
+#ifndef MUEK_ARGB_MATRIX_BOARD_DISPLAY_PROGRAM_H
+#define MUEK_ARGB_MATRIX_BOARD_DISPLAY_PROGRAM_H
+
+#include "Arduino.h"
+#include "color.h"
+#include "pioMatrixOutput.h"
+
+
+class display_program {
+
+protected:
+    Color frame[MATRIX_HEIGHT][MATRIX_LENGTH];
+    MatrixOutput *matrix;
+
+public:
+    uint32_t refreshSpeed;
+
+    virtual void button1ISR(bool state) = 0;
+    virtual void button2ISR(bool state) = 0;
+
+    virtual void refresh() = 0;
+    virtual void restart() = 0;
+
+
+};
+
+
+#endif //MUEK_ARGB_MATRIX_BOARD_DISPLAY_PROGRAM_H

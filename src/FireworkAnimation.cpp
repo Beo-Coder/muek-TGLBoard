@@ -139,7 +139,7 @@ void detailsFirework::Firework::calcFireworkExplosion(Color (*display)[MATRIX_HE
 
 FireworkAnimation::FireworkAnimation(MatrixOutput *ledMatrix) {
     matrix = ledMatrix;
-    speed = SIMULATION_SPEED;
+    refreshSpeed = SIMULATION_SPEED;
     timeSinceLastFirework = 0;
     lastFireWorkPostion = 0;
     fireworkColor = 0;
@@ -220,6 +220,18 @@ void FireworkAnimation::blankFrame() {
             frame[i][j] = colorBlank123;
         }
     }
+}
+
+void FireworkAnimation::button1ISR(bool state) {
+
+}
+
+void FireworkAnimation::button2ISR(bool state) {
+
+}
+
+void FireworkAnimation::restart() {
+
 }
 
 

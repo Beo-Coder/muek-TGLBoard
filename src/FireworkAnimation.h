@@ -8,6 +8,7 @@
 #include "Arduino.h"
 #include "color.h"
 #include "pioMatrixOutput.h"
+#include "display_program.h"
 #include "BeoCommon.h"
 
 #define SIMULATION_SPEED 220
@@ -97,9 +98,11 @@ namespace detailsFirework {
 }
 
 
-class FireworkAnimation {
+class FireworkAnimation : public display_program {
+    /*
     Color frame[MATRIX_HEIGHT][MATRIX_LENGTH];
     MatrixOutput *matrix;
+     */
 
 
     uint8_t timeSinceLastFirework;
@@ -119,12 +122,13 @@ class FireworkAnimation {
 
 
 public:
-    uint32_t speed;
-
 
     explicit FireworkAnimation(MatrixOutput *ledMatrix);
 
-    void refresh();
+    void refresh() override;
+    void button1ISR(bool state) override;
+    void button2ISR(bool state) override;
+    void restart() override;
 
 
 };
