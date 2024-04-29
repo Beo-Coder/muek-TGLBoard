@@ -240,7 +240,7 @@ class DinoGame : public display_program {
 public:
     uint32_t score;
 
-    explicit DinoGame(MatrixOutput *ledMatrix);
+    explicit DinoGame(MatrixOutput *ledMatrix, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]);
 
     void button1ISR(bool data) override;
 

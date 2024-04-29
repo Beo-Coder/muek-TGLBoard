@@ -123,7 +123,7 @@ class FireworkAnimation : public display_program {
 
 public:
 
-    explicit FireworkAnimation(MatrixOutput *ledMatrix);
+    FireworkAnimation(MatrixOutput *ledMatrix, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]);
 
     void refresh() override;
     void button1ISR(bool state) override;

@@ -34,7 +34,7 @@ class scrollText : public display_program{
 
 
 public:
-    explicit scrollText(MatrixOutput *matrixOutput);
+    explicit scrollText(MatrixOutput *matrixOutput, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]);
 
     void setText(String *text);
     void setColor(Color *textColor, Color *backgroundColor);

@@ -158,8 +158,8 @@ details_dino_game::Player::checkAndMarkCollision(const Enemy &entity, Color (*di
 
 
 
-DinoGame::DinoGame(MatrixOutput *ledMatrix) {
-    matrix = ledMatrix;
+DinoGame::DinoGame(MatrixOutput *ledMatrix, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]) : display_program(ledMatrix, frame) {
+    //  matrix = ledMatrix;
 
     numberEnemies = 1;
     score = 0;
@@ -298,15 +298,15 @@ void DinoGame::createNewEnemy(uint8_t index) {
 void DinoGame::animateFrame() {
     for (int i = 0; i < MATRIX_HEIGHT; i++) {
         for (int j = 0; j < MATRIX_LENGTH; j++) {
-            frame[i][j] = colorBlank;
+            (*frame)[i][j] = colorBlank;
         }
     }
 
     for (int i = 0; i < numberEnemies; i++) {
-        enemies[i]->animate(&frame);
+        enemies[i]->animate(frame);
     }
     player->checkJumped();
-    player->animate(&frame);
+    player->animate(frame);
 
 
 }
@@ -352,7 +352,7 @@ void DinoGame::refresh() {
                 createNewEnemy(i);
             }
             // Check for collision between player and enemy
-            if (player->checkAndMarkCollision(*enemies[i], &frame)) {
+            if (player->checkAndMarkCollision(*enemies[i], frame)) {
                 dead = true;
                 refreshSpeed = 250;
             }
@@ -361,13 +361,13 @@ void DinoGame::refresh() {
     } else {
         // Let the collision pixel blink
         for (int i = 0; i < numberEnemies; i++) {
-            if (player->checkAndMarkCollision(*enemies[i], &frame)) {
+            if (player->checkAndMarkCollision(*enemies[i], frame)) {
                 dead = true;
                 refreshSpeed = 250;
             }
         }
     }
-    matrix->setDisplayData(&frame);
+    matrix->setDisplayData(frame);
     matrix->sendData();
 
 

@@ -4,8 +4,8 @@
 
 #include "scrollText.h"
 
-scrollText::scrollText(MatrixOutput *matrixOutput) {
-    this->matrix = matrixOutput;
+scrollText::scrollText(MatrixOutput *matrixOutput, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]) : display_program(matrixOutput, frame) {
+    // this->matrix = matrixOutput;
     idTextArraySize = 0;
     idTextArrayIndex = 0;
     matrixBitOffset = 0;
@@ -57,17 +57,17 @@ void scrollText::shiftText() {
     for (int row = 0; row < 8; row++) {
 
         for (int column = 0; column < MATRIX_LENGTH-1; column++) {
-            frame[row][column] = frame[row][column + 1];
+            (*frame)[row][column] = (*frame)[row][column + 1];
 
         }
 
 
         if (letter[row] >> (((letter[8] - 1 + SPACE_BETWEEN_LETTERS - matrixBitOffset) %
                              (letter[8] + SPACE_BETWEEN_LETTERS))) & 0x01) {
-            frame[row][MATRIX_LENGTH-1] = *textColor;
+            (*frame)[row][MATRIX_LENGTH-1] = *textColor;
 
         } else {
-            frame[row][MATRIX_LENGTH-1] = *backgroundColor;
+            (*frame)[row][MATRIX_LENGTH-1] = *backgroundColor;
 
         }
 
@@ -80,7 +80,7 @@ void scrollText::shiftText() {
     }
     idTextArrayIndex = idTextArrayIndex % idTextArraySize;
 
-    matrix->addToFrameBuffer(&frame);
+    matrix->addToFrameBuffer(frame);
 
 }
 

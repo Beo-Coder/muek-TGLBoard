@@ -137,8 +137,8 @@ void details_firework::Firework::calcFireworkExplosion(Color (*display)[MATRIX_H
 }
 
 
-FireworkAnimation::FireworkAnimation(MatrixOutput *ledMatrix) {
-    matrix = ledMatrix;
+FireworkAnimation::FireworkAnimation(MatrixOutput *ledMatrix, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]) : display_program(ledMatrix, frame) {
+    // matrix = ledMatrix;
     refreshSpeed = SIMULATION_SPEED;
     timeSinceLastFirework = 0;
     lastFireWorkPostion = 0;
@@ -147,7 +147,7 @@ FireworkAnimation::FireworkAnimation(MatrixOutput *ledMatrix) {
     for(details_firework::Firework* & i : firework){
         i = new details_firework::Firework();
     }
-    blankFrame();
+    // blankFrame();
 
 
     colorBla.red = 1;
@@ -167,7 +167,8 @@ FireworkAnimation::FireworkAnimation(MatrixOutput *ledMatrix) {
 
 void FireworkAnimation::refresh() {
     calcFrame();
-    matrix->setDisplayData(&frame);
+
+    matrix->setDisplayData(frame);
     matrix->sendData();
 
 
@@ -183,7 +184,7 @@ void FireworkAnimation::calcFrame() {
     blankFrame();
 
     for (details_firework::Firework* & i : firework) {
-        i->calcFrame(&frame);
+        i->calcFrame(frame);
     }
 
 
@@ -217,7 +218,7 @@ void FireworkAnimation::addNewFirework(int8_t explodePosX, int8_t explodePosY, C
 void FireworkAnimation::blankFrame() {
     for (int i = 0; i < MATRIX_HEIGHT; i++) {
         for (int j = 0; j < MATRIX_LENGTH; j++) {
-            frame[i][j] = colorBlank123;
+            (*frame)[i][j] = colorBlank123;
         }
     }
 }
