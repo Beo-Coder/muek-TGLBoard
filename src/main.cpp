@@ -12,8 +12,8 @@
 #define BUTTON1 18
 #define BUTTON2 19
 
-Color color1;
-Color color2;
+Color color1(1,0,0);
+Color color2(0,0,0);
 
 
 Color frame[8][16];
@@ -54,7 +54,7 @@ void button2_isr() {
 
 void setup() {
     delay(3500); // Just so that the Serial Console has time to connect
-    programs[0] = &scrollTextController;
+    programs[0] = &game;
     scrollTextController.setText(&text);
     scrollTextController.setColor(&color1,&color2);
     Serial.begin(115200);
@@ -70,13 +70,18 @@ void setup() {
 
 
 
-    color1.red = 5;
-    color1.green = 0;
-    color1.blue = 0;
+    color1.setRed(0.5);
+    color1.setGreen(0);
+    color1.setBlue(0);
 
-    color2.red = 0;
-    color2.green = 0;
-    color2.blue = 0;
+    color1.setBrightness(10);
+
+
+
+    color2.setRed(0);
+    color2.setGreen(0);
+    color2.setBlue(0);
+
 
 
     //ledMatrix.setFrameBufferInterval(90);
@@ -89,18 +94,41 @@ void setup() {
     // scrollTextController.setText(&text);
 
 
+
+
 }
 
 
 
 
 void loop() {
+/*
+    while(millis()-lastMillis > 220){
+        lastMillis = millis();
+
+        for(int i=0; i<MATRIX_HEIGHT; i++){
+            for(int j=0; j<MATRIX_LENGTH; j++){
+                frame[i][j] = color1;
+            }
+        }
+        ledMatrix.setDisplayData(&frame);
+        ledMatrix.sendData();
+
+
+
+        // Serial.println(game.score);
+        //programs[0]->refresh();
+
+    }*/
+
+
     while(millis()-lastMillis > programs[0]->refreshSpeed){
         lastMillis = millis();
         // Serial.println(game.score);
         programs[0]->refresh();
 
     }
+
 
 
 }

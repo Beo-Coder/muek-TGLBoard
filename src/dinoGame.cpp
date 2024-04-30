@@ -133,10 +133,10 @@ details_dino_game::Player::checkAndMarkCollision(const Enemy &entity, Color (*di
             for (int8_t ey = entity.posY; ey < entity.posY + entity.sizeY; ey++) {
                 for (int8_t ex = entity.posX; ex < entity.posX + entity.sizeX; ex++) {
                     if (py == ey && px == ex) {
-                        if (((*display)[MATRIX_HEIGHT - (py) - 1][px]).calc() == colorDarkRed.calc()) {
-                            (*display)[MATRIX_HEIGHT - (py) - 1][px] = colorBlank;
+                        if (((*display)[MATRIX_HEIGHT - (py) - 1][px]).calc() == colorCollision->calc()) {
+                            (*display)[MATRIX_HEIGHT - (py) - 1][px] = *entityColorBlank;
                         } else {
-                            (*display)[MATRIX_HEIGHT - (py) - 1][px] = colorDarkRed;
+                            (*display)[MATRIX_HEIGHT - (py) - 1][px] = *colorCollision;
                         }
 
                         returnData = true;
@@ -180,6 +180,7 @@ DinoGame::DinoGame(MatrixOutput *ledMatrix, Color (*frame)[MATRIX_HEIGHT][MATRIX
 
 
     // Color shit
+/*
     colorDarkRed.red = 3;
     colorRed.red = 1;
 
@@ -210,6 +211,8 @@ DinoGame::DinoGame(MatrixOutput *ledMatrix, Color (*frame)[MATRIX_HEIGHT][MATRIX
     enemyColor4 = &colorEnemyBlue;
 
     enemyColor5 = &colorRed;
+    */
+
 
 
 }
@@ -296,11 +299,7 @@ void DinoGame::createNewEnemy(uint8_t index) {
 }
 
 void DinoGame::animateFrame() {
-    for (int i = 0; i < MATRIX_HEIGHT; i++) {
-        for (int j = 0; j < MATRIX_LENGTH; j++) {
-            (*frame)[i][j] = colorBlank;
-        }
-    }
+    clearFrame();
 
     for (int i = 0; i < numberEnemies; i++) {
         enemies[i]->animate(frame);

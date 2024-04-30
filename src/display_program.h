@@ -22,7 +22,7 @@ public:
 
     uint32_t refreshSpeed;
 
-    // void clearFrame();
+    void clearFrame();
 
 
 

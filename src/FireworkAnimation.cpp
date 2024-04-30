@@ -9,6 +9,7 @@ details_firework::Pixel::Pixel() {
     posY = -1;
     dirX = 0;
     dirY = 0;
+    color = &colorBlank;
 
 }
 
@@ -62,7 +63,8 @@ void details_firework::Firework::start(int8_t posX, int8_t posY, Color *color) {
         }
 
 
-        pixel[i]->color = *color;
+        pixel[i]->color = color;
+        color->setBrightness(FIREWORK_EXPLOSION_BRIGHTNESS);
     }
 
 }
@@ -98,12 +100,12 @@ void details_firework::Firework::calcFireworkTrail(Color (*display)[MATRIX_HEIGH
 
     for(int i=0; i<PIXEL_PER_FIREWORK_TRAIL;i++){
         if(startPosY-i >=0 && startPosY-i < trailPosY){
-            (*display)[MATRIX_HEIGHT - (startPosY-i) - 1][startPosX] = colorWhite;
+            (*display)[MATRIX_HEIGHT - (startPosY-i) - 1][startPosX] = *trailColor;
         }
     }
 
 
-    (*display)[MATRIX_HEIGHT - trailPosY - 1][startPosX] = colorWhite;
+    (*display)[MATRIX_HEIGHT - trailPosY - 1][startPosX] = *trailColor;
 
     startPosY++;
 
@@ -118,6 +120,11 @@ void details_firework::Firework::calcFireworkExplosion(Color (*display)[MATRIX_H
             int8_t posX = i->posX;
             int8_t posY = i->posY;
 
+            if(lifeTime > 0){
+                i->color->setBrightness(FIREWORK_AFTER_EXPLOSION_BRIGHTNESS-(lifeTime*FIREWORK_AFTER_EXPLOSION_BRIGHTNESS_SINKRATE-1));
+                //i->color->setBrightness(1);
+            }
+
             i->posX += (i->dirX * (1 - (float(lifeTime) / FIREWORK_DECELERATION_VALUE_X))) /
                               FIREWORK_SPEED_VALUE_X2;
             i->posY += (i->dirY * (1 - (float(lifeTime) / FIREWORK_DECELERATION_VALUE_Y))) /
@@ -125,10 +132,12 @@ void details_firework::Firework::calcFireworkExplosion(Color (*display)[MATRIX_H
 
             // Only add to frame, when pixel is inside frame
             if (posX >= 0 && posX < MATRIX_LENGTH && posY >= 0 && posY < MATRIX_HEIGHT) {
-                (*display)[MATRIX_HEIGHT - posY - 1][posX] = i->color;
+                (*display)[MATRIX_HEIGHT - posY - 1][posX] = *(i->color);
             }
 
         }
+
+
         lifeTime++;
     }else{
         dead = true;
@@ -147,18 +156,7 @@ FireworkAnimation::FireworkAnimation(MatrixOutput *ledMatrix, Color (*frame)[MAT
     for(details_firework::Firework* & i : firework){
         i = new details_firework::Firework();
     }
-    // blankFrame();
-
-
-    colorBla.red = 1;
-    colorBla2.blue = 1;
-    colorBla3.green = 1;
-    colorBla4.blue = 1;
-    colorBla4.green = 1;
-
-    colorWhite.red = 1;
-    colorWhite.green = 1;
-    colorWhite.blue = 1;
+    clearFrame();
 
 
 }
@@ -180,8 +178,7 @@ void FireworkAnimation::calcFrame() {
         createNewFirework();
     }
     timeSinceLastFirework++;
-
-    blankFrame();
+    clearFrame();
 
     for (details_firework::Firework* & i : firework) {
         i->calcFrame(frame);
@@ -202,7 +199,7 @@ void FireworkAnimation::createNewFirework() {
 
     timeSinceLastFirework = 0;
     lastFireWorkPostion = postion;
-    fireworkColor = (fireworkColor + 1) % NUMBER_FIREWORK_COLORS;
+    fireworkColor = (fireworkColor + randomInt(0,NUMBER_FIREWORK_COLORS)) % NUMBER_FIREWORK_COLORS;
 
 }
 
@@ -215,13 +212,6 @@ void FireworkAnimation::addNewFirework(int8_t explodePosX, int8_t explodePosY, C
     }
 }
 
-void FireworkAnimation::blankFrame() {
-    for (int i = 0; i < MATRIX_HEIGHT; i++) {
-        for (int j = 0; j < MATRIX_LENGTH; j++) {
-            (*frame)[i][j] = colorBlank123;
-        }
-    }
-}
 
 void FireworkAnimation::button1ISR(bool state) {
 

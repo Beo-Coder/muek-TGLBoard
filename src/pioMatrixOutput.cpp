@@ -57,8 +57,7 @@ void MatrixOutput::internalTimerHandler() {
 
             subframeBufferIndex = (subframeBufferIndex + 1) % MAX_SUBFRAMES;
 
-
-
+            
         }
 
     }
@@ -162,6 +161,9 @@ void MatrixOutput::setTimer() {
     timer_hw->alarm[TIMER_INDEX] = (uint32_t) target;
 }
 
+
+
+
 void
 MatrixOutput::createFrame(uint32_t (*display)[MATRIX_HEIGHT][MATRIX_LENGTH], uint8_t index, uint8_t subframeIndex) {
 
@@ -176,14 +178,14 @@ MatrixOutput::createFrame(uint32_t (*display)[MATRIX_HEIGHT][MATRIX_LENGTH], uin
     for (int i = 0; i < MATRIX_SUBMATRIX_SIZE; i++) {
         for (int j = 0; j < 24; j++) {
             for (int k = 0; k < MATRIX_SUBMATRIX_COUNT; k++) {
-                frameBuffer[index][subframeIndex][bitsShifted / 32] =
-                        (frameBuffer[index][subframeIndex][bitsShifted / 32] << 1) |
-                        ((matrix[MATRIX_SUBMATRIX_COUNT - 1 - k][i] >> (23 - j) & 0x01));
+                frameBuffer[index][subframeIndex][bitsShifted / 32] = (frameBuffer[index][subframeIndex][bitsShifted / 32] << 1) | ((matrix[MATRIX_SUBMATRIX_COUNT - 1 - k][i] >> (23 - j) & 0x01));
                 bitsShifted++;
 
             }
         }
     }
+
+
 
 }
 
@@ -197,6 +199,8 @@ void MatrixOutput::createFrame(Color (*display)[MATRIX_HEIGHT][MATRIX_LENGTH], u
     }
     createFrame(&outputMatrix, index, subframeIndex);
 }
+
+
 
 
 void MatrixOutput::setDisplayData(Color (*displayData)[MATRIX_HEIGHT][MATRIX_LENGTH]) {
@@ -233,6 +237,7 @@ void MatrixOutput::enableFrameBuffer(boolean enable) {
 
     if (enable) {
         enableTimer();
+        frameBufferReadIndex = frameBufferWriteIndex;
         sendFrame(frameBufferReadIndex, subframeBufferIndex);
 
     } else if (!subframeBufferEnable) {
@@ -306,7 +311,7 @@ void MatrixOutput::sendData() {
 }
 
 void MatrixOutput::calcSubframes(Color (*display)[MATRIX_HEIGHT][MATRIX_LENGTH], uint8_t index) {
-    uint32_t interrupts = save_and_disable_interrupts();
+
     uint32_t outDisplay[MAX_SUBFRAMES][MATRIX_HEIGHT][MATRIX_LENGTH];
 
     for (int i = 0; i < MATRIX_HEIGHT; i++) {
@@ -322,15 +327,17 @@ void MatrixOutput::calcSubframes(Color (*display)[MATRIX_HEIGHT][MATRIX_LENGTH],
         for (int j = 0; j < MATRIX_LENGTH; j++) {
 
             uint8_t baseData[3];
-            baseData[0] = (uint8_t) (*display)[i][j].blue;
-            baseData[1] = (uint8_t) (*display)[i][j].red;
-            baseData[2] = (uint8_t) (*display)[i][j].green;
-
-
             uint8_t fracData[3];
-            fracData[0] = ((*display)[i][j].blue - (float) baseData[0]) * MAX_SUBFRAMES;
-            fracData[1] = ((*display)[i][j].red - (float) baseData[1]) * MAX_SUBFRAMES;
-            fracData[2] = ((*display)[i][j].green - (float) baseData[2]) * MAX_SUBFRAMES;
+
+            baseData[0] = (uint8_t) (*display)[i][j].getBlue();
+            baseData[1] = (uint8_t) (*display)[i][j].getRed();
+            baseData[2] = (uint8_t) (*display)[i][j].getGreen();
+
+
+
+            fracData[0] = (((*display)[i][j].getBlue()) - (float) baseData[0]) * MAX_SUBFRAMES;
+            fracData[1] = (((*display)[i][j].getRed()) - (float) baseData[1]) * MAX_SUBFRAMES;
+            fracData[2] = (((*display)[i][j].getGreen()) - (float) baseData[2]) * MAX_SUBFRAMES;
 
 
             for (int k = 0; k < 3; k++) {
@@ -356,12 +363,27 @@ void MatrixOutput::calcSubframes(Color (*display)[MATRIX_HEIGHT][MATRIX_LENGTH],
 
         }
     }
+
+    // Direct manipulation of frameBufferReadIndex
+    // Only because otherwise LEDs behave weird because the frame getting output is overwritten
+    if(!frameBufferEnable){
+        index = (frameBufferReadIndex + 1) % MAX_FRAMES_IN_BUFFER;
+    }
     for (int i = 0; i < MAX_SUBFRAMES; i++) {
         createFrame(&(outDisplay[i]), index, i);
     }
-    restore_interrupts(interrupts);
+    if(!frameBufferEnable){
+        frameBufferReadIndex = (frameBufferReadIndex + 1) % MAX_FRAMES_IN_BUFFER;
+    }
+
+
+
 
 }
+
+
+
+
 
 
 

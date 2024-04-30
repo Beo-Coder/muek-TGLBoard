@@ -75,23 +75,20 @@ static uint32_t levels[LEVELS][3] = {
 
 
 
-
+/*
 static Color colorDarkRed;
 static Color colorRed;
 static Color colorGrey;
 static Color colorGreen;
 static Color colorBlank;
+ */
 
-static Color colorEnemyDarkRed;
-static Color colorEnemyYellow;
-static Color colorEnemyOrange;
-static Color colorEnemyBlue;
 
-static Color *entityColorBlank;
 
-static Color *playerColor1;
-static Color *playerColor2;
-static Color *playerColor3;
+static Color *entityColorBlank = &colorBlank;
+
+static Color *playerColor1 = &colorGreen;
+static Color *playerColor2 = &colorWhite;
 
 
 static Color **playerSkin[4][4][2] = {
@@ -119,12 +116,20 @@ static Color **playerSkin[4][4][2] = {
         }
 };
 
+/*
+static Color colorEnemyDarkRed(3,0,0);
+static Color colorEnemyOrange;
+static Color colorEnemyBlue;
+ */
 
-static Color *enemyColor1;
-static Color *enemyColor2;
-static Color *enemyColor3;
-static Color *enemyColor4;
-static Color *enemyColor5;
+static Color *colorCollision = new Color(3,0,0);
+
+
+static Color *enemyColor1 = &colorPurple;
+static Color *enemyColor2 = &colorRed;
+static Color *enemyColor3 = new Color(2,1,0);
+static Color *enemyColor4 = &colorBlue;
+
 
 
 static Color **enemySkin[10][4][4] = {
@@ -146,13 +151,13 @@ static Color **enemySkin[10][4][4] = {
         },
         {
                 {&enemyColor4,      &enemyColor4},
-                {&enemyColor5, &enemyColor4},
+                {&enemyColor2, &enemyColor4},
                 {&enemyColor4,      &entityColorBlank},
         },
         {
 
                 {&enemyColor4,      &enemyColor4},
-                {&enemyColor5, &enemyColor4},
+                {&enemyColor2, &enemyColor4},
                 {&entityColorBlank, &enemyColor4},
 
         }

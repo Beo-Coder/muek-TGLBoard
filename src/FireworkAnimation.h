@@ -15,7 +15,7 @@
 
 #define PIXEL_PER_FIREWORK (4*3) // Should be a multiple of 4 (for each direction)
 #define PIXEL_PER_FIREWORK_TRAIL 2
-#define TIME_DELAY_ARRIVAL_EXPLOSION 1
+#define TIME_DELAY_ARRIVAL_EXPLOSION 2
 
 #define FIREWORK_LIFE_TIME 9
 #define TIME_BETWEEN_FIREWORKS 7
@@ -25,29 +25,31 @@
 #define FIREWORK_EXPLODE_Y_MIN 4
 #define FIREWORK_EXPLODE_Y_MAX 7
 
+#define FIREWORK_EXPLOSION_BRIGHTNESS (NORMAL_BRIGHTNESS + (randomInt(40,50)))
+#define FIREWORK_AFTER_EXPLOSION_BRIGHTNESS (NORMAL_BRIGHTNESS + 6)
+#define FIREWORK_AFTER_EXPLOSION_BRIGHTNESS_SINKRATE (1.5)
+
+
 // Only Change if you know what you are doing
-#define FIREWORK_SPEED_VALUE_X 7 // Value dos not represent real pixel or something
-#define FIREWORK_SPEED_VALUE_Y 7 // Value dos not represent real pixel or something
+#define FIREWORK_SPEED_VALUE_X 7 // Value does not represent real pixel or something
+#define FIREWORK_SPEED_VALUE_Y 7 // Value does not represent real pixel or something
 
-#define FIREWORK_SPEED_VALUE_X2 15 // Value dos not represent real pixel or something
-#define FIREWORK_SPEED_VALUE_Y2 15 // Value dos not represent real pixel or something
+#define FIREWORK_SPEED_VALUE_X2 15 // Value does not represent real pixel or something
+#define FIREWORK_SPEED_VALUE_Y2 15 // Value does not represent real pixel or something
 
-#define FIREWORK_DECELERATION_VALUE_X 10 // Value dos not represent real pixel or something
-#define FIREWORK_DECELERATION_VALUE_Y 10 // Value dos not represent real pixel or something
+#define FIREWORK_DECELERATION_VALUE_X 10 // Value does not represent real pixel or something
+#define FIREWORK_DECELERATION_VALUE_Y 10 // Value does not represent real pixel or something
 
 #define FIREWORK_SINK_RATE (0.01) // Value dos not represent real pixel or something
 // End of change only if you know
 
-static Color colorWhite;
-static Color colorBla;
-static Color colorBla2;
-static Color colorBla3;
-static Color colorBla4;
 
-static Color colorBlank123;
+static Color *trailColor = &colorWhite;
 
-#define NUMBER_FIREWORK_COLORS 4
-static Color *randomColor[] = {&colorBla, &colorBla2, &colorBla3, &colorBla4}; // Array of all colors fireworks can have
+#define NUMBER_FIREWORK_COLORS 6
+static Color *randomColor[NUMBER_FIREWORK_COLORS] = {&colorRed, &colorBlue, &colorGreen, &colorYellow, &colorCyan,&colorPurple}; // Array of all colors fireworks can have
+
+
 
 #define MIN_SPACE_BETWEEN_POSTIONS 2
 #define NUMBER_POSITIONS 6
@@ -65,7 +67,7 @@ namespace details_firework {
         float dirX;
         float dirY;
 
-        Color color;
+        Color *color;
     };
 
     class Firework {
@@ -117,8 +119,6 @@ class FireworkAnimation : public display_program {
     void createNewFirework();
 
     void addNewFirework(int8_t explodePosX, int8_t explodePosY, Color *color);
-
-    void blankFrame();
 
 
 public:

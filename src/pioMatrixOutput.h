@@ -16,10 +16,6 @@
 #include "color.h"
 
 
-
-
-
-
 #define MATRIX_LENGTH 16
 #define MATRIX_HEIGHT 8
 
@@ -40,22 +36,11 @@
 #define subframePauseIntervall 350 // in µs (must be at least 150 (probably more))
 
 
-
-
-
-
-
-
 class MatrixOutput {
 
     uint32_t matrix[MATRIX_SUBMATRIX_COUNT][MATRIX_SUBMATRIX_SIZE];
 
     uint32_t sendMatrix[MATRIX_SIZE];
-
-
-
-
-
 
 
     PIO pio;
@@ -67,7 +52,7 @@ class MatrixOutput {
     uint32_t lastSendData;
 
 
-    uint32_t frameBuffer[MAX_FRAMES_IN_BUFFER+1][MAX_SUBFRAMES][MATRIX_SIZE*3/4];
+    uint32_t frameBuffer[MAX_FRAMES_IN_BUFFER + 1][MAX_SUBFRAMES][MATRIX_SIZE * 3 / 4];
     uint8_t frameBufferWriteIndex;
     uint8_t frameBufferReadIndex;
     uint8_t frameBufferLength;
@@ -78,28 +63,23 @@ class MatrixOutput {
     boolean subframeBufferEnable;
     boolean firstSubframe;
 
+
     uint32_t timerFrameCount;
 
     bool timerSubframeCountEnable;
     uint32_t timerSubframeCount;
 
-    static void enableTimer(boolean enable=true);
+    static void enableTimer(boolean enable = true);
+
     static void setTimer();
 
 
 
-
-
-
     void createFrame(uint32_t (*display)[MATRIX_HEIGHT][MATRIX_LENGTH], uint8_t index, uint8_t subframeIndex);
+
     void createFrame(Color (*display)[MATRIX_HEIGHT][MATRIX_LENGTH], uint8_t index, uint8_t subframeIndex);
 
     void sendFrame(uint8_t frameBufferIndex, uint8_t subframeIndex);
-
-
-
-
-
 
 
 public:
@@ -107,10 +87,8 @@ public:
 
 
     void internalDmaHandler();
-    
+
     void internalTimerHandler();
-
-
 
 
     MatrixOutput(PIO pio, uint8_t sm, uint8_t dmaChannel, uint8_t pin_1, uint8_t pin_2);
@@ -121,9 +99,11 @@ public:
 
     uint8_t getFreeFrames() const;
 
-    void enableFrameBuffer(boolean enable=true);
+    void enableFrameBuffer(boolean enable = true);
+
     void setFrameBufferInterval(uint32_t interval);
-    void enableSubframes(boolean enable=true);
+
+    void enableSubframes(boolean enable = true);
 
 
     void clearDisplay();
@@ -137,14 +117,14 @@ public:
 void timerHandler();
 
 // "Lookup "Table"" for Timer
-static MatrixOutput* instancesTimer;
+static MatrixOutput *instancesTimer;
 
 
 // static DMA Handler
 void dmaHandler();
 
 // IRQ DMA "LookUp Table"
-static MatrixOutput* instancesDMA[16]; // index is DMA Channel
+static MatrixOutput *instancesDMA[16]; // index is DMA Channel
 
 
 
