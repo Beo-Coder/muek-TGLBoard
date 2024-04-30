@@ -53,7 +53,7 @@ static Color *randomColor[NUMBER_FIREWORK_COLORS] = {&colorRed, &colorBlue, &col
 
 #define MIN_SPACE_BETWEEN_POSTIONS 2
 #define NUMBER_POSITIONS 6
-static uint8_t postions[] = {3, 5, 7, 9, 11, 13}; // Array of all valid x-cord positions for a firework to start
+static uint8_t postions[NUMBER_POSITIONS] = {3, 5, 7, 9, 11, 13}; // Array of all valid x-cord positions for a firework to start
 
 namespace details_firework {
     class Pixel {

@@ -63,7 +63,8 @@ void details_firework::Firework::start(int8_t posX, int8_t posY, Color *color) {
         }
 
 
-        pixel[i]->color = color;
+        pixel[i]->color = new Color(*color);
+
         color->setBrightness(FIREWORK_EXPLOSION_BRIGHTNESS);
     }
 

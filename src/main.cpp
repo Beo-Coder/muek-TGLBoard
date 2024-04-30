@@ -54,7 +54,7 @@ void button2_isr() {
 
 void setup() {
     delay(3500); // Just so that the Serial Console has time to connect
-    programs[0] = &game;
+    programs[0] = &fireworks;
     scrollTextController.setText(&text);
     scrollTextController.setColor(&color1,&color2);
     Serial.begin(115200);
