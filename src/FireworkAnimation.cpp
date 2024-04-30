@@ -37,6 +37,9 @@ void details_firework::Firework::start(int8_t posX, int8_t posY, Color *color) {
     this->startPosX = posX;
     this->startPosY = 0;
 
+    pixelColor = *color;
+    pixelColor.setBrightness(FIREWORK_EXPLOSION_BRIGHTNESS);
+
     // Configure each pixel
     for (int i = 0; i < PIXEL_PER_FIREWORK; i++) {
         pixel[i]->posX = posX;
@@ -62,10 +65,9 @@ void details_firework::Firework::start(int8_t posX, int8_t posY, Color *color) {
                 break;
         }
 
+        pixel[i]->color = &pixelColor;
 
-        pixel[i]->color = new Color(*color);
 
-        color->setBrightness(FIREWORK_EXPLOSION_BRIGHTNESS);
     }
 
 }
@@ -73,10 +75,8 @@ void details_firework::Firework::start(int8_t posX, int8_t posY, Color *color) {
 void details_firework::Firework::calcFrame(Color (*display)[MATRIX_HEIGHT][MATRIX_LENGTH]) {
     if (!exploded) {
         calcFireworkTrail(display);
-
     } else {
         calcFireworkExplosion(display);
-
     }
 
 }
@@ -148,7 +148,6 @@ void details_firework::Firework::calcFireworkExplosion(Color (*display)[MATRIX_H
 
 
 FireworkAnimation::FireworkAnimation(MatrixOutput *ledMatrix, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]) : display_program(ledMatrix, frame) {
-    // matrix = ledMatrix;
     refreshSpeed = SIMULATION_SPEED;
     timeSinceLastFirework = 0;
     lastFireWorkPostion = 0;
@@ -174,7 +173,6 @@ void FireworkAnimation::refresh() {
 }
 
 void FireworkAnimation::calcFrame() {
-
     if (timeSinceLastFirework >= TIME_BETWEEN_FIREWORKS) {
         createNewFirework();
     }
@@ -191,16 +189,18 @@ void FireworkAnimation::calcFrame() {
 void FireworkAnimation::createNewFirework() {
     // Get "random" location (not to near to previous firework)
     uint8_t postion = randomInt(0, NUMBER_POSITIONS);
+    uint8_t tries = 0;
     while (lastFireWorkPostion + MIN_SPACE_BETWEEN_POSTIONS >= postion &&
-           lastFireWorkPostion - MIN_SPACE_BETWEEN_POSTIONS <= postion) {
+           lastFireWorkPostion - MIN_SPACE_BETWEEN_POSTIONS <= postion && tries < 50) {
         postion = randomInt(0, NUMBER_POSITIONS);
+        tries++;
     }
 
     addNewFirework(postions[postion], randomInt(FIREWORK_EXPLODE_Y_MIN, FIREWORK_EXPLODE_Y_MAX), randomColor[fireworkColor]);
 
     timeSinceLastFirework = 0;
     lastFireWorkPostion = postion;
-    fireworkColor = (fireworkColor + randomInt(0,NUMBER_FIREWORK_COLORS)) % NUMBER_FIREWORK_COLORS;
+    fireworkColor = (fireworkColor + randomInt(1,NUMBER_FIREWORK_COLORS/2)) % NUMBER_FIREWORK_COLORS;
 
 }
 

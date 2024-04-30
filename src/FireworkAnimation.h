@@ -73,6 +73,7 @@ namespace details_firework {
     class Firework {
 
         Pixel *pixel[PIXEL_PER_FIREWORK];
+        Color pixelColor;
 
         int8_t startPosX;
         int8_t startPosY;
@@ -101,10 +102,7 @@ namespace details_firework {
 
 
 class FireworkAnimation : public display_program {
-    /*
-    Color frame[MATRIX_HEIGHT][MATRIX_LENGTH];
-    MatrixOutput *matrix;
-     */
+
 
 
     uint8_t timeSinceLastFirework;
