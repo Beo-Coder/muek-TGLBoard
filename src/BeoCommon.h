@@ -6,6 +6,8 @@
 #define MUEK_ARGB_MATRIX_BOARD_BEOCOMMON_H
 
 #include "Arduino.h"
+#include "clocks.h"
+#include "hardware/structs/rosc.h"
 
 
 

@@ -7,7 +7,7 @@
 #include "color.h"
 #include "dinoGame.h"
 #include "FireworkAnimation.h"
-
+#include "snakeAI.h"
 
 #define BUTTON1 18
 #define BUTTON2 19
@@ -29,6 +29,7 @@ MatrixOutput ledMatrix(pio, 0, 0, 10, 11);
 scrollText scrollTextController(&ledMatrix, &frame);
 DinoGame game(&ledMatrix, &frame);
 FireworkAnimation fireworks(&ledMatrix, &frame);
+snakeAI snake(&ledMatrix, &frame);
 
 display_program *programs[2];
 
@@ -53,11 +54,13 @@ void button2_isr() {
 
 
 void setup() {
+    Serial.begin(115200);
     delay(3500); // Just so that the Serial Console has time to connect
-    programs[0] = &fireworks;
+
+    programs[0] = &snake;
     scrollTextController.setText(&text);
     scrollTextController.setColor(&color1,&color2);
-    Serial.begin(115200);
+
 
     Serial.println("Hello World");
 
@@ -92,6 +95,10 @@ void setup() {
 
     // scrollTextController.setColor(&color1, &color2);
     // scrollTextController.setText(&text);
+    for(int i=0; i<1000; i++){
+        Serial.println(randomInt(0, 10));
+    }
+    Serial.println("Done");
 
 
 
@@ -102,24 +109,7 @@ void setup() {
 
 
 void loop() {
-/*
-    while(millis()-lastMillis > 220){
-        lastMillis = millis();
 
-        for(int i=0; i<MATRIX_HEIGHT; i++){
-            for(int j=0; j<MATRIX_LENGTH; j++){
-                frame[i][j] = color1;
-            }
-        }
-        ledMatrix.setDisplayData(&frame);
-        ledMatrix.sendData();
-
-
-
-        // Serial.println(game.score);
-        //programs[0]->refresh();
-
-    }*/
 
 
     while(millis()-lastMillis > programs[0]->refreshSpeed){
@@ -132,3 +122,5 @@ void loop() {
 
 
 }
+
+

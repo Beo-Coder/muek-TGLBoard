@@ -8,7 +8,12 @@
 
 int randomInt(int min, int max){
     int range = (max-min);
-    return rand() % range + min;
+    uint32_t randomNumber;
+    for(int i=0; i<3*8;i++){
+        randomNumber = (randomNumber << 1) | rosc_hw->randombit;
+    }
+
+    return int(randomNumber % range) + min;
 }
 
 
