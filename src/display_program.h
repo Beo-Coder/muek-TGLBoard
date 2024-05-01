@@ -7,7 +7,7 @@
 
 #include "Arduino.h"
 #include "color.h"
-#include "pioMatrixOutput.h"
+#include "PIOMatrixOutput/pio_matrix_output.h"
 
 
 class display_program {

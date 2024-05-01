@@ -2,12 +2,12 @@
 // Created by leo on 06.03.24.
 //
 
-#ifndef MUEK_ARGB_MATRIX_BOARD_SCROLLTEXT_H
-#define MUEK_ARGB_MATRIX_BOARD_SCROLLTEXT_H
+#ifndef MUEK_ARGB_MATRIX_BOARD_SCROLL_TEXT_H
+#define MUEK_ARGB_MATRIX_BOARD_SCROLL_TEXT_H
 
 #include <Arduino.h>
 #include "letters.h"
-#include "pioMatrixOutput.h"
+#include "PIOMatrixOutput/pio_matrix_output.h"
 #include "color.h"
 #include "display_program.h"
 
@@ -17,7 +17,7 @@
 
 
 
-class scrollText : public display_program{
+class ScrollText : public display_program{
 
 
     uint8_t idTextArray[MAX_TEXT_LENGTH];
@@ -34,7 +34,7 @@ class scrollText : public display_program{
 
 
 public:
-    explicit scrollText(MatrixOutput *matrixOutput, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]);
+    explicit ScrollText(MatrixOutput *matrixOutput, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]);
 
     void setText(String *text);
     void setColor(Color *textColor, Color *backgroundColor);
@@ -51,4 +51,4 @@ public:
 };
 
 
-#endif //MUEK_ARGB_MATRIX_BOARD_SCROLLTEXT_H
+#endif //MUEK_ARGB_MATRIX_BOARD_SCROLL_TEXT_H

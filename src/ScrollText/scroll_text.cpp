@@ -2,9 +2,9 @@
 // Created by leo on 06.03.24.
 //
 
-#include "scrollText.h"
+#include "scroll_text.h"
 
-scrollText::scrollText(MatrixOutput *matrixOutput, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]) : display_program(matrixOutput, frame) {
+ScrollText::ScrollText(MatrixOutput *matrixOutput, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]) : display_program(matrixOutput, frame) {
     // this->matrix = matrixOutput;
     idTextArraySize = 0;
     idTextArrayIndex = 0;
@@ -14,7 +14,7 @@ scrollText::scrollText(MatrixOutput *matrixOutput, Color (*frame)[MATRIX_HEIGHT]
 
 }
 
-void scrollText::createIDTextArray(String *text) {
+void ScrollText::createIDTextArray(String *text) {
     idTextArraySize = 0;
     idTextArrayIndex = 0;
     matrixBitOffset = 0;
@@ -39,19 +39,19 @@ void scrollText::createIDTextArray(String *text) {
 
 }
 
-void scrollText::setText(String *text) {
+void ScrollText::setText(String *text) {
     createIDTextArray(text);
 
 
 }
 
-void scrollText::setColor(Color *textColor, Color *backgroundColor) {
+void ScrollText::setColor(Color *textColor, Color *backgroundColor) {
     this->textColor = textColor;
     this->backgroundColor = backgroundColor;
 
 }
 
-void scrollText::shiftText() {
+void ScrollText::shiftText() {
 
     const uint8_t *letter = Letter[idTextArray[matrixBitOffset / ( Letter[idTextArray[idTextArrayIndex]][8] + SPACE_BETWEEN_LETTERS) + idTextArrayIndex]];
     for (int row = 0; row < 8; row++) {
@@ -84,21 +84,21 @@ void scrollText::shiftText() {
 
 }
 
-void scrollText::refresh() {
+void ScrollText::refresh() {
     shiftText();
     matrix->sendData();
 
 }
 
-void scrollText::restart() {
+void ScrollText::restart() {
 
 }
 
-void scrollText::button1ISR(bool state) {
+void ScrollText::button1ISR(bool state) {
 
 }
 
-void scrollText::button2ISR(bool state) {
+void ScrollText::button2ISR(bool state) {
 
 }
 

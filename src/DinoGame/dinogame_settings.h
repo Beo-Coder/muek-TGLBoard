@@ -1,17 +1,12 @@
 //
-// Created by leo on 25.04.24.
+// Created by leo on 01.05.24.
 //
 
-#ifndef MUEK_ARGB_MATRIX_BOARD_DINOGAME_H
-#define MUEK_ARGB_MATRIX_BOARD_DINOGAME_H
+#ifndef MUEK_ARGB_MATRIX_BOARD_DINOGAME_SETTINGS_H
+#define MUEK_ARGB_MATRIX_BOARD_DINOGAME_SETTINGS_H
 
 #include "Arduino.h"
-#include "pioMatrixOutput.h"
 #include "color.h"
-#include "display_program.h"
-#include "BeoCommon.h"
-
-
 
 
 // Enemy section
@@ -71,18 +66,6 @@ static uint32_t levels[LEVELS][3] = {
         {3000, 50,  2}}; // score, speed, enemies
 
 // Level section END
-
-
-
-
-/*
-static Color colorDarkRed;
-static Color colorRed;
-static Color colorGrey;
-static Color colorGreen;
-static Color colorBlank;
- */
-
 
 
 static Color *entityColorBlank = &colorBlank;
@@ -163,100 +146,6 @@ static Color **enemySkin[10][4][4] = {
         }
 };
 
-namespace details_dino_game {
-    class Entity {
-    public:
-        int8_t posX;
-        int8_t posY;
-        int8_t sizeX;
-        int8_t sizeY;
-
-        uint8_t skinIndex = 0;
 
 
-        Entity(int8_t startPosX, int8_t startPosY, int8_t sizeX, int8_t sizeY);
-        Entity();
-
-
-        virtual void animate(Color (*display)[MATRIX_HEIGHT][MATRIX_LENGTH]) = 0;
-
-
-    };
-
-    class Enemy : public Entity {
-    public:
-
-        Enemy(int8_t startPosX, int8_t startPosY, int8_t sizeX, int8_t sizeY);
-        Enemy();
-
-        uint8_t enemyType;
-        bool alive;
-
-
-
-
-        void animate(Color (*display)[MATRIX_HEIGHT][MATRIX_LENGTH]) override;
-        void move();
-
-
-
-    };
-
-
-    class Player : public Entity {
-        int32_t lastJump;
-
-
-    public:
-
-        Player(int8_t startPosX, int8_t startPosY, int8_t sizeX, int8_t sizeY);
-
-        void jump();
-
-        void duck(bool pressed);
-
-        void checkJumped();
-
-        void animate(Color (*display)[MATRIX_HEIGHT][MATRIX_LENGTH]) override;
-
-        bool checkAndMarkCollision(const Enemy &entity, Color (*display)[MATRIX_HEIGHT][MATRIX_LENGTH]);
-
-    };
-}
-
-class DinoGame : public display_program {
-
-
-    details_dino_game::Enemy *enemies[MAX_ENEMIES];
-    uint8_t numberEnemies;
-    details_dino_game::Player *player;
-
-    bool dead = false;
-
-    void animateFrame();
-
-    void moveEntities();
-
-    void createNewEnemy(uint8_t index);
-
-    void checkScore();
-
-
-public:
-    uint32_t score;
-
-    explicit DinoGame(MatrixOutput *ledMatrix, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]);
-
-    void button1ISR(bool data) override;
-
-    void button2ISR(bool data) override;
-
-    void refresh() override;
-
-    void restart() override;
-
-
-};
-
-
-#endif //MUEK_ARGB_MATRIX_BOARD_DINOGAME_H
+#endif //MUEK_ARGB_MATRIX_BOARD_DINOGAME_SETTINGS_H

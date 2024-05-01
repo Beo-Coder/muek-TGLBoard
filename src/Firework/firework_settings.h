@@ -1,15 +1,13 @@
 //
-// Created by leo on 27.04.24.
+// Created by leo on 01.05.24.
 //
-
-#ifndef MUEK_ARGB_MATRIX_BOARD_FIREWORKANIMATION_H
-#define MUEK_ARGB_MATRIX_BOARD_FIREWORKANIMATION_H
 
 #include "Arduino.h"
 #include "color.h"
-#include "pioMatrixOutput.h"
-#include "display_program.h"
-#include "BeoCommon.h"
+
+#ifndef MUEK_ARGB_MATRIX_BOARD_FIREWORK_SETTINGS_H
+#define MUEK_ARGB_MATRIX_BOARD_FIREWORK_SETTINGS_H
+
 
 #define SIMULATION_SPEED 220
 
@@ -55,81 +53,6 @@ static Color *randomColor[NUMBER_FIREWORK_COLORS] = {&colorRed, &colorBlue, &col
 #define NUMBER_POSITIONS 6
 static uint8_t postions[NUMBER_POSITIONS] = {3, 5, 7, 9, 11, 13}; // Array of all valid x-cord positions for a firework to start
 
-namespace details_firework {
-    class Pixel {
-
-    public:
-        Pixel();
-
-        float posX;
-        float posY;
-
-        float dirX;
-        float dirY;
-
-        Color *color;
-    };
-
-    class Firework {
-
-        Pixel *pixel[PIXEL_PER_FIREWORK];
-        Color pixelColor;
-
-        int8_t startPosX;
-        int8_t startPosY;
-
-        uint8_t lifeTime;
-        bool arrived;
-        bool exploded;
 
 
-        void calcFireworkTrail(Color (*display)[MATRIX_HEIGHT][MATRIX_LENGTH]);
-
-        void calcFireworkExplosion(Color (*display)[MATRIX_HEIGHT][MATRIX_LENGTH]);
-
-
-    public:
-        Firework();
-
-        bool dead;
-
-        void start(int8_t posX, int8_t posY, Color *color);
-
-        void calcFrame(Color (*display)[MATRIX_HEIGHT][MATRIX_LENGTH]);
-    };
-
-}
-
-
-class FireworkAnimation : public display_program {
-
-
-
-    uint8_t timeSinceLastFirework;
-    uint8_t lastFireWorkPostion; // Index in position array
-    uint8_t fireworkColor; // index in color array
-
-    details_firework::Firework *firework[MAX_NUMBER_FIREWORKS];
-
-
-    void calcFrame();
-
-    void createNewFirework();
-
-    void addNewFirework(int8_t explodePosX, int8_t explodePosY, Color *color);
-
-
-public:
-
-    FireworkAnimation(MatrixOutput *ledMatrix, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]);
-
-    void refresh() override;
-    void button1ISR(bool state) override;
-    void button2ISR(bool state) override;
-    void restart() override;
-
-
-};
-
-
-#endif //MUEK_ARGB_MATRIX_BOARD_FIREWORKANIMATION_H
+#endif //MUEK_ARGB_MATRIX_BOARD_FIREWORK_SETTINGS_H

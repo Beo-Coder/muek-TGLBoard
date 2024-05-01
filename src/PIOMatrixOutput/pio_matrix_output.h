@@ -12,7 +12,7 @@
 #include "hardware/watchdog.h"
 #include "hardware/timer.h"
 #include "hardware/sync.h"
-#include "pioARGB.pio.h"
+#include "pio_program.pio.h"
 #include "color.h"
 
 

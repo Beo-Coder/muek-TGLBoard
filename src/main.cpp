@@ -2,12 +2,12 @@
 #include "hardware/pio.h"
 #include "hardware/irq.h"
 
-#include "pioMatrixOutput.h"
-#include "scrollText.h"
+#include "PIOMatrixOutput/pio_matrix_output.h"
+#include "ScrollText/scroll_text.h"
 #include "color.h"
-#include "dinoGame.h"
-#include "FireworkAnimation.h"
-#include "snakeAI.h"
+#include "DinoGame/dinoGame.h"
+#include "Firework/firework_animation.h"
+#include "SnakeAI/snake_ai_animation.h"
 
 #define BUTTON1 18
 #define BUTTON2 19
@@ -26,7 +26,7 @@ PIO pio = pio0;
 
 MatrixOutput ledMatrix(pio, 0, 0, 10, 11);
 
-scrollText scrollTextController(&ledMatrix, &frame);
+ScrollText scrollTextController(&ledMatrix, &frame);
 DinoGame game(&ledMatrix, &frame);
 FireworkAnimation fireworks(&ledMatrix, &frame);
 snakeAI snake(&ledMatrix, &frame);
@@ -57,7 +57,7 @@ void setup() {
     Serial.begin(115200);
     delay(3500); // Just so that the Serial Console has time to connect
 
-    programs[0] = &snake;
+    programs[0] = &game;
     scrollTextController.setText(&text);
     scrollTextController.setColor(&color1,&color2);
 
@@ -95,10 +95,6 @@ void setup() {
 
     // scrollTextController.setColor(&color1, &color2);
     // scrollTextController.setText(&text);
-    for(int i=0; i<1000; i++){
-        Serial.println(randomInt(0, 10));
-    }
-    Serial.println("Done");
 
 
 

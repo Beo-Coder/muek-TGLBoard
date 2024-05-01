@@ -1,18 +1,8 @@
 //
-// Created by leo on 27.04.24.
+// Created by leo on 01.05.24.
 //
 
-#include "FireworkAnimation.h"
-
-details_firework::Pixel::Pixel() {
-    posX = -1;
-    posY = -1;
-    dirX = 0;
-    dirY = 0;
-    color = &colorBlank;
-
-}
-
+#include "firework.h"
 
 details_firework::Firework::Firework() {
     dead = true;
@@ -127,9 +117,9 @@ void details_firework::Firework::calcFireworkExplosion(Color (*display)[MATRIX_H
             }
 
             i->posX += (i->dirX * (1 - (float(lifeTime) / FIREWORK_DECELERATION_VALUE_X))) /
-                              FIREWORK_SPEED_VALUE_X2;
+                       FIREWORK_SPEED_VALUE_X2;
             i->posY += (i->dirY * (1 - (float(lifeTime) / FIREWORK_DECELERATION_VALUE_Y))) /
-                              FIREWORK_SPEED_VALUE_Y2 - FIREWORK_SINK_RATE;
+                       FIREWORK_SPEED_VALUE_Y2 - FIREWORK_SINK_RATE;
 
             // Only add to frame, when pixel is inside frame
             if (posX >= 0 && posX < MATRIX_LENGTH && posY >= 0 && posY < MATRIX_HEIGHT) {
@@ -145,86 +135,3 @@ void details_firework::Firework::calcFireworkExplosion(Color (*display)[MATRIX_H
     }
 
 }
-
-
-FireworkAnimation::FireworkAnimation(MatrixOutput *ledMatrix, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]) : display_program(ledMatrix, frame) {
-    refreshSpeed = SIMULATION_SPEED;
-    timeSinceLastFirework = 0;
-    lastFireWorkPostion = 0;
-    fireworkColor = 0;
-
-    for(details_firework::Firework* & i : firework){
-        i = new details_firework::Firework();
-    }
-    clearFrame();
-
-
-}
-
-
-
-void FireworkAnimation::refresh() {
-    calcFrame();
-
-    matrix->setDisplayData(frame);
-    matrix->sendData();
-
-
-}
-
-void FireworkAnimation::calcFrame() {
-    if (timeSinceLastFirework >= TIME_BETWEEN_FIREWORKS) {
-        createNewFirework();
-    }
-    timeSinceLastFirework++;
-    clearFrame();
-
-    for (details_firework::Firework* & i : firework) {
-        i->calcFrame(frame);
-    }
-
-
-}
-
-void FireworkAnimation::createNewFirework() {
-    // Get "random" location (not to near to previous firework)
-    uint8_t postion = randomInt(0, NUMBER_POSITIONS);
-    uint8_t tries = 0;
-    while (lastFireWorkPostion + MIN_SPACE_BETWEEN_POSTIONS >= postion &&
-           lastFireWorkPostion - MIN_SPACE_BETWEEN_POSTIONS <= postion && tries < 50) {
-        postion = randomInt(0, NUMBER_POSITIONS);
-        tries++;
-    }
-
-    addNewFirework(postions[postion], randomInt(FIREWORK_EXPLODE_Y_MIN, FIREWORK_EXPLODE_Y_MAX), randomColor[fireworkColor]);
-
-    timeSinceLastFirework = 0;
-    lastFireWorkPostion = postion;
-    fireworkColor = (fireworkColor + randomInt(1,NUMBER_FIREWORK_COLORS/2)) % NUMBER_FIREWORK_COLORS;
-
-}
-
-void FireworkAnimation::addNewFirework(int8_t explodePosX, int8_t explodePosY, Color *color) {
-    for (details_firework::Firework* & i : firework) {
-        if (i->dead) {
-            i->start(explodePosX, explodePosY, color);
-            break;
-        }
-    }
-}
-
-
-void FireworkAnimation::button1ISR(bool state) {
-
-}
-
-void FireworkAnimation::button2ISR(bool state) {
-
-}
-
-void FireworkAnimation::restart() {
-
-}
-
-
-
