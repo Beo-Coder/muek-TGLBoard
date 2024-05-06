@@ -74,7 +74,7 @@ z -> z
 { -> {  
 } -> }  
 < -> <  
-\> -> \>
+\> -> >
 
 . -> .  
 , -> ,  
@@ -86,7 +86,7 @@ _ -> _    <br>
 ; -> ;
 
 
-## Normal character (with `%` in fort (`%A` -> Ä))
+## Special character (with `%` in front (`%A` -> Ä))
 
 A -> Ä  
 a -> ä  
