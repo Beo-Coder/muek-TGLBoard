@@ -3,6 +3,9 @@
 ### 8x16 RGB Board
 
 # Usage
+You need PlatformIO to use this project.  
+Arduino IDE might word too (not tested).
+
 For own programming, you can use my pioMatrixOutput library.
 Documentation is here [pioMatrixOutput](READMEpioMatrixOutput.md)
 
