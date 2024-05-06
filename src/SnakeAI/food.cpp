@@ -5,17 +5,15 @@
 #include "food.h"
 
 details_snake_ai::Food::Food() {
-    position.posX = 8;
-    position.posY = 5;
+   position = (6 << 8) | 5;
 
 }
 
-details_snake_ai::Position details_snake_ai::Food::getPosition() {
+uint16_t details_snake_ai::Food::getPosition() {
     return position;
 }
 
-void details_snake_ai::Food::setPosition(Position pos) {
-    position.posX = pos.posX;
-    position.posY = pos.posY;
+void details_snake_ai::Food::setPosition(uint16_t pos) {
+    position = pos;
 
 }

@@ -11,13 +11,13 @@
 
 namespace details_snake_ai {
     class Food {
-        Position position;
+        uint16_t position;
     public:
         Food();
 
-        Position getPosition();
+        uint16_t getPosition();
 
-        void setPosition(Position pos);
+        void setPosition(uint16_t pos);
     };
 }
 

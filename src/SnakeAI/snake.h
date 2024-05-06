@@ -13,19 +13,20 @@
 
 namespace details_snake_ai {
     class Snake {
-        boolean dead;
+        bool dead;
+        bool addedLength;
 
         int16_t length;
 
 
     public:
-        Position snakeBody[MATRIX_SIZE];
+        uint16_t snakeBody[MATRIX_SIZE];
 
         Snake();
 
         void setPosition(int16_t posX, int16_t posY);
 
-        Position getPosition();
+        uint16_t getPosition();
 
         void move(SnakeDirection dir);
 
@@ -35,11 +36,15 @@ namespace details_snake_ai {
 
         int16_t getLength();
 
-        boolean checkFoodCollision(Position foodPos);
+        boolean checkFoodCollision(uint16_t foodPos);
 
         void addLength();
 
-        Position getPositionNotInSnake();
+        uint16_t getPositionNotInSnake();
+
+        bool checkCollision(uint16_t pos);
+
+        void reset();
 
 
     };

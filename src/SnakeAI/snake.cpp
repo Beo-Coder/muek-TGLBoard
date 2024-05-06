@@ -5,12 +5,16 @@
 #include "snake.h"
 
 details_snake_ai::Snake::Snake() {
+    reset();
+}
+
+
+void details_snake_ai::Snake::reset() {
     length = 3;
-    snakeBody[0].posX = 5;
-    snakeBody[0].posY = 5;
+    addedLength = false;
+    snakeBody[0] = (5 << 8) | 5;
     for(int i=1;i<MATRIX_SIZE;i++){
-        snakeBody[i].posX = -5;
-        snakeBody[i].posY = -5;
+        snakeBody[i] = -(1 << 8) | (-1);;
 
     }
     dead = false;
@@ -19,11 +23,10 @@ details_snake_ai::Snake::Snake() {
 
 
 void details_snake_ai::Snake::setPosition(int16_t posX, int16_t posY) {
-    snakeBody[0].posX = posX;
-    snakeBody[0].posY = posY;
+    snakeBody[0] = (posY << 8) | posX;
 
 }
-details_snake_ai::Position details_snake_ai::Snake::getPosition() {
+uint16_t details_snake_ai::Snake::getPosition() {
     return snakeBody[0];
 }
 
@@ -55,12 +58,12 @@ void details_snake_ai::Snake::move(details_snake_ai::SnakeDirection dir) {
 
 
     for(int i=length-1;i>0;i--){
-        snakeBody[i].posX = snakeBody[i-1].posX;
-        snakeBody[i].posY = snakeBody[i-1].posY;
 
+        snakeBody[i] = snakeBody[i-1];
     }
-    snakeBody[0].posX += x;
-    snakeBody[0].posY += y;
+
+    snakeBody[0] = ((((snakeBody[0] >> 8) & 0xFF) + y) << 8) | ((snakeBody[0] & 0xFF) + x);
+    // snakeBody[0] += (y) << 8;
 
     if(checkHeadColliding()){
         dead = true;
@@ -73,11 +76,14 @@ void details_snake_ai::Snake::move(details_snake_ai::SnakeDirection dir) {
 
 
 boolean details_snake_ai::Snake::checkHeadColliding() {
-    if(snakeBody[0].posX < 0 || snakeBody[0].posX >= MATRIX_LENGTH || snakeBody[0].posY < 0 || snakeBody[0].posY >= MATRIX_HEIGHT){
+    uint8_t snakeX = snakeBody[0] & 0xFF;
+    uint8_t snakeY = (snakeBody[0] >> 8) & 0xFF;
+
+    if(snakeX < 0 || snakeX >= MATRIX_LENGTH || snakeY < 0 || snakeY >= MATRIX_HEIGHT){
         return true;
     }
     for(int i=1;i<length;i++){
-        if(snakeBody[0].posX == snakeBody[i].posX && snakeBody[0].posY == snakeBody[i].posY){
+        if(snakeBody[0] == snakeBody[i]){
             return true;
         }
     }
@@ -97,31 +103,98 @@ int16_t details_snake_ai::Snake::getLength() {
     return length;
 }
 
-boolean details_snake_ai::Snake::checkFoodCollision(Position foodPos) {
-    return foodPos.posX == snakeBody[0].posX && foodPos.posY == snakeBody[0].posY;
+boolean details_snake_ai::Snake::checkFoodCollision(uint16_t foodPos) {
+    return foodPos == snakeBody[0];
 }
 
 void details_snake_ai::Snake::addLength() {
+    snakeBody[length] = snakeBody[length-1];
     length++;
+    addedLength = true;
 }
 
-details_snake_ai::Position details_snake_ai::Snake::getPositionNotInSnake() {
-    Position pos;
+uint16_t details_snake_ai::Snake::getPositionNotInSnake() {
+
+    uint8_t posX;
+    uint8_t posY;
+    uint8_t snakeX;
+    uint8_t snakeY;
+
+    uint16_t positions[MATRIX_SIZE];
+    uint16_t numberPositions = 0;
+    bool inSnake = false;
+
+    for(uint16_t i=0; i<MATRIX_SIZE; i++){
+        posX = i%MATRIX_LENGTH;
+        posY = i/MATRIX_LENGTH;
+        for(int k=0; k<length;k++){
+            snakeX = snakeBody[k] & 0xFF;
+            snakeY = (snakeBody[k] >> 8) & 0xFF;
+            if(snakeX == posX && snakeY == posY){
+                inSnake = true;
+                break;
+            }
+
+        }
+        if(!inSnake) {
+            positions[numberPositions] = i;
+            numberPositions++;
+        }
+        inSnake = false;
+    }
+
+
+    uint16_t randomPositionIndex = randomInt(0, numberPositions);
+    posX = positions[randomPositionIndex]%MATRIX_LENGTH;
+    posY = positions[randomPositionIndex]/MATRIX_LENGTH;
+
+
+
+
+    /*
+    uint8_t posX;
+    uint8_t posY;
+
+    uint8_t snakeX;
+    uint8_t snakeY;
+
     boolean posInsideSnake;
 
+    uint16_t tries = 0;
     do{
-        pos.posX = int16_t(randomInt(0,MATRIX_LENGTH));
-        pos.posY = int16_t(randomInt(0,MATRIX_HEIGHT));
+        posX = int16_t(randomInt(0,MATRIX_LENGTH));
+        posY = int16_t(randomInt(0,MATRIX_HEIGHT));
         posInsideSnake = false;
         for(int i=0; i<length;i++){
-            if(snakeBody[i].posX == pos.posX && snakeBody[i].posY == pos.posY){
+            snakeX = snakeBody[i] & 0xFF;
+            snakeY = (snakeBody[i] >> 8) & 0xFF;
+
+            if(snakeX == posX && snakeY == posY){
                 posInsideSnake = true;
                 break;
             }
         }
+        tries++;
 
 
-    }while(posInsideSnake);
+    }while(posInsideSnake && tries < 5000);
+    if(posInsideSnake){
+        posX = snakeBody[length-1] & 0xFF;
+        posY = (snakeBody[length-1] >> 8) & 0xFF;
+    }
+     */
 
-    return pos;
+
+    return (posY << 8) | posX;
 }
+
+bool details_snake_ai::Snake::checkCollision(uint16_t pos) {
+    for(int i=0; i<length;i++){
+        if(snakeBody[i] == pos){
+            return true;
+        }
+    }
+    return false;
+}
+
+

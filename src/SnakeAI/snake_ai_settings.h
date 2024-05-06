@@ -5,19 +5,15 @@
 #ifndef MUEK_ARGB_MATRIX_BOARD_SNAKE_AI_SETTINGS_H
 #define MUEK_ARGB_MATRIX_BOARD_SNAKE_AI_SETTINGS_H
 
+#include "Arduino.h"
+
 #define LENGTH_GROWTH 1
 #define START_LENGTH 1
 
-#include "Arduino.h"
+#define COUNT_GAMES
+
 
 namespace details_snake_ai{
-
-    struct Position{
-        int16_t posX;
-        int16_t posY;
-        int8_t directionX;
-        int8_t directionY;
-    } ;
 
 
     enum SnakeDirection{

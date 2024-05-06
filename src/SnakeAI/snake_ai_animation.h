@@ -28,14 +28,37 @@
 class snakeAI : public display_program{
     details_snake_ai::Snake snake;
     details_snake_ai::Food food;
-    details_snake_ai::HamiltonianCircle path;
+    details_snake_ai::HamiltonianCircle hamiltonianCircle;
 
 
     boolean stopDead = false;
-    uint8_t moves = 0;
+    uint8_t moves;
     bool firstTime;
 
     void placeNewFood();
+
+    uint16_t getPathIndex(uint16_t pos);
+
+    // AI functions
+    void calcNextAIMove();
+    bool aiCheckIfSnakeOrdered(uint16_t potentialMovePathIndex);
+    uint16_t aiGetDistanceFood(uint16_t potentialMovePathIndex);
+
+
+    uint8_t getXPos(uint16_t pos);
+    uint8_t getYPos(uint16_t pos);
+
+    uint16_t winCount;
+    uint16_t failCount;
+    uint16_t playCount;
+
+
+    uint64_t averageTime;
+    uint32_t highestTime;
+    uint32_t numberPaths;
+
+    uint8_t secondCoreState;
+
 
 public:
 

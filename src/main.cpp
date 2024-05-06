@@ -57,7 +57,7 @@ void setup() {
     Serial.begin(115200);
     delay(3500); // Just so that the Serial Console has time to connect
 
-    programs[0] = &game;
+    programs[0] = &snake;
     scrollTextController.setText(&text);
     scrollTextController.setColor(&color1,&color2);
 

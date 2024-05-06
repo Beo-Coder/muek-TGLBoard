@@ -16,7 +16,6 @@ void details_snake_ai::HamiltonianCircle::generatePath() {
     path[0] = 0;
     pathIndex = 1;
     int nattempts = 1 + 1.0 * 10.0 * MATRIX_SIZE * std::pow(std::log(2. + MATRIX_SIZE), 2);
-    Serial.println(nattempts);
     while (pathIndex < MATRIX_SIZE) {
         for (int i = 0; i < nattempts; i++) {
             backbite();
@@ -42,7 +41,6 @@ void details_snake_ai::HamiltonianCircle::backbite() {
             step = -(1<<8);
             break;
     }
-
     if (randomInt(0,2)) {
         backbiteLeft(step);
     } else {
@@ -70,7 +68,6 @@ void details_snake_ai::HamiltonianCircle::backbiteLeft(uint16_t step) {
             pathIndex++;
         }
     }
-
 
 }
 
@@ -111,22 +108,10 @@ void details_snake_ai::HamiltonianCircle::reversePath(int i1, int i2) {
 
 void details_snake_ai::HamiltonianCircle::generate() {
     generateCircle();
-    for(int i=0; i<MATRIX_SIZE;i++){
-        Serial.print(path[i]);
-        Serial.print(" ");
-    }
-    Serial.print("\n\r");
 
 }
 
 bool details_snake_ai::HamiltonianCircle::legalPosition(uint16_t node) {
-
-    //if((index/LENGTH == pathIndex/LENGTH && index%LENGTH >= (pathIndex-1)%LENGTH && index%LENGTH <= (pathIndex+1)%LENGTH)) return false;
-    //if((index%LENGTH == pathIndex%LENGTH && index/LENGTH >= (pathIndex-1)/LENGTH && index/LENGTH <= (pathIndex+1)/LENGTH)) return false;
-
-    // if(pathIndex/MATRIX_LENGTH != index/(MATRIX_LENGTH)) return false;
-    // if(pathIndex/MATRIX_HEIGHT != index/(MATRIX_HEIGHT)) return false;
-
 
     uint16_t x=node&0xFF;
     uint16_t y=(node>>8)&0xFF;
@@ -136,19 +121,6 @@ bool details_snake_ai::HamiltonianCircle::legalPosition(uint16_t node) {
     if(y<0) return false;
     if(y>=MATRIX_HEIGHT) return false;
 
-
-/*
-    if(index < 0) return false;
-    if(index >= MATRIX_SIZE) return false;
-
-    if(index/LENGTH + 1 == path[pathIndex-1]/LENGTH && index%LENGTH != path[pathIndex-1]%LENGTH) return false;
-    if(index/LENGTH - 1 == path[pathIndex-1]/LENGTH && index%LENGTH != path[pathIndex-1]%LENGTH) return false;
-*/
-    //if(index/(MATRIX_LENGTH) > (MATRIX_HEIGHT)) return false;
-    //if(index/(MATRIX_LENGTH) < 0) return false;
-
-    //if((pathIndex-1)/LENGTH >= index/(LENGTH) && (pathIndex+1)/LENGTH <= index/(LENGTH) && pathIndex%LENGTH != index%(LENGTH)) return false;
-    //if((pathIndex-1)%LENGTH >= index%(LENGTH) && (pathIndex+1)%LENGTH <= index%(LENGTH) && pathIndex/LENGTH != index/(LENGTH)) return false;
     return true;
 }
 
@@ -156,7 +128,6 @@ void details_snake_ai::HamiltonianCircle::generateCircle() {
     generatePath();
     int min_dist = 1 + (pathIndex % 2);
     while (abs(path[pathIndex - 1] - path[0]) != min_dist) {
-        // while (path[pathIndex - 1] - path[0] != min_dist) {
         backbite();
     }
 
