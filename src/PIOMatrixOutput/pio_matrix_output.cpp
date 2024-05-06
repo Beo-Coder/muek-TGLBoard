@@ -33,12 +33,11 @@ void MatrixOutput::internalTimerHandler() {
 
     if (frameBufferEnable) {
         timerFrameCount++;
-        if ((timerFrameCount >= (frameBufferInterval * 1000 / 10)) && frameBufferInterval != 0 && (getFreeFrames() < MAX_FRAMES_IN_BUFFER) ) {
+        if ((timerFrameCount >= (frameBufferInterval * 1000 / 10)) && frameBufferInterval != 0 && (getFreeFrames() < MAX_FRAMES_IN_BUFFER-1) ) {
             timerFrameCount = 0;
             frameBufferReadIndex = (frameBufferReadIndex + 1) % MAX_FRAMES_IN_BUFFER;
             frameBufferLength--;
             if (!subframeBufferEnable) {
-
                 sendFrame(frameBufferReadIndex, subframeBufferIndex);
             }
 
