@@ -9,6 +9,9 @@ Arduino IDE might work too (not tested).
 For own programming, you can use my pioMatrixOutput library.
 Documentation is here [pioMatrixOutput](READMEpioMatrixOutput.md)
 
+For own scroll text, you can use my library.
+Documentation is here [scrollText](READMEscrollText.md)
+
 ## Notes
 If you bricked your board,
 and/or you can't upload code anymore,
