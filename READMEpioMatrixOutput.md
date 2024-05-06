@@ -13,6 +13,7 @@
    2. [Frame bs Subframe](#frame-vs-subframe)
    3. [RAM Usage](#ram-usage)
    4. [Output](#output)
+5. [Notes](#notes)
 
 
 # Features
@@ -217,7 +218,9 @@ And all this without any interaction from the CPU.
 While the DMA and the PIO are output the data and loading the LEDs with data, the CPU can already render the next frame and/or spinning around in circles :)
 
 
-
+# Notes
+When using subframes and/or the framebuffer, please don't use the `delay` instruction.
+It can mess up everything.
 
 
 
