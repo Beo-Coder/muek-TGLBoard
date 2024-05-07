@@ -20,7 +20,7 @@ and the left side of the small smd-resistor above the flash.
 See the picture.  
 While holding the resistor, plug the board back into your pc/power and the board should appear as a normal USB-stick.  
 Now you can program the board again normally.  
-This can happen, if your code does stuff that it shouldn't do like to access an array beyond its boarders.  
+This can happen, if your code does stuff that it shouldn't do like to access an array beyond its boundaries.  
 Be aware that if you place the resistor wrong, you could damage the board!
 
 ![resistor placement](assets/images/resistorPlacement.png "resistorPlacement")
