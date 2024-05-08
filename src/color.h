@@ -12,6 +12,9 @@
 
 #define NORMAL_BRIGHTNESS 1
 
+#define MIN_BRIGHTNESS 1
+#define MAX_BRIGHTNESS 255
+
 
 class Color {
 
@@ -54,14 +57,14 @@ public:
 static Color colorBlank(0,0,0);
 
 // Some static colors
-static Color colorRed(1,0,0);
-static Color colorGreen(0,1,0);
-static Color colorBlue(0,0,1);
+static Color colorRed(NORMAL_BRIGHTNESS,0,0);
+static Color colorGreen(0,NORMAL_BRIGHTNESS,0);
+static Color colorBlue(0,0,NORMAL_BRIGHTNESS);
 
-static Color colorWhite(1,1,1);
-static Color colorYellow(1,1,0);
-static Color colorCyan(0,1,1);
-static Color colorPurple(1,0,1);
+static Color colorWhite(NORMAL_BRIGHTNESS,NORMAL_BRIGHTNESS,NORMAL_BRIGHTNESS);
+static Color colorYellow(NORMAL_BRIGHTNESS,NORMAL_BRIGHTNESS,0);
+static Color colorCyan(0,NORMAL_BRIGHTNESS,NORMAL_BRIGHTNESS);
+static Color colorPurple(NORMAL_BRIGHTNESS,0,NORMAL_BRIGHTNESS);
 
 #define NUMBER_NORMAL_COLORS 7
 static Color *allColors[NUMBER_NORMAL_COLORS] = {&colorRed, &colorBlue, &colorGreen, &colorWhite, &colorYellow, &colorCyan, &colorPurple};

@@ -12,13 +12,7 @@ Color::Color(float red, float green, float blue) {
     brightness = 1;
 
 }
-/*
-Color::Color(uint8_t red, uint8_t green, uint8_t blue) {
-    this->red = checkAndReturnValid(float(red));
-    this->green = checkAndReturnValid(float(green));
-    this->blue = checkAndReturnValid(float(blue));
 
-}*/
 
 float Color::checkAndReturnValid(float value) {
     if(value>MAX_COLOR_VALUE){
@@ -34,7 +28,7 @@ float Color::checkAndReturnValid(float value) {
 uint32_t Color::calc() {
 
 
-    return ((uint32_t)(green*brightness) << 16) | ((uint32_t)(red*brightness) << 8) | ((uint32_t)(blue*brightness));
+    return ((uint8_t)(green*brightness) << 16) | ((uint8_t)(red*brightness) << 8) | ((uint8_t)(blue*brightness));
 
 }
 
@@ -42,16 +36,19 @@ Color::Color() {
     red = 0;
     green = 0;
     blue = 0;
-    brightness = 1;
+    brightness = NORMAL_BRIGHTNESS;
 
 }
 
 void Color::setBrightness(float value) {
-    if(value <= 1){
-        brightness = 1;
+    if(value < MIN_BRIGHTNESS){
+        brightness = MIN_BRIGHTNESS;
+    }else if (value > MAX_BRIGHTNESS) {
+        brightness = MAX_BRIGHTNESS;
     }else{
-        brightness = value;
+            brightness = value;
     }
+
 
 
 }

@@ -9,7 +9,7 @@
 int randomInt(int min, int max){
     int range = (max-min);
     uint32_t randomNumber;
-    for(int i=0; i<3*8;i++){
+    for(int i=0; i<4*8;i++){
         randomNumber = (randomNumber << 1) | rosc_hw->randombit;
     }
 
