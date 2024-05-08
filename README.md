@@ -15,7 +15,7 @@ Documentation is here [scrollText](READMEscrollText.md)
 
 # Hardware
 
-Schematic, layout and gerber files are found [here](hardware)  
+Schematic, layout and gerber files can be found [here](hardware)  
 
 ## Notes
 If you bricked your board,
