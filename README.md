@@ -12,6 +12,11 @@ Documentation is here [pioMatrixOutput](READMEpioMatrixOutput.md)
 For own scroll text, you can use my library.
 Documentation is here [scrollText](READMEscrollText.md)
 
+
+# Hardware
+
+Schematic, layout and gerber files are found [here](hardware)  
+
 ## Notes
 If you bricked your board,
 and/or you can't upload code anymore,
