@@ -16,7 +16,7 @@ private:
 
     void translateBlockToColor();
 public:
-    Block(bool (*blockArray)[4][4], Color *color);
+    Block(const bool (*blockArray)[4][4], Color *color);
     Color (*getColorArray())[4][4];
     bool (*getBlockArray())[4][4];
 

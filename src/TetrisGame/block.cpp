@@ -12,7 +12,7 @@ void Block::translateBlockToColor() {
     }
 }
 
-Block::Block(bool (*blockArray)[4][4], Color *color) {
+Block::Block(const bool (*blockArray)[4][4], Color *color) {
     this->color = color;
     // let's copy the array ...
     for (int i = 0; i < 4; ++i) {
