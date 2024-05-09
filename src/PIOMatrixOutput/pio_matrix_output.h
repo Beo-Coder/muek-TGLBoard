@@ -28,7 +28,7 @@
 
 
 #define MAX_FRAMES_IN_BUFFER 10
-#define MAX_SUBFRAMES 4
+#define MAX_SUBFRAMES 8
 
 #define TIMER_INDEX 1
 
