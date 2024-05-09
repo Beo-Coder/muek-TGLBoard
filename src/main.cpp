@@ -58,6 +58,7 @@ void setup() {
     delay(3500); // Just so that the Serial Console has time to connect
 
     programs[0] = &snake;
+    programs[0]->restart();
     scrollTextController.setText(&text);
     scrollTextController.setColor(&color1,&color2);
 
@@ -108,7 +109,7 @@ void loop() {
 
 
 
-    while(millis()-lastMillis > programs[0]->refreshSpeed){
+    while(millis()-lastMillis > programs[0]->refreshSpeed || programs[0]->refreshSpeed == 0){
         lastMillis = millis();
         // Serial.println(game.score);
         programs[0]->refresh();

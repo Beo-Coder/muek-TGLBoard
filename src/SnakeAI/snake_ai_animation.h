@@ -21,6 +21,11 @@
 
 
 
+static Color *snakeColor = &colorGreen;
+static Color *foodColor = &colorRed;
+
+
+
 
 
 
@@ -33,9 +38,10 @@ class snakeAI : public display_program{
 
     boolean stopDead = false;
     uint8_t moves;
-    bool firstTime;
 
     void placeNewFood();
+
+    void renderFrame();
 
     uint16_t getPathIndex(uint16_t pos);
 
@@ -45,19 +51,9 @@ class snakeAI : public display_program{
     uint16_t aiGetDistanceFood(uint16_t potentialMovePathIndex);
 
 
-    uint8_t getXPos(uint16_t pos);
-    uint8_t getYPos(uint16_t pos);
+    static uint8_t getXPos(uint16_t pos);
+    static uint8_t getYPos(uint16_t pos);
 
-    uint16_t winCount;
-    uint16_t failCount;
-    uint16_t playCount;
-
-
-    uint64_t averageTime;
-    uint32_t highestTime;
-    uint32_t numberPaths;
-
-    uint8_t secondCoreState;
 
 
 public:
@@ -69,7 +65,7 @@ public:
     void restart() override;
 
 
-};;
+};
 
 
 #endif //MUEK_ARGB_MATRIX_BOARD_SNAKEAIANIMATION_H

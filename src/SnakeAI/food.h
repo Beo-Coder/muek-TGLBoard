@@ -15,7 +15,7 @@ namespace details_snake_ai {
     public:
         Food();
 
-        uint16_t getPosition();
+        uint16_t getPosition() const;
 
         void setPosition(uint16_t pos);
     };

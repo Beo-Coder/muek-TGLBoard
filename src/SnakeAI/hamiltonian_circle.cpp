@@ -4,132 +4,224 @@
 
 #include "hamiltonian_circle.h"
 
-details_snake_ai::HamiltonianCircle::HamiltonianCircle() {
-    pathIndex = 0;
-    for(int i=0; i<MATRIX_SIZE;i++){
-        path[i] = 0;
-    }
 
+
+uint16_t details_snake_ai::HamiltonianCircle::getXFromIndexPrim(uint16_t index){
+    return index % PRIM_LENGTH;
 }
 
-void details_snake_ai::HamiltonianCircle::generatePath() {
-    path[0] = 0;
-    pathIndex = 1;
-    int nattempts = 1 + 1.0 * 10.0 * MATRIX_SIZE * std::pow(std::log(2. + MATRIX_SIZE), 2);
-    while (pathIndex < MATRIX_SIZE) {
-        for (int i = 0; i < nattempts; i++) {
-            backbite();
-        }
-    }
-
-
+uint16_t details_snake_ai::HamiltonianCircle::getYFromIndexPrim(uint16_t index){
+    return index / PRIM_LENGTH;
 }
 
-void details_snake_ai::HamiltonianCircle::backbite() {
-    uint16_t step;
-    switch (randomInt(0,4)) {
-        case 0:
-            step = 1;
-            break;
-        case 1:
-            step = -1;
-            break;
-        case 2:
-            step = 1<<8;
-            break;
-        case 3:
-            step = -(1<<8);
-            break;
-    }
-    if (randomInt(0,2)) {
-        backbiteLeft(step);
-    } else {
-        backbiteRight(step);
-    }
+bool details_snake_ai::HamiltonianCircle::isAdjacentPrim(uint16_t index1, uint16_t index2){
+    uint16_t deltaX = abs(getXFromIndexPrim(index1) - getXFromIndexPrim(index2));
+    uint16_t deltaY = abs(getYFromIndexPrim(index1) - getYFromIndexPrim(index2));
+    return (deltaX == 1 && deltaY == 0) || (deltaX == 0 && deltaY == 1);
 }
 
-void details_snake_ai::HamiltonianCircle::backbiteLeft(uint16_t step) {
-    uint16_t neighbour = path[0]+step;
-    if(legalPosition(neighbour)){
-        bool alreadyInPath = false;
-        int i;
-        for(i=1; i<pathIndex;i++){
-            if(neighbour == path[i]){
-                alreadyInPath = true;
-                break;
+
+
+
+void details_snake_ai::HamiltonianCircle::primsAlgorithm(){
+
+    for(uint16_t i=0; i < PRIM_SIZE; i++){
+        edgeSelected[i] = false;
+    }
+
+    edges[0] = 0;
+    numberEdges = 1;
+    edgeSelected[0] = true;
+
+
+    while(numberEdges < PRIM_SIZE){
+
+        uint16_t minimumNodeI = MATRIX_SIZE;
+        uint16_t minimumNodeJ = MATRIX_SIZE;
+        uint16_t minimumNodeValue = UINT16_MAX;
+
+        for(uint16_t i=0; i < PRIM_SIZE; i++){
+            if(edgeSelected[i]){
+
+                for(uint16_t j=0; j < PRIM_SIZE; j++){
+                    if(!edgeSelected[j] && isAdjacentPrim(i, j)){
+                        uint16_t randomValue = randomInt(0, UINT16_MAX);
+                        if(minimumNodeValue > randomValue){
+                            minimumNodeValue = randomValue;
+                            minimumNodeI = i;
+                            minimumNodeJ = j;
+                        }
+
+                    }
+                }
+
             }
 
+
         }
-        if(alreadyInPath){
-            reversePath(0, i-1);
-        }else{
-            reversePath(0,pathIndex-1);
-            path[pathIndex] = neighbour;
-            pathIndex++;
-        }
+
+        edges[minimumNodeJ] = minimumNodeI;
+        numberEdges++;
+        edgeSelected[minimumNodeJ] = true;
+
     }
 
-}
-
-void details_snake_ai::HamiltonianCircle::backbiteRight(uint16_t step) {
-    uint16_t neighbour = path[pathIndex-1]+step;
-    if(legalPosition(neighbour)){
-        bool alreadyInPath = false;
-        int i;
-        for(i=pathIndex-2; i>=0;i--){
-            if(neighbour == path[i]){
-                alreadyInPath = true;
-                break;
-            }
-
-        }
-        if(alreadyInPath){
-            reversePath(i+1, pathIndex-1);
-        }else{
-            path[pathIndex] = neighbour;
-            pathIndex++;
-        }
-    }
 
 }
 
-void details_snake_ai::HamiltonianCircle::reversePath(int i1, int i2) {
 
-    int jlim = (i2-i1+1)/2;
-    uint16_t temp;
-    for (int j=0; j<jlim; j++)
-    {
-        temp = path[i1+j];
-        path[i1+j] = path[i2-j];
-        path[i2-j] = temp;
-    }
 
-}
+bool details_snake_ai::HamiltonianCircle::isLegalPosition(uint16_t pos){
+    uint8_t x = pos & 0xFF;
+    uint8_t y = (pos >> 8) & 0xFF;
 
-void details_snake_ai::HamiltonianCircle::generate() {
-    generateCircle();
+    if(x < 0){ return false;}
+    if(x >= MATRIX_LENGTH){ return false;}
 
-}
-
-bool details_snake_ai::HamiltonianCircle::legalPosition(uint16_t node) {
-
-    uint16_t x=node&0xFF;
-    uint16_t y=(node>>8)&0xFF;
-
-    if(x<0) return false;
-    if(x>=MATRIX_LENGTH) return false;
-    if(y<0) return false;
-    if(y>=MATRIX_HEIGHT) return false;
+    if(y < 0){ return false;}
+    if(y >= MATRIX_HEIGHT){ return false;}
 
     return true;
 }
 
-void details_snake_ai::HamiltonianCircle::generateCircle() {
-    generatePath();
-    int min_dist = 1 + (pathIndex % 2);
-    while (abs(path[pathIndex - 1] - path[0]) != min_dist) {
-        backbite();
+uint16_t details_snake_ai::HamiltonianCircle::postionToPrimIndex(uint16_t pos){
+
+    if(!isLegalPosition(pos)){
+        return PRIM_SIZE;
     }
 
+    uint8_t x = pos &0xFF;
+    uint8_t y = (pos >>8) &0xFF;
 
+    x = x/2;
+    y = y/2;
+    return x+(y * PRIM_LENGTH);
+}
+
+uint16_t details_snake_ai::HamiltonianCircle::positionToIndex(uint16_t pos){
+    uint8_t x = pos & 0xFF;
+    uint8_t y = (pos >> 8) & 0xFF;
+
+    return x + (y*MATRIX_LENGTH);
+}
+
+
+// Prim index = cell index
+bool details_snake_ai::HamiltonianCircle::onSameCell(uint16_t pos, int16_t dir){
+    uint16_t primIndex = postionToPrimIndex(pos);
+
+    uint16_t neighbourPrimIndex = postionToPrimIndex(pos + dir);
+    return primIndex == neighbourPrimIndex;
+
+}
+
+
+bool details_snake_ai::HamiltonianCircle::hasEdgeInDirection(uint16_t pos, int16_t dir){
+    uint16_t primIndex = postionToPrimIndex(pos);
+    uint16_t neighbourPrimIndex = postionToPrimIndex(pos + dir);
+    if(onSameCell(pos, dir)){
+        return false;
+    }
+
+    if(edges[primIndex] == neighbourPrimIndex){
+        return true;
+    }
+    if(edges[neighbourPrimIndex] == primIndex){
+        return true;
+    }
+
+    return false;
+
+}
+
+
+
+
+
+bool details_snake_ai::HamiltonianCircle::hasNoEdge(uint16_t pos, int32_t dir){
+    if(abs(dir) == 1){
+        if(hasEdgeInDirection(pos, (1 << 8)) || hasEdgeInDirection(pos, -(1 << 8))){
+            return false;
+        }
+    }
+    if(abs(dir) == (1<<8)){
+        if(hasEdgeInDirection(pos, 1) || hasEdgeInDirection(pos, -1)){
+            return false;
+        }
+    }
+    return true;
+}
+
+
+
+
+
+
+uint16_t details_snake_ai::HamiltonianCircle::getNextNode(uint16_t pos){
+
+    for(int i=0; i<4; i++){
+        int16_t dir = directionArray[i];
+
+        // Position is inside of Matrix
+        if(isLegalPosition(pos + dir)){
+            // If it has an edge, follow it
+            if (hasEdgeInDirection(pos, dir) && !nodesSelected[positionToIndex(pos + dir)]) {
+                return pos+dir;
+            }
+        }
+    }
+
+    for(int i=0; i<4; i++){
+        int16_t dir = directionArray[i];
+
+        // Position is inside of Matrix
+        if(isLegalPosition(pos + dir)){
+            // If it is on the same cell, go to the only possible location
+            if(onSameCell(pos, dir) && !nodesSelected[positionToIndex(pos + dir)] && hasNoEdge(pos, dir)){
+                return pos+dir;
+            }
+        }
+    }
+
+    return path[0];
+
+
+}
+
+
+
+
+
+
+
+
+void details_snake_ai::HamiltonianCircle::createHamiltonianCycle(){
+
+    for(uint16_t i=0; i<MATRIX_SIZE; i++){
+        nodesSelected[i] = false;
+    }
+
+    nodesSelected[0] = true;
+    path[0] = 0;
+    nodesInPath = 1;
+
+
+    while (nodesInPath < MATRIX_SIZE){
+        uint16_t nextNode = getNextNode(path[nodesInPath-1]);
+        path[nodesInPath] = nextNode;
+        nodesSelected[positionToIndex(nextNode)] = true;
+        nodesInPath++;
+    }
+
+}
+
+
+void details_snake_ai::HamiltonianCircle::generate() {
+    primsAlgorithm();
+    createHamiltonianCycle();
+
+    // Invert the y coordinate, because I messed up (maybe not necessary)
+    for(int i=0; i<MATRIX_SIZE;i++){
+        path[i] =  (( (MATRIX_HEIGHT - 1  - ((path[i] >> 8) & 0xFF))) << 8) | (path[i] & 0xFF);
+    }
 }

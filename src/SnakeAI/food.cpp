@@ -9,7 +9,7 @@ details_snake_ai::Food::Food() {
 
 }
 
-uint16_t details_snake_ai::Food::getPosition() {
+uint16_t details_snake_ai::Food::getPosition() const {
     return position;
 }
 

@@ -10,11 +10,10 @@ details_snake_ai::Snake::Snake() {
 
 
 void details_snake_ai::Snake::reset() {
-    length = 3;
-    addedLength = false;
+    length = START_LENGTH;
     snakeBody[0] = (5 << 8) | 5;
     for(int i=1;i<MATRIX_SIZE;i++){
-        snakeBody[i] = -(1 << 8) | (-1);;
+        snakeBody[i] = -(1 << 8) | (-1);
 
     }
     dead = false;
@@ -33,7 +32,7 @@ uint16_t details_snake_ai::Snake::getPosition() {
 
 
 
-void details_snake_ai::Snake::move(details_snake_ai::SnakeDirection dir) {
+void details_snake_ai::Snake::move(details_snake_ai::Direction dir) {
     int8_t x = 0;
     int8_t y = 0;
 
@@ -56,14 +55,13 @@ void details_snake_ai::Snake::move(details_snake_ai::SnakeDirection dir) {
 
 
 
-
     for(int i=length-1;i>0;i--){
 
         snakeBody[i] = snakeBody[i-1];
     }
 
-    snakeBody[0] = ((((snakeBody[0] >> 8) & 0xFF) + y) << 8) | ((snakeBody[0] & 0xFF) + x);
-    // snakeBody[0] += (y) << 8;
+    snakeBody[0] += x;
+    snakeBody[0] += y << 8;
 
     if(checkHeadColliding()){
         dead = true;
@@ -95,11 +93,11 @@ boolean details_snake_ai::Snake::checkHeadColliding() {
 
 
 
-boolean details_snake_ai::Snake::getDead() {
+boolean details_snake_ai::Snake::getDead() const {
     return dead;
 }
 
-int16_t details_snake_ai::Snake::getLength() {
+int16_t details_snake_ai::Snake::getLength() const {
     return length;
 }
 
@@ -109,8 +107,7 @@ boolean details_snake_ai::Snake::checkFoodCollision(uint16_t foodPos) {
 
 void details_snake_ai::Snake::addLength() {
     snakeBody[length] = snakeBody[length-1];
-    length++;
-    addedLength = true;
+    length += LENGTH_GROWTH;
 }
 
 uint16_t details_snake_ai::Snake::getPositionNotInSnake() {
@@ -147,43 +144,6 @@ uint16_t details_snake_ai::Snake::getPositionNotInSnake() {
     uint16_t randomPositionIndex = randomInt(0, numberPositions);
     posX = positions[randomPositionIndex]%MATRIX_LENGTH;
     posY = positions[randomPositionIndex]/MATRIX_LENGTH;
-
-
-
-
-    /*
-    uint8_t posX;
-    uint8_t posY;
-
-    uint8_t snakeX;
-    uint8_t snakeY;
-
-    boolean posInsideSnake;
-
-    uint16_t tries = 0;
-    do{
-        posX = int16_t(randomInt(0,MATRIX_LENGTH));
-        posY = int16_t(randomInt(0,MATRIX_HEIGHT));
-        posInsideSnake = false;
-        for(int i=0; i<length;i++){
-            snakeX = snakeBody[i] & 0xFF;
-            snakeY = (snakeBody[i] >> 8) & 0xFF;
-
-            if(snakeX == posX && snakeY == posY){
-                posInsideSnake = true;
-                break;
-            }
-        }
-        tries++;
-
-
-    }while(posInsideSnake && tries < 5000);
-    if(posInsideSnake){
-        posX = snakeBody[length-1] & 0xFF;
-        posY = (snakeBody[length-1] >> 8) & 0xFF;
-    }
-     */
-
 
     return (posY << 8) | posX;
 }

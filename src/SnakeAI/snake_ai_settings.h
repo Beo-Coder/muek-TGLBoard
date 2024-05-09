@@ -8,20 +8,22 @@
 #include "Arduino.h"
 
 #define LENGTH_GROWTH 1
-#define START_LENGTH 1
+#define START_LENGTH 3
 
-#define COUNT_GAMES
+#define AI_MOVES_MAX_SNAKE_SIZE (0.9)
+#define AI_MOVES_MIN_DISTANCE_TAIL 1
 
 
+// !!!!!DO NOT CHANGE!!!!!
 namespace details_snake_ai{
 
-
-    enum SnakeDirection{
+    // !!!!!DO NOT CHANGE!!!!!
+    enum Direction{
         None = 0,
         Right = 1,
-        Left = 2,
-        Up = 4,
-        Down = 8
+        Left = -1,
+        Up = (1<<8),
+        Down = -(1<<8)
     };
 
 }

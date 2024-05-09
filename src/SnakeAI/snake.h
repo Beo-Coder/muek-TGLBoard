@@ -14,7 +14,6 @@
 namespace details_snake_ai {
     class Snake {
         bool dead;
-        bool addedLength;
 
         int16_t length;
 
@@ -28,13 +27,13 @@ namespace details_snake_ai {
 
         uint16_t getPosition();
 
-        void move(SnakeDirection dir);
+        void move(Direction dir);
 
         boolean checkHeadColliding();
 
-        boolean getDead();
+        boolean getDead() const;
 
-        int16_t getLength();
+        int16_t getLength() const;
 
         boolean checkFoodCollision(uint16_t foodPos);
 
