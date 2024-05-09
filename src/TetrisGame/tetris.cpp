@@ -22,7 +22,6 @@ void Tetris::reset() {
         for (int j = 0; j < MATRIX_LENGTH; ++j) {
             map[i][j] = false;
             colorMap[i][j] = colorBlank;
-            overlayMap[i][j] = colorBlank;
         }
     }
     
@@ -74,7 +73,6 @@ void Tetris::graphicTick() {
         handleScheduledActions();
         copyMapIntoDisplay();
         mergeBlockIntoDisplay();
-        generateOverlay();
         mergeOverlayIntoDisplay();
     }
     matrix->setDisplayData(frame);
@@ -325,17 +323,9 @@ void Tetris::detectLoss() {
 }
 
 void Tetris::mergeOverlayIntoDisplay() {
-    for (int i = 0; i < MATRIX_LENGTH; ++i) {
-        for (int j = 0; j < MATRIX_HEIGHT; ++j) {
-            (*frame)[j][i].add(&overlayMap[j][i]);
-        }
-    }
-}
-
-void Tetris::generateOverlay() {
     // generate bar at top of field
     for (int i = 0; i < MATRIX_HEIGHT; ++i) {
-        overlayMap[i][2] = overlayWhite;
+        (*frame)[i][2].add(&overlayWhite);
     }
     // generate binary counter score
     // if someone has too much time... here you go if you manage to overflow 2^MATRIX_HEIGHT:
@@ -349,11 +339,11 @@ void Tetris::generateOverlay() {
 
             modifiedColor.set(tierColors[overFlowBits]);
             modifiedColor.multiply(1);
-            overlayMap[i][0] = (score >> i) % 2 ? modifiedColor : colorBlank;
+            (*frame)[i][0] = (score >> i) % 2 ? modifiedColor : colorBlank;
 
         } else {
             // just spam colors in list order if someone does somehow reach 2^MATRIX_HEIGHT * TIER_COLOR_COUNT
-            overlayMap[i][0] = *tierColors[tickCnt % TIER_COLOR_COUNT];
+            (*frame)[i][0] = *tierColors[tickCnt % TIER_COLOR_COUNT];
         }
     }
 

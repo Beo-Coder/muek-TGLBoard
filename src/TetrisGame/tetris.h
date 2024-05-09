@@ -59,14 +59,10 @@ private:
     bool map[MATRIX_HEIGHT][MATRIX_LENGTH] = {};
     Color colorMap[MATRIX_HEIGHT][MATRIX_LENGTH] = {};
 
-    Color overlayMap[MATRIX_HEIGHT][MATRIX_LENGTH] = {};
-
     void copyMapIntoDisplay();
     void mergeBlockIntoDisplay();
     void mergeOverlayIntoDisplay();
     void mergeBlockIntoMap();
-
-    void generateOverlay();
 
     void generateNewBlock();
 
