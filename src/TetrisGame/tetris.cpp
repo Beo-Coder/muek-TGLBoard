@@ -130,8 +130,10 @@ void Tetris::handleScheduledActions() {
 }
 
 Tetris::Tetris(MatrixOutput *ledMatrix, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]) : display_program(ledMatrix, frame) {
+    /* redundant happens in display_program constructor already
     this->matrix = ledMatrix;
     this->frame = frame;
+    */
     reset();
     refreshSpeed = frameSpeed; // we would actually prefer no delay but if we must...
 
