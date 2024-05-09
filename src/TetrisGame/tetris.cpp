@@ -72,6 +72,7 @@ void Tetris::tick() {
 void Tetris::graphicTick() {
     if (!loss) {
         handleScheduledActions();
+        copyMapIntoDisplay();
         mergeBlockIntoDisplay();
         generateOverlay();
         mergeOverlayIntoDisplay();
@@ -139,15 +140,17 @@ Tetris::Tetris(MatrixOutput *ledMatrix, Color (*frame)[MATRIX_HEIGHT][MATRIX_LEN
 
 }
 
-void Tetris::mergeBlockIntoDisplay() {
+void Tetris::copyMapIntoDisplay() {
     // copy the current map
     for (int i = 0; i < 8; ++i) {
         for (int j = 0; j < 16; ++j) {
             (*frame)[i][j] = colorMap[i][j];
         }
     }
+}
 
-    // overlay it with a block at coordinates x and y
+void Tetris::mergeBlockIntoDisplay() {
+    // overlay the frame with a block at coordinates blockX and blockY
     for (int i = 0; i < 4; ++i) {
         for (int j = 0; j < 4; ++j) {
             // keep in mind that blocks are moving from left to right therefore we rotate the coordinates
@@ -392,6 +395,8 @@ void Tetris::button2ISR(bool data) {
 
     button2Cache = data;
 }
+
+
 
 
 
