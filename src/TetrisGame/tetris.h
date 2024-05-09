@@ -61,8 +61,6 @@ private:
 
     Color overlayMap[MATRIX_HEIGHT][MATRIX_LENGTH] = {};
 
-    Color displayMap[MATRIX_HEIGHT][MATRIX_LENGTH] = {};
-
     void mergeBlockIntoDisplay();
     void mergeOverlayIntoDisplay();
     void mergeBlockIntoMap();

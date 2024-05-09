@@ -16,13 +16,13 @@ void Tetris::reset() {
     loss = false;
     score = 0;
     prevMillis = millis();
-    // empty arrays
+    // empty arrays and frame
+    clearFrame();
     for (int i = 0; i < MATRIX_HEIGHT; ++i) {
         for (int j = 0; j < MATRIX_LENGTH; ++j) {
             map[i][j] = false;
             colorMap[i][j] = colorBlank;
             overlayMap[i][j] = colorBlank;
-            displayMap[i][j] = colorBlank;
         }
     }
     
@@ -61,7 +61,7 @@ void Tetris::tick() {
         // replace everything with red color:
         for (int i = 0; i < MATRIX_HEIGHT; ++i) {
             for (int j = 0; j < MATRIX_LENGTH; ++j) {
-                displayMap[i][j].set(&slightlyRed);
+                (*frame)[i][j].set(&slightlyRed);
             }
         }
     }
@@ -76,7 +76,7 @@ void Tetris::graphicTick() {
         generateOverlay();
         mergeOverlayIntoDisplay();
     }
-    matrix->setDisplayData(&displayMap);
+    matrix->setDisplayData(frame);
     matrix->sendData();
 }
 
@@ -131,15 +131,17 @@ void Tetris::handleScheduledActions() {
 
 Tetris::Tetris(MatrixOutput *ledMatrix, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]) : display_program(ledMatrix, frame) {
     this->matrix = ledMatrix;
+    this->frame = frame;
     reset();
     refreshSpeed = frameSpeed; // we would actually prefer no delay but if we must...
+
 }
 
 void Tetris::mergeBlockIntoDisplay() {
     // copy the current map
     for (int i = 0; i < 8; ++i) {
         for (int j = 0; j < 16; ++j) {
-            displayMap[i][j] = colorMap[i][j];
+            (*frame)[i][j] = colorMap[i][j];
         }
     }
 
@@ -150,8 +152,8 @@ void Tetris::mergeBlockIntoDisplay() {
 
             int actualY = MATRIX_HEIGHT - 1 - (blockX + i);
             if (actualY >= 0 && actualY <= 7) {
-                if (displayMap[actualY][blockY + j].equals(&colorBlank)) {
-                    displayMap[actualY][blockY + j] = (*flyingBlock->getColorArray())[j][i];
+                if ((*frame)[actualY][blockY + j].equals(&colorBlank)) {
+                    (*frame)[actualY][blockY + j] = (*flyingBlock->getColorArray())[j][i];
                 }
             }
 
@@ -320,7 +322,7 @@ void Tetris::detectLoss() {
 void Tetris::mergeOverlayIntoDisplay() {
     for (int i = 0; i < MATRIX_LENGTH; ++i) {
         for (int j = 0; j < MATRIX_HEIGHT; ++j) {
-            displayMap[j][i].add(&overlayMap[j][i]);
+            (*frame)[j][i].add(&overlayMap[j][i]);
         }
     }
 }
