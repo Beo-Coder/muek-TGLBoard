@@ -132,6 +132,7 @@ void Tetris::handleScheduledActions() {
 Tetris::Tetris(MatrixOutput *ledMatrix, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]) : display_program(ledMatrix, frame) {
     this->matrix = ledMatrix;
     reset();
+    refreshSpeed = frameSpeed; // we would actually prefer no delay but if we must...
 }
 
 void Tetris::mergeBlockIntoDisplay() {

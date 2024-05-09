@@ -7,6 +7,7 @@
 #include "color.h"
 #include "DinoGame/dinoGame.h"
 #include "Firework/firework_animation.h"
+#include "TetrisGame/tetris.h"
 
 #define BUTTON1 18
 #define BUTTON2 19
@@ -28,6 +29,7 @@ MatrixOutput ledMatrix(pio, 0, 0, 10, 11);
 ScrollText scrollTextController(&ledMatrix, &frame);
 DinoGame game(&ledMatrix, &frame);
 FireworkAnimation fireworks(&ledMatrix, &frame);
+Tetris tetrisGame(&ledMatrix, &frame);
 
 display_program *programs[2];
 
@@ -55,7 +57,7 @@ void setup() {
     Serial.begin(115200);
     delay(3500); // Just so that the Serial Console has time to connect
 
-    programs[0] = &fireworks;
+    programs[0] = &tetrisGame;
     scrollTextController.setText(&text);
     scrollTextController.setColor(&color1,&color2);
 
