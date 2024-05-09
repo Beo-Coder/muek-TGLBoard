@@ -4,14 +4,14 @@
 
 #include "snake_ai_animation.h"
 
-snakeAI::snakeAI(MatrixOutput *ledMatrix, Color (*frame)[8][16]) : display_program(ledMatrix, frame) {
+SnakeAI::SnakeAI(MatrixOutput *ledMatrix, Color (*frame)[8][16]) : display_program(ledMatrix, frame) {
     refreshSpeed = 50;
     moves = 0;
 
 }
 
 
-void snakeAI::refresh() {
+void SnakeAI::refresh() {
 
 
     if (!snake.getDead()) {
@@ -74,7 +74,7 @@ void snakeAI::refresh() {
 
 }
 
-void snakeAI::renderFrame() {
+void SnakeAI::renderFrame() {
     uint8_t posX = getXPos(snake.snakeBody[0]);
     uint8_t posY = getYPos(snake.snakeBody[0]);
 
@@ -103,7 +103,7 @@ void snakeAI::renderFrame() {
  * Calc all the distances from the potential positions to the food.
  * Selecting the positions, which is legal and has the shortest distance to the food.
  */
-void snakeAI::calcNextAIMove() {
+void SnakeAI::calcNextAIMove() {
 
 
 
@@ -157,7 +157,7 @@ void snakeAI::calcNextAIMove() {
 
 }
 
-bool snakeAI::aiCheckIfSnakeOrdered(uint16_t potentialMovePathIndex) {
+bool SnakeAI::aiCheckIfSnakeOrdered(uint16_t potentialMovePathIndex) {
     uint16_t snakeHeadPathIndex = getPathIndex(snake.getPosition());
     uint16_t snakeTailPathIndex = getPathIndex(snake.snakeBody[snake.getLength() - 1]);
 
@@ -178,7 +178,7 @@ bool snakeAI::aiCheckIfSnakeOrdered(uint16_t potentialMovePathIndex) {
     return true;
 }
 
-uint16_t snakeAI::aiGetDistanceFood(uint16_t potentialMovePathIndex) {
+uint16_t SnakeAI::aiGetDistanceFood(uint16_t potentialMovePathIndex) {
     int32_t distance;
     uint16_t pathIndexFood = getPathIndex(food.getPosition());
 
@@ -190,7 +190,7 @@ uint16_t snakeAI::aiGetDistanceFood(uint16_t potentialMovePathIndex) {
 }
 
 
-uint16_t snakeAI::getPathIndex(uint16_t pos) {
+uint16_t SnakeAI::getPathIndex(uint16_t pos) {
     for (uint16_t i = 0; i < MATRIX_SIZE; i++) {
         if (hamiltonianCircle.path[i] == pos) {
             return i;
@@ -199,30 +199,30 @@ uint16_t snakeAI::getPathIndex(uint16_t pos) {
     return MATRIX_SIZE;
 }
 
-uint8_t snakeAI::getXPos(uint16_t pos) {
+uint8_t SnakeAI::getXPos(uint16_t pos) {
     return pos & 0xFF;
 }
 
-uint8_t snakeAI::getYPos(uint16_t pos) {
+uint8_t SnakeAI::getYPos(uint16_t pos) {
     return (pos >> 8) & 0xFF;
 }
 
 
-void snakeAI::placeNewFood() {
+void SnakeAI::placeNewFood() {
     food.setPosition(snake.getPositionNotInSnake());
 }
 
 
-void snakeAI::button1ISR(bool state) {
+void SnakeAI::button1ISR(bool state) {
 
 
 }
 
-void snakeAI::button2ISR(bool state) {
+void SnakeAI::button2ISR(bool state) {
 
 }
 
-void snakeAI::restart() {
+void SnakeAI::restart() {
     snake.reset();
     stopDead = false;
 

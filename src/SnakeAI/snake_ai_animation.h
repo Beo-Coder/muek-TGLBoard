@@ -30,7 +30,7 @@ static Color *foodColor = &colorRed;
 
 
 
-class snakeAI : public display_program{
+class SnakeAI : public display_program{
     details_snake_ai::Snake snake;
     details_snake_ai::Food food;
     details_snake_ai::HamiltonianCircle hamiltonianCircle;
@@ -58,7 +58,7 @@ class snakeAI : public display_program{
 
 public:
 
-    snakeAI(MatrixOutput *ledMatrix, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]);
+    SnakeAI(MatrixOutput *ledMatrix, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]);
     void refresh() override;
     void button1ISR(bool state) override;
     void button2ISR(bool state) override;
