@@ -8,6 +8,7 @@
 #include "color.h"
 #include "PIOMatrixOutput/pio_matrix_output.h"
 #include "block.h"
+#include "display_program.h"
 #include <hardware/structs/rosc.h>
 
 #define SCROLL_SPEED 400
@@ -17,9 +18,18 @@
 
 #define LOSS_Y 2
 
-class Tetris {
+class Tetris : public display_program{
 public:
-    explicit Tetris(MatrixOutput* matrix);
+    // display program requirements:
+    void refresh() override;
+    void restart() override;
+
+    void button1ISR(bool data) override; // select
+    void button2ISR(bool data) override; // mode
+
+
+    //explicit Tetris(MatrixOutput* matrix);
+    explicit Tetris(MatrixOutput *ledMatrix, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]);
 
     void reset();
     void loop();
@@ -27,8 +37,14 @@ public:
     void moveLeft();
     void moveRight();
     void rotate();
+//protected:
+    //MatrixOutput* matrix; // already in display_program
 
 private:
+    bool rotated;
+    bool button1Cache;
+    bool button2Cache;
+
     bool loss;
     unsigned int score;
 
@@ -39,7 +55,6 @@ private:
     volatile int blockY;
     volatile bool scheduleRotation;
 
-    MatrixOutput* matrix;
 
     bool map[MATRIX_HEIGHT][MATRIX_LENGTH] = {};
     Color colorMap[MATRIX_HEIGHT][MATRIX_LENGTH] = {};
@@ -68,6 +83,8 @@ private:
     void tick();
     void graphicTick();
     void handleScheduledActions();
+
+
 };
 
 

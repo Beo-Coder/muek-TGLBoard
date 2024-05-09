@@ -129,8 +129,9 @@ void Tetris::handleScheduledActions() {
     }
 }
 
-Tetris::Tetris(MatrixOutput *matrix) {
-    this->matrix = matrix;
+Tetris::Tetris(MatrixOutput *ledMatrix, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]) : display_program(ledMatrix, frame) {
+    this->matrix = ledMatrix;
+    reset();
 }
 
 void Tetris::mergeBlockIntoDisplay() {
@@ -348,6 +349,43 @@ void Tetris::generateOverlay() {
         }
     }
 
+}
+
+void Tetris::refresh() {
+    this->loop();
+}
+
+void Tetris::restart() {
+    this->reset();
+}
+
+void Tetris::button1ISR(bool data) {
+    if (!data) { // falling edge
+        if (!rotated) {
+            moveLeft();
+        } else {
+            rotated = false;
+        }
+    }
+    button1Cache = data;
+}
+
+void Tetris::button2ISR(bool data) {
+    if (data) { // rising edge
+        if (button1Cache) { // rising edge whilst select is pressed
+            rotated = true;
+            rotate();
+        }
+    }
+    if (!data) { // falling edge
+        if (!rotated) {
+            moveRight();
+        }
+        // don't reset rotated because we did not yet release the select button
+
+    }
+
+    button2Cache = data;
 }
 
 
