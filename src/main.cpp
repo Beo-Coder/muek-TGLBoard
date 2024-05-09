@@ -7,6 +7,7 @@
 #include "color.h"
 #include "DinoGame/dinoGame.h"
 #include "Firework/firework_animation.h"
+#include "SnakeAI/snake_ai_animation.h"
 
 #define BUTTON1 18
 #define BUTTON2 19
@@ -28,6 +29,7 @@ MatrixOutput ledMatrix(pio, 0, 0, 10, 11);
 ScrollText scrollTextController(&ledMatrix, &frame);
 DinoGame game(&ledMatrix, &frame);
 FireworkAnimation fireworks(&ledMatrix, &frame);
+snakeAI snake(&ledMatrix, &frame);
 
 display_program *programs[2];
 
@@ -55,7 +57,8 @@ void setup() {
     Serial.begin(115200);
     delay(3500); // Just so that the Serial Console has time to connect
 
-    programs[0] = &fireworks;
+    programs[0] = &snake;
+    programs[0]->restart();
     scrollTextController.setText(&text);
     scrollTextController.setColor(&color1,&color2);
 
@@ -106,7 +109,7 @@ void loop() {
 
 
 
-    while(millis()-lastMillis > programs[0]->refreshSpeed){
+    while(millis()-lastMillis > programs[0]->refreshSpeed || programs[0]->refreshSpeed == 0){
         lastMillis = millis();
         // Serial.println(game.score);
         programs[0]->refresh();
