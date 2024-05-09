@@ -7,7 +7,7 @@
 void Block::translateBlockToColor() {
     for (int i = 0; i < 4; ++i) {
         for (int j = 0; j < 4; ++j) {
-            colorArray[i][j] = blockArray[i][j] ? *color : colorBlank;
+            colorArray[i][j] = blockArray[i][j] ? color : &colorBlank;
         }
     }
 }
@@ -23,7 +23,7 @@ Block::Block(const bool (*blockArray)[4][4], Color *color) {
     translateBlockToColor();
 }
 
-Color (*Block::getColorArray())[4][4] {
+Color* (*Block::getColorArray())[4][4] {
     return &colorArray;
 }
 

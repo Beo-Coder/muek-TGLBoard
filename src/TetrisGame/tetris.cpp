@@ -21,7 +21,7 @@ void Tetris::reset() {
     for (int i = 0; i < MATRIX_HEIGHT; ++i) {
         for (int j = 0; j < MATRIX_LENGTH; ++j) {
             map[i][j] = false;
-            colorMap[i][j] = colorBlank;
+            colorMap[i][j] = &colorBlank;
         }
     }
     
@@ -142,7 +142,7 @@ void Tetris::copyMapIntoDisplay() {
     // copy the current map
     for (int i = 0; i < 8; ++i) {
         for (int j = 0; j < 16; ++j) {
-            (*frame)[i][j] = colorMap[i][j];
+            (*frame)[i][j] = *colorMap[i][j];
         }
     }
 }
@@ -156,7 +156,7 @@ void Tetris::mergeBlockIntoDisplay() {
             int actualY = MATRIX_HEIGHT - 1 - (blockX + i);
             if (actualY >= 0 && actualY <= 7) {
                 if ((*frame)[actualY][blockY + j].equals(&colorBlank)) {
-                    (*frame)[actualY][blockY + j] = (*flyingBlock->getColorArray())[j][i];
+                    (*frame)[actualY][blockY + j] = *(*flyingBlock->getColorArray())[j][i];
                 }
             }
 
@@ -171,7 +171,7 @@ void Tetris::mergeBlockIntoMap() {
             int actualY = MATRIX_HEIGHT - 1 - (blockX + i);
             if (actualY >= 0 && actualY <= 7) {
                 map[actualY][blockY + j] |= (*flyingBlock->getBlockArray())[j][i];
-                if (colorMap[actualY][blockY + j].equals(&colorBlank)) {
+                if ((*colorMap[actualY][blockY + j]).equals(&colorBlank)) {
                     colorMap[actualY][blockY + j] = (*flyingBlock->getColorArray())[j][i];
                 }
             }

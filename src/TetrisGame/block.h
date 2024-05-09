@@ -12,12 +12,12 @@ private:
     Color *color;
     int rotation = 0;
     bool blockArray[4][4] = {};
-    Color colorArray[4][4] = {};
+    Color* colorArray[4][4] = {};
 
     void translateBlockToColor();
 public:
     Block(const bool (*blockArray)[4][4], Color *color);
-    Color (*getColorArray())[4][4];
+    Color* (*getColorArray())[4][4];
     bool (*getBlockArray())[4][4];
 
     void rotateBlock();

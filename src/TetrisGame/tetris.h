@@ -57,7 +57,7 @@ private:
 
 
     bool map[MATRIX_HEIGHT][MATRIX_LENGTH] = {};
-    Color colorMap[MATRIX_HEIGHT][MATRIX_LENGTH] = {};
+    Color* colorMap[MATRIX_HEIGHT][MATRIX_LENGTH] = {};
 
     void copyMapIntoDisplay();
     void mergeBlockIntoDisplay();
