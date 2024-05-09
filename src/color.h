@@ -31,6 +31,13 @@ public:
     float red;
     float green;
 
+    bool equals(Color* reference); // this can not compare colors, just if the color is sourced from the same object
+
+    void set(Color* reference);
+    void add(Color* addition);
+    void multiply(float factor);
+    void average(Color* addition);
+
     void setRed(float value);
     void setGreen(float value);
     void setBlue(float value);
