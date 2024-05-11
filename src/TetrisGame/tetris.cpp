@@ -170,8 +170,9 @@ void Tetris::mergeBlockIntoMap() {
             // rotate the coords (same as merge into display)
             int actualY = MATRIX_HEIGHT - 1 - (blockX + i);
             if (actualY >= 0 && actualY <= 7) {
+
                 map[actualY][blockY + j] |= (*flyingBlock->getBlockArray())[j][i];
-                if ((*colorMap[actualY][blockY + j]).equals(&colorBlank)) {
+                if ((*flyingBlock->getBlockArray())[j][i]) {
                     colorMap[actualY][blockY + j] = (*flyingBlock->getColorArray())[j][i];
                 }
             }
