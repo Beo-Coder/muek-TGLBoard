@@ -5,9 +5,9 @@
 #ifndef MUEK_ARGB_MATRIX_BOARD_DINOGAME_H
 #define MUEK_ARGB_MATRIX_BOARD_DINOGAME_H
 
-#include "Arduino.h"
+#include "pico/stdlib.h"
 #include "PIOMatrixOutput/pio_matrix_output.h"
-#include "color.h"
+#include "PIOMatrixOutput/color.h"
 #include "display_program.h"
 #include "BeoCommon.h"
 

@@ -6,9 +6,9 @@
 #define MUEK_ARGB_MATRIX_BOARD_FIREWORK_H
 
 
-#include "Arduino.h"
+#include "pico/stdlib.h"
 #include "PIOMatrixOutput/pio_matrix_output.h"
-#include "color.h"
+#include "PIOMatrixOutput/color.h"
 #include "BeoCommon.h"
 
 #include "firework_settings.h"

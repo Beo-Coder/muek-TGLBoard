@@ -16,4 +16,13 @@ int randomInt(int min, int max){
     return int(randomNumber % range) + min;
 }
 
+/*
+uint32_t abs(int32_t value){
+    if(value < 0){
+        return value*(-1);
+    }
+    return value;
+}
+ */
+
 

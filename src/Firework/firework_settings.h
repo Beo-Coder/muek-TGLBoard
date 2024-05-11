@@ -2,8 +2,8 @@
 // Created by leo on 01.05.24.
 //
 
-#include "Arduino.h"
-#include "color.h"
+#include "pico/stdlib.h"
+#include "PIOMatrixOutput/color.h"
 
 #ifndef MUEK_ARGB_MATRIX_BOARD_FIREWORK_SETTINGS_H
 #define MUEK_ARGB_MATRIX_BOARD_FIREWORK_SETTINGS_H

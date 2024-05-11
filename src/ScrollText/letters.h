@@ -4,6 +4,8 @@
 
 #ifndef LETTERS_H
 #define LETTERS_H
+#include "pico/stdlib.h"
+#include "string"
 
 // Capital letters
 static const uint8_t lA[] = {0b00100, 0b01010, 0b10001, 0b11111, 0b10001, 0b10001, 0b10001, 0b10001, 5}; // A
@@ -147,8 +149,8 @@ static const uint8_t smileCircle[] = {0b00111100, 0b01000010, 0b10100101, 0b1000
 
 
 
-static const String normalChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz 0123456789().,?!_-:[]{}<>;";
-static const String specialChars = "HS1234l|AaOoUu()";
+static const std::string normalChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz 0123456789().,?!_-:[]{}<>;";
+static const std::string specialChars = "HS1234l|AaOoUu()";
 
 
 static const uint8_t *Letter[] = {lA, lB, lC, lD, lE, lF, lG, lH, lI, lJ, lK, lL, lM, lN, lO, lP, lQ, lR, lS, lT, lU,

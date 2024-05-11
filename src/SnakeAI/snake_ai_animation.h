@@ -7,9 +7,9 @@
 
 
 
-#include "Arduino.h"
+#include "pico/stdlib.h"
 #include "PIOMatrixOutput/pio_matrix_output.h"
-#include "color.h"
+#include "PIOMatrixOutput/color.h"
 #include "display_program.h"
 #include "BeoCommon.h"
 
@@ -36,7 +36,7 @@ class SnakeAI : public display_program{
     details_snake_ai::HamiltonianCircle hamiltonianCircle;
 
 
-    boolean stopDead = false;
+    bool stopDead = false;
     uint8_t moves;
 
     void placeNewFood();
@@ -53,6 +53,9 @@ class SnakeAI : public display_program{
 
     static uint8_t getXPos(uint16_t pos);
     static uint8_t getYPos(uint16_t pos);
+
+    uint32_t startTime;
+    uint32_t endTime;
 
 
 

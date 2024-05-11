@@ -5,7 +5,7 @@
 #ifndef MUEK_ARGB_MATRIX_BOARD_SNAKE_AI_SETTINGS_H
 #define MUEK_ARGB_MATRIX_BOARD_SNAKE_AI_SETTINGS_H
 
-#include "Arduino.h"
+#include "pico/stdlib.h"
 
 #define LENGTH_GROWTH 1
 #define START_LENGTH 3

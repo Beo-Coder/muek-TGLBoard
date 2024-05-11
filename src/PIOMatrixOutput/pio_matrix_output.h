@@ -5,7 +5,9 @@
 #ifndef UNTITLED24_PIOMATRIXOUTPUT_H
 #define UNTITLED24_PIOMATRIXOUTPUT_H
 
-#include <Arduino.h>
+#include <stdio.h>
+#include "pico/stdlib.h"
+
 #include "hardware/pio.h"
 #include "hardware/dma.h"
 #include "hardware/irq.h"
@@ -14,7 +16,6 @@
 #include "hardware/sync.h"
 #include "pio_program.pio.h"
 #include "color.h"
-
 
 #define MATRIX_LENGTH 16
 #define MATRIX_HEIGHT 8
@@ -32,7 +33,7 @@
 
 #define TIMER_INDEX 1
 
-#define dataSendTime 1950 // in µs
+#define dataSendTime 1960 // in µs
 #define subframePauseIntervall 350 // in µs (must be at least 150 (probably more))
 
 
@@ -56,12 +57,12 @@ class MatrixOutput {
     uint8_t frameBufferWriteIndex;
     uint8_t frameBufferReadIndex;
     uint8_t frameBufferLength;
-    boolean frameBufferEnable;
+    bool frameBufferEnable;
     uint32_t frameBufferInterval;
 
     uint8_t subframeBufferIndex;
-    boolean subframeBufferEnable;
-    boolean firstSubframe;
+    bool subframeBufferEnable;
+    bool firstSubframe;
 
 
     uint32_t timerFrameCount;
@@ -69,7 +70,7 @@ class MatrixOutput {
     bool timerSubframeCountEnable;
     uint32_t timerSubframeCount;
 
-    static void enableTimer(boolean enable = true);
+    static void enableTimer(bool enable = true);
 
     static void setTimer();
 
@@ -99,11 +100,11 @@ public:
 
     uint8_t getFreeFrames() const;
 
-    void enableFrameBuffer(boolean enable = true);
+    void enableFrameBuffer(bool enable = true);
 
     void setFrameBufferInterval(uint32_t interval);
 
-    void enableSubframes(boolean enable = true);
+    void enableSubframes(bool enable = true);
 
 
     void clearDisplay();

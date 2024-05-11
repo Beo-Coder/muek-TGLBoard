@@ -14,22 +14,22 @@ ScrollText::ScrollText(MatrixOutput *matrixOutput, Color (*frame)[MATRIX_HEIGHT]
 
 }
 
-void ScrollText::createIDTextArray(String *text) {
+void ScrollText::createIDTextArray(std::string *text) {
     idTextArraySize = 0;
     idTextArrayIndex = 0;
     matrixBitOffset = 0;
     for (unsigned int i = 0; i < text->length(); i++) {
-        char charAtIndex = text->charAt(i);
+        char charAtIndex = text->at(i);
         if(charAtIndex == '%'){
-            charAtIndex = text->charAt(i+1);
-            int index = specialChars.indexOf(charAtIndex);
+            charAtIndex = text->at(i+1);
+            int index = specialChars.find(charAtIndex);
             if(index != -1){
                 idTextArray[idTextArraySize] = index + normalChars.length();
                 i++;
             }
 
         }else{
-            int index = normalChars.indexOf(charAtIndex);
+            int index = normalChars.find(charAtIndex);
             if(index != -1){
                 idTextArray[idTextArraySize] = index;
             }
@@ -39,7 +39,7 @@ void ScrollText::createIDTextArray(String *text) {
 
 }
 
-void ScrollText::setText(String *text) {
+void ScrollText::setText(std::string *text) {
     createIDTextArray(text);
 
 

@@ -5,8 +5,8 @@
 #ifndef MUEK_ARGB_MATRIX_BOARD_DINOGAME_SETTINGS_H
 #define MUEK_ARGB_MATRIX_BOARD_DINOGAME_SETTINGS_H
 
-#include "Arduino.h"
-#include "color.h"
+#include "pico/stdlib.h"
+#include "PIOMatrixOutput/color.h"
 
 
 // Enemy section

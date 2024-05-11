@@ -1,18 +1,24 @@
-#include <Arduino.h>
+#include <stdio.h>
+
+#include "pico/stdlib.h"
+#include <string>
+
 #include "hardware/pio.h"
 #include "hardware/irq.h"
 
 #include "PIOMatrixOutput/pio_matrix_output.h"
+#include "PIOMatrixOutput/color.h"
+
 #include "ScrollText/scroll_text.h"
-#include "color.h"
 #include "DinoGame/dinoGame.h"
 #include "Firework/firework_animation.h"
 #include "SnakeAI/snake_ai_animation.h"
 
+
 #define BUTTON1 18
 #define BUTTON2 19
 
-Color color1(1,0,0);
+Color color1(5,0,0);
 Color color2(0,0,0);
 
 
@@ -21,103 +27,76 @@ Color frame[8][16];
 uint32_t lastMillis = 0;
 
 
+std::string text = "Now also in C%/Cpp SDK   ";
+
 PIO pio = pio0;
 
 
 MatrixOutput ledMatrix(pio, 0, 0, 10, 11);
+
 
 ScrollText scrollTextController(&ledMatrix, &frame);
 DinoGame game(&ledMatrix, &frame);
 FireworkAnimation fireworks(&ledMatrix, &frame);
 SnakeAI snake(&ledMatrix, &frame);
 
+
 display_program *programs[2];
 
 
-String text = "Hello <W>orld!;   ";
 
-
-
-void button1_isr() {
-    programs[0]->button1ISR(digitalRead(BUTTON1));
-
-}
-
-void button2_isr() {
-    programs[0]->button2ISR(digitalRead(BUTTON2));
-
+void button_isr(uint gpio, uint32_t events) {
+    uint8_t state = events>>3; // Rise: 8>>3 = 1; Fall: 4>>3 = 0
+    if(gpio == BUTTON1){
+        programs[0]->button1ISR(state);
+    }else if (gpio == BUTTON2){
+        programs[0]->button2ISR(events>>3);
+    }
 
 
 }
 
 
+int main(){
+
+    clocks_init();
+    stdio_init_all();
+
+    printf("Hello World!\n");
+
+    gpio_set_irq_enabled_with_callback(BUTTON1, GPIO_IRQ_EDGE_RISE | GPIO_IRQ_EDGE_FALL,true,&button_isr);
+    gpio_set_irq_enabled_with_callback(BUTTON2, GPIO_IRQ_EDGE_RISE | GPIO_IRQ_EDGE_FALL,true,&button_isr);
 
 
-void setup() {
-    Serial.begin(115200);
-    delay(3500); // Just so that the Serial Console has time to connect
 
-    programs[0] = &snake;
+    programs[0] = &scrollTextController;
     programs[0]->restart();
-    scrollTextController.setText(&text);
-    scrollTextController.setColor(&color1,&color2);
 
 
-    Serial.println("Hello World");
-
-
-    pinMode(BUTTON1, INPUT_PULLDOWN);
-    pinMode(BUTTON2, INPUT_PULLDOWN);
-
-    attachInterrupt(digitalPinToInterrupt(18), button1_isr, CHANGE);
-    attachInterrupt(digitalPinToInterrupt(19), button2_isr, CHANGE);
-
-
-
-    color1.setRed(0.5);
-    color1.setGreen(0);
-    color1.setBlue(0);
-
-    color1.setBrightness(10);
-
-
-
-    color2.setRed(0);
-    color2.setGreen(0);
-    color2.setBlue(0);
-
-
-
-    //ledMatrix.setFrameBufferInterval(90);
-    //ledMatrix.enableFrameBuffer();
     ledMatrix.enableSubframes();
 
 
 
-    // scrollTextController.setColor(&color1, &color2);
-    // scrollTextController.setText(&text);
+    scrollTextController.setColor(&color1, &color2);
+    scrollTextController.setText(&text);
 
 
 
 
-}
+    while (true){
+
+        uint32_t time = (timer_hw->timelr) / 1000;
+        if(time-lastMillis > programs[0]->refreshSpeed || programs[0]->refreshSpeed == 0){
+            lastMillis = time;
+            programs[0]->refresh();
 
 
-
-
-void loop() {
-
-
-
-    while(millis()-lastMillis > programs[0]->refreshSpeed || programs[0]->refreshSpeed == 0){
-        lastMillis = millis();
-        // Serial.println(game.score);
-        programs[0]->refresh();
+        }
 
     }
-
-
+    return 0;
 
 }
+
 
 

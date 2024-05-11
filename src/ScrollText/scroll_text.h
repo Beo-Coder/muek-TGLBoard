@@ -5,10 +5,11 @@
 #ifndef MUEK_ARGB_MATRIX_BOARD_SCROLL_TEXT_H
 #define MUEK_ARGB_MATRIX_BOARD_SCROLL_TEXT_H
 
-#include <Arduino.h>
+#include "pico/stdlib.h"
+#include "string"
 #include "letters.h"
 #include "PIOMatrixOutput/pio_matrix_output.h"
-#include "color.h"
+#include "PIOMatrixOutput/color.h"
 #include "display_program.h"
 
 #define MAX_TEXT_LENGTH 500
@@ -30,13 +31,13 @@ class ScrollText : public display_program{
     Color *backgroundColor;
 
 
-    void createIDTextArray(String *text);
+    void createIDTextArray(std::string *text);
 
 
 public:
     explicit ScrollText(MatrixOutput *matrixOutput, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]);
 
-    void setText(String *text);
+    void setText(std::string *text);
     void setColor(Color *textColor, Color *backgroundColor);
 
     void shiftText();

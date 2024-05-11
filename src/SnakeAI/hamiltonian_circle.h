@@ -5,7 +5,7 @@
 #ifndef MUEK_ARGB_MATRIX_BOARD_HAILTIONIAN_CIRCLE_H
 #define MUEK_ARGB_MATRIX_BOARD_HAILTIONIAN_CIRCLE_H
 
-#include "Arduino.h"
+#include "pico/stdlib.h"
 #include "PIOMatrixOutput/pio_matrix_output.h"
 #include "BeoCommon.h"
 #include "snake_ai_settings.h"

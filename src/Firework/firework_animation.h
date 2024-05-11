@@ -5,8 +5,8 @@
 #ifndef MUEK_ARGB_MATRIX_BOARD_FIREWORK_ANIMATION_H
 #define MUEK_ARGB_MATRIX_BOARD_FIREWORK_ANIMATION_H
 
-#include "Arduino.h"
-#include "color.h"
+#include "pico/stdlib.h"
+#include "PIOMatrixOutput/color.h"
 #include "PIOMatrixOutput/pio_matrix_output.h"
 #include "display_program.h"
 #include "BeoCommon.h"

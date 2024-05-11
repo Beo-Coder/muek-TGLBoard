@@ -5,7 +5,7 @@
 #ifndef MUEK_ARGB_MATRIX_BOARD_SNAKE_H
 #define MUEK_ARGB_MATRIX_BOARD_SNAKE_H
 
-#include "Arduino.h"
+#include "pico/stdlib.h"
 #include "PIOMatrixOutput/pio_matrix_output.h"
 #include "BeoCommon.h"
 
@@ -29,13 +29,13 @@ namespace details_snake_ai {
 
         void move(Direction dir);
 
-        boolean checkHeadColliding();
+        bool checkHeadColliding();
 
-        boolean getDead() const;
+        bool getDead() const;
 
         int16_t getLength() const;
 
-        boolean checkFoodCollision(uint16_t foodPos);
+        bool checkFoodCollision(uint16_t foodPos);
 
         void addLength();
 

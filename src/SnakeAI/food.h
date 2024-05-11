@@ -5,7 +5,7 @@
 #ifndef MUEK_ARGB_MATRIX_BOARD_FOOD_H
 #define MUEK_ARGB_MATRIX_BOARD_FOOD_H
 
-#include "Arduino.h"
+#include "pico/stdlib.h"
 #include "snake_ai_settings.h"
 
 
