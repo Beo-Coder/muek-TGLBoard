@@ -34,7 +34,7 @@ void Tetris::reset() {
 void Tetris::loop() {
     if (loss && millis() - prevScrollMillis >= SCORE_TEXT_SCROLL_SPEED) {
         // shift score display if necessary
-        if (score > 999) {
+        if (score > 99) {
             scrollTextController->shiftText();
             scrollTextController->update();
         }
