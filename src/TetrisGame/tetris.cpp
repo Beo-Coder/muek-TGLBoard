@@ -16,6 +16,7 @@ void Tetris::reset() {
     loss = false;
     score = 0;
     prevMillis = millis();
+    prevScrollMillis = millis();
     // empty arrays and frame
     clearFrame();
     for (int i = 0; i < MATRIX_HEIGHT; ++i) {
@@ -31,6 +32,14 @@ void Tetris::reset() {
 }
 
 void Tetris::loop() {
+    if (loss && millis() - prevScrollMillis >= SCORE_TEXT_SCROLL_SPEED) {
+        // shift score display if necessary
+        if (score > 999) {
+            scrollTextController->shiftText();
+            scrollTextController->update();
+        }
+        prevScrollMillis = millis();
+    }
     if (millis() - prevMillis >= frameSpeed) { // update display
         graphicTick();
 
@@ -41,6 +50,7 @@ void Tetris::loop() {
 
         prevMillis = millis();
     }
+
 
     if (loss && millis() - prevMillis >= LOSS_DELAY) {
         reset();
@@ -56,10 +66,7 @@ void Tetris::tick() {
         detectLoss(); // after row deletion to give the player one last chance, although it won't help much
     }
 
-    if (loss) {
-        // shift score display if necessary
-        //scrollTextController->refresh();
-    }
+
     blockY++; // move block down
     tickCnt++; // increment tick
 }
@@ -318,15 +325,15 @@ void Tetris::detectLoss() {
         if (map[i][LOSS_Y]) {
             loss |= true;
             // prepare score display
-            (*scrollTextController).restart();
-            (*scrollTextController).setColor(&overlayWhite, &slightlyRed);
+            scrollTextController->restart();
+            scrollTextController->setColor(&overlayWhite, &slightlyRed);
             stringBuffer = "";
             stringBuffer.concat(score);
             stringBuffer.concat("  ");
-            (*scrollTextController).setText(&stringBuffer);
+            scrollTextController->setText(&stringBuffer);
             // shift it into the display
             for (int j = 0; j < MATRIX_LENGTH; ++j) {
-                (*scrollTextController).shiftText();
+                scrollTextController->shiftText();
             }
             scrollTextController->update();
 

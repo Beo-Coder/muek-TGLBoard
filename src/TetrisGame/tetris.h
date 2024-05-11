@@ -13,6 +13,7 @@
 #include <hardware/structs/rosc.h>
 
 #define SCROLL_SPEED 400
+#define SCORE_TEXT_SCROLL_SPEED 200
 #define LOSS_DELAY 6000
 #define START_X 2
 #define START_Y 0
@@ -78,6 +79,8 @@ private:
     unsigned long prevMillis;
     unsigned int tickSpeed = SCROLL_SPEED;
     unsigned int frameSpeed = 17; // about 60fps
+
+    unsigned long prevScrollMillis;
 
     void tick();
     void graphicTick();
