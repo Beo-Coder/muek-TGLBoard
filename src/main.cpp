@@ -30,7 +30,7 @@ MatrixOutput ledMatrix(pio, 0, 0, 10, 11);
 ScrollText scrollTextController(&ledMatrix, &frame);
 DinoGame game(&ledMatrix, &frame);
 FireworkAnimation fireworks(&ledMatrix, &frame);
-Tetris tetrisGame(&ledMatrix, &frame);
+Tetris tetrisGame(&ledMatrix, &frame, &scrollTextController);
 SnakeAI snake(&ledMatrix, &frame);
 
 

@@ -9,6 +9,7 @@
 #include "PIOMatrixOutput/pio_matrix_output.h"
 #include "block.h"
 #include "display_program.h"
+#include "ScrollText/scroll_text.h"
 #include <hardware/structs/rosc.h>
 
 #define SCROLL_SPEED 400
@@ -29,7 +30,7 @@ public:
 
 
     //explicit Tetris(MatrixOutput* matrix);
-    explicit Tetris(MatrixOutput *ledMatrix, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]);
+    explicit Tetris(MatrixOutput *ledMatrix, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH], ScrollText *scrollController);
 
     void reset();
     void loop();
@@ -41,9 +42,12 @@ public:
     //MatrixOutput* matrix; // already in display_program
 
 private:
+    ScrollText *scrollTextController;
+
     bool rotated;
     bool button1Cache;
     bool button2Cache;
+    String stringBuffer;
 
     bool loss;
     unsigned int score;

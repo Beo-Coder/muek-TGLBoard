@@ -57,12 +57,8 @@ void Tetris::tick() {
     }
 
     if (loss) {
-        // replace everything with red color:
-        for (int i = 0; i < MATRIX_HEIGHT; ++i) {
-            for (int j = 0; j < MATRIX_LENGTH; ++j) {
-                (*frame)[i][j].set(&slightlyRed);
-            }
-        }
+        // shift score display if necessary
+
     }
     blockY++; // move block down
     tickCnt++; // increment tick
@@ -74,8 +70,9 @@ void Tetris::graphicTick() {
         copyMapIntoDisplay();
         mergeBlockIntoDisplay();
         mergeOverlayIntoDisplay();
+        matrix->setDisplayData(frame);
     }
-    matrix->setDisplayData(frame);
+
     matrix->sendData();
 }
 
@@ -128,12 +125,13 @@ void Tetris::handleScheduledActions() {
     }
 }
 
-Tetris::Tetris(MatrixOutput *ledMatrix, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]) : display_program(ledMatrix, frame) {
+Tetris::Tetris(MatrixOutput *ledMatrix, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH], ScrollText *scrollController) : display_program(ledMatrix, frame) {
     /* redundant happens in display_program constructor already
     this->matrix = ledMatrix;
     this->frame = frame;
     */
-    reset();
+    // reset(); // already done in main.cpp
+    this->scrollTextController = scrollController;
     refreshSpeed = frameSpeed; // we would actually prefer no delay but if we must...
 
 }
@@ -319,6 +317,12 @@ void Tetris::detectLoss() {
     for (int i = 0; i < MATRIX_HEIGHT; ++i) {
         if (map[i][LOSS_Y]) {
             loss |= true;
+            // prepare score display
+            scrollTextController->restart();
+            scrollTextController->setColor(&overlayWhite, &slightlyRed);
+            stringBuffer = "";
+            stringBuffer.concat(score);
+            scrollTextController->setText(&stringBuffer);
         }
     }
 }
