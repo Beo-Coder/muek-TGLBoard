@@ -8,6 +8,7 @@
 #include "DinoGame/dinoGame.h"
 #include "Firework/firework_animation.h"
 #include "TetrisGame/tetris.h"
+#include "SnakeAI/snake_ai_animation.h"
 
 #define BUTTON1 18
 #define BUTTON2 19
@@ -30,6 +31,8 @@ ScrollText scrollTextController(&ledMatrix, &frame);
 DinoGame game(&ledMatrix, &frame);
 FireworkAnimation fireworks(&ledMatrix, &frame);
 Tetris tetrisGame(&ledMatrix, &frame);
+SnakeAI snake(&ledMatrix, &frame);
+
 
 display_program *programs[2];
 
@@ -57,7 +60,10 @@ void setup() {
     Serial.begin(115200);
     delay(3500); // Just so that the Serial Console has time to connect
 
-    programs[0] = &tetrisGame;
+
+    programs[0] = &snake;
+    programs[0]->restart();
+
     scrollTextController.setText(&text);
     scrollTextController.setColor(&color1,&color2);
 
@@ -108,7 +114,7 @@ void loop() {
 
 
 
-    while(millis()-lastMillis > programs[0]->refreshSpeed){
+    while(millis()-lastMillis > programs[0]->refreshSpeed || programs[0]->refreshSpeed == 0){
         lastMillis = millis();
         // Serial.println(game.score);
         programs[0]->refresh();
