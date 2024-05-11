@@ -80,12 +80,11 @@ void ScrollText::shiftText() {
     }
     idTextArrayIndex = idTextArrayIndex % idTextArraySize;
 
-    matrix->addToFrameBuffer(frame);
-
 }
 
 void ScrollText::refresh() {
     shiftText();
+    update();
     matrix->sendData();
 
 }
@@ -100,6 +99,10 @@ void ScrollText::button1ISR(bool state) {
 
 void ScrollText::button2ISR(bool state) {
 
+}
+
+void ScrollText::update() {
+    matrix->addToFrameBuffer(frame);
 }
 
 

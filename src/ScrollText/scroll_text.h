@@ -40,6 +40,7 @@ public:
     void setColor(Color *textColor, Color *backgroundColor);
 
     void shiftText();
+    void update();
 
     void refresh() override;
     void restart() override;

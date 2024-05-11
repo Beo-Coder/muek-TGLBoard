@@ -52,13 +52,13 @@ void Tetris::tick() {
     if(detectCollision()) {
         mergeBlockIntoMap();
         detectAndDeleteRow();
-        detectLoss(); // after row deletion to give the player one last chance, although it won't help much
         generateNewBlock();
+        detectLoss(); // after row deletion to give the player one last chance, although it won't help much
     }
 
     if (loss) {
         // shift score display if necessary
-
+        //scrollTextController->refresh();
     }
     blockY++; // move block down
     tickCnt++; // increment tick
@@ -318,11 +318,18 @@ void Tetris::detectLoss() {
         if (map[i][LOSS_Y]) {
             loss |= true;
             // prepare score display
-            scrollTextController->restart();
-            scrollTextController->setColor(&overlayWhite, &slightlyRed);
+            (*scrollTextController).restart();
+            (*scrollTextController).setColor(&overlayWhite, &slightlyRed);
             stringBuffer = "";
             stringBuffer.concat(score);
-            scrollTextController->setText(&stringBuffer);
+            stringBuffer.concat("  ");
+            (*scrollTextController).setText(&stringBuffer);
+            // shift it into the display
+            for (int j = 0; j < MATRIX_LENGTH; ++j) {
+                (*scrollTextController).shiftText();
+            }
+            scrollTextController->update();
+
         }
     }
 }
