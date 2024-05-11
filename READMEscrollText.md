@@ -24,27 +24,24 @@
 <br/>
 
 ### Set text
-`scrollText.setText(<text>);`
+`scrollText.setText(<text>, <scroll>);`
 
 - **text**: Address of the text stored as a string.
+- **scroll**: `true` if the text should scroll.
+`false` if the text should be static (if the text is too long for the display, it will scroll). 
+Default `true`
+
 
 See [decoding table](#decoding-table)
 
 <br/>
 
-### Shift text
-`scrollText.shiftText();`
-
-This command only shifts the text.
-It does not display the text onto the matrix.
-Use [refresh](#refresh-shift--display) instead or `matrixOutput.sendData();` after this command.
-
-<br/>
 
 ### Refresh (shift + display)
 `scrollText.refresh();`
 
 This command shifts the text one place and displays it to the matrix.
+Or display the static text.
 
 <br/>
 
@@ -55,15 +52,15 @@ This command shifts the text one place and displays it to the matrix.
 (input -> output(on display))
 
 ## Normal letters
-A -> A  
-B -> B  
+`A` -> `A`  
+`B` -> `B`  
 ...  
-y -> y  
-z -> z  
+`y` -> `y`  
+`z` -> `z`  
 
-0 -> 0  
+`0` -> `0`  
 ...  
-9 -> 9
+`9` -> `9`
 
 *space* -> *space* (5 pixel)    
 
@@ -88,23 +85,23 @@ z -> z
 
 
 
-## Special character (with `%` in front (`%A` -> Ä))
+## Special character (with `%` in front (`%A` -> `Ä`))
 
-A -> Ä  
-a -> ä  
+`A` -> `Ä`  
+`a` -> `ä`  
 ...  
-ü -> ü  
+`ü` -> `ü`  
 
-1 -> *space* (1 pixel)  
-2 -> *space* (2 pixel)  
-3 -> *space* (3 pixel)  
-4 -> *space* (4 pixel)  
+`1` -> *space* (1 pixel)  
+`2` -> *space* (2 pixel)  
+`3` -> *space* (3 pixel)  
+`4` -> *space* (4 pixel)  
 
-l -> *vertical line* (1 pixel)  
-| -> *vertical line* (1 pixel) (same as l)  
+`l` -> *vertical line* (1 pixel)  
+`|` -> *vertical line* (1 pixel) (same as l)  
 
-( -> ( (another design)  
-) -> ) (another design)  
+`(` -> `(` (another design)  
+`)` -> `)` (another design)  
 
-H -> *Heart symbol*  
-S -> *Smiley face*  
+`H` -> *Heart symbol*  
+`S` -> *Smiley face*  

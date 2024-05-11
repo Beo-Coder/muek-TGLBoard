@@ -12,6 +12,9 @@ ScrollText::ScrollText(MatrixOutput *matrixOutput, Color (*frame)[MATRIX_HEIGHT]
 
     refreshSpeed = 120;
 
+    scroll = true;
+    needScrolling = false;
+
 }
 
 void ScrollText::createIDTextArray(String *text) {
@@ -39,8 +42,12 @@ void ScrollText::createIDTextArray(String *text) {
 
 }
 
-void ScrollText::setText(String *text) {
+void ScrollText::setText(String *text, bool scroll) {
     createIDTextArray(text);
+    this->scroll = scroll;
+    if(!scroll){
+        setStaticText();
+    }
 
 
 }
@@ -51,7 +58,11 @@ void ScrollText::setColor(Color *textColor, Color *backgroundColor) {
 
 }
 
+
+
+
 void ScrollText::shiftText() {
+
 
     const uint8_t *letter = Letter[idTextArray[matrixBitOffset / ( Letter[idTextArray[idTextArrayIndex]][8] + SPACE_BETWEEN_LETTERS) + idTextArrayIndex]];
     for (int row = 0; row < 8; row++) {
@@ -78,18 +89,111 @@ void ScrollText::shiftText() {
         matrixBitOffset = 0;
         idTextArrayIndex++;
     }
+
     idTextArrayIndex = idTextArrayIndex % idTextArraySize;
+
+
 
 }
 
+void ScrollText::setStaticText() {
+    uint16_t textLength = 0;
+    for(int i=0; i<idTextArraySize; i++){
+        textLength += (Letter[idTextArray[i]])[8];
+        textLength += SPACE_BETWEEN_LETTERS;
+
+    }
+    textLength -= SPACE_BETWEEN_LETTERS;
+
+
+
+    if(textLength > MATRIX_LENGTH){
+        needScrolling = true;
+        shiftToLeftSide();
+
+        for(int i=0; i<NUMBER_FREE_PIXELS_ADDED_STATIC_TEXT; i++){
+            idTextArray[idTextArraySize] = SINGLE_SPACE_INDEX;
+            idTextArraySize++;
+        }
+    }else{
+        needScrolling = false;
+
+        // fill it up with blank spaces
+        for(int i=textLength; i<MATRIX_LENGTH; i+=2){
+            idTextArray[idTextArraySize] = SINGLE_SPACE_INDEX;
+            idTextArraySize++;
+        }
+
+        shiftToLeftSide();
+
+
+    }
+
+}
+
+
+
+
+void ScrollText::shiftToLeftSide() {
+
+    staticTextTime = 0;
+    for(int i=0; i<MATRIX_LENGTH+1; i++){
+        shiftText();
+    }
+
+}
+
+
+void ScrollText::staticText() {
+    if(needScrolling){
+        staticTextTime++;
+
+        // Wait until wait time is over, than shift to the left
+        if(staticTextTime >= STATIC_TEXT_WAIT_TIME_START && idTextArrayIndex != 0 && !stopScrolling){
+            shiftText();
+        }
+
+        // if shifted all the way, wait
+        if(idTextArrayIndex == 0 && staticTextTime != 0 && !stopScrolling){
+            staticTextTime = 0;
+            stopScrolling = true;
+        }
+
+        // is shifted all the way and wait time is over "reset"
+        if(staticTextTime >= STATIC_TEXT_WAIT_TIME_END && stopScrolling){
+            clearFrame();
+            shiftToLeftSide();
+            stopScrolling = false;
+        }
+    }
+
+
+}
+
+
+
 void ScrollText::refresh() {
-    shiftText();
-    update();
+    if(scroll){
+        shiftText();
+    }else{
+        staticText();
+    }
+
+    matrix->addToFrameBuffer(frame);
     matrix->sendData();
 
 }
 
 void ScrollText::restart() {
+    clearFrame();
+
+    idTextArraySize = 0;
+    idTextArrayIndex = 0;
+    matrixBitOffset = 0;
+
+    scroll = true;
+    needScrolling = false;
+
 
 }
 
@@ -101,8 +205,12 @@ void ScrollText::button2ISR(bool state) {
 
 }
 
-void ScrollText::update() {
-    matrix->addToFrameBuffer(frame);
-}
+
+
+
+
+
+
+
 
 

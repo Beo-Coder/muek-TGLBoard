@@ -33,11 +33,9 @@ void Tetris::reset() {
 
 void Tetris::loop() {
     if (loss && millis() - prevScrollMillis >= SCORE_TEXT_SCROLL_SPEED) {
-        // shift score display if necessary
-        if (score > 99) {
-            scrollTextController->shiftText();
-            scrollTextController->update();
-        }
+
+        scrollTextController->refresh();
+
         prevScrollMillis = millis();
     }
     if (millis() - prevMillis >= frameSpeed) { // update display
@@ -329,13 +327,8 @@ void Tetris::detectLoss() {
             scrollTextController->setColor(&overlayWhite, &slightlyRed);
             stringBuffer = "";
             stringBuffer.concat(score);
-            stringBuffer.concat("  ");
-            scrollTextController->setText(&stringBuffer);
-            // shift it into the display
-            for (int j = 0; j < MATRIX_LENGTH; ++j) {
-                scrollTextController->shiftText();
-            }
-            scrollTextController->update();
+            scrollTextController->setText(&stringBuffer, false);
+
 
         }
     }

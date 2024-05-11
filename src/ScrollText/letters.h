@@ -150,6 +150,8 @@ static const uint8_t smileCircle[] = {0b00111100, 0b01000010, 0b10100101, 0b1000
 static const String normalChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz 0123456789().,?!_-:[]{}<>;";
 static const String specialChars = "HS1234l|AaOoUu()";
 
+// Gets stored in ROM
+static const uint8_t SINGLE_SPACE_INDEX = specialChars.indexOf('1') + normalChars.length();
 
 static const uint8_t *Letter[] = {lA, lB, lC, lD, lE, lF, lG, lH, lI, lJ, lK, lL, lM, lN, lO, lP, lQ, lR, lS, lT, lU,
                                   lV, lW, lX, lY, lZ, la, lb, lc, ld, le, lf, lg, lh, li, lj, lk, ll, lm, ln, lo, lp,
