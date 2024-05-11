@@ -4,16 +4,13 @@
 
 #include "scroll_text.h"
 
-ScrollText::ScrollText(MatrixOutput *matrixOutput, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]) : display_program(matrixOutput, frame) {
-    // this->matrix = matrixOutput;
+ScrollText::ScrollText(MatrixOutput *matrixOutput, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]) : TextController(matrixOutput, frame) {
     idTextArraySize = 0;
     idTextArrayIndex = 0;
     matrixBitOffset = 0;
 
     refreshSpeed = 120;
 
-    scroll = true;
-    needScrolling = false;
 
 }
 
@@ -41,23 +38,6 @@ void ScrollText::createIDTextArray(String *text) {
     }
 
 }
-
-void ScrollText::setText(String *text, bool scroll) {
-    createIDTextArray(text);
-    this->scroll = scroll;
-    if(!scroll){
-        setStaticText();
-    }
-
-
-}
-
-void ScrollText::setColor(Color *textColor, Color *backgroundColor) {
-    this->textColor = textColor;
-    this->backgroundColor = backgroundColor;
-
-}
-
 
 
 
@@ -96,92 +76,22 @@ void ScrollText::shiftText() {
 
 }
 
-void ScrollText::setStaticText() {
-    uint16_t textLength = 0;
-    for(int i=0; i<idTextArraySize; i++){
-        textLength += (Letter[idTextArray[i]])[8];
-        textLength += SPACE_BETWEEN_LETTERS;
-
-    }
-    textLength -= SPACE_BETWEEN_LETTERS;
-
-
-
-    if(textLength > MATRIX_LENGTH){
-        needScrolling = true;
-        shiftToLeftSide();
-
-        for(int i=0; i<NUMBER_FREE_PIXELS_ADDED_STATIC_TEXT; i++){
-            idTextArray[idTextArraySize] = SINGLE_SPACE_INDEX;
-            idTextArraySize++;
-        }
-    }else{
-        needScrolling = false;
-
-        // fill it up with blank spaces
-        for(int i=textLength; i<MATRIX_LENGTH; i+=2){
-            idTextArray[idTextArraySize] = SINGLE_SPACE_INDEX;
-            idTextArraySize++;
-        }
-
-        shiftToLeftSide();
-
-
-    }
-
-}
-
-
 
 
 void ScrollText::shiftToLeftSide() {
-
-    staticTextTime = 0;
     for(int i=0; i<MATRIX_LENGTH+1; i++){
         shiftText();
     }
-
 }
 
-
-void ScrollText::staticText() {
-    if(needScrolling){
-        staticTextTime++;
-
-        // Wait until wait time is over, than shift to the left
-        if(staticTextTime >= STATIC_TEXT_WAIT_TIME_START && idTextArrayIndex != 0 && !stopScrolling){
-            shiftText();
-        }
-
-        // if shifted all the way, wait
-        if(idTextArrayIndex == 0 && staticTextTime != 0 && !stopScrolling){
-            staticTextTime = 0;
-            stopScrolling = true;
-        }
-
-        // is shifted all the way and wait time is over "reset"
-        if(staticTextTime >= STATIC_TEXT_WAIT_TIME_END && stopScrolling){
-            clearFrame();
-            shiftToLeftSide();
-            stopScrolling = false;
-        }
-    }
-
-
-}
 
 
 
 void ScrollText::refresh() {
-    if(scroll){
-        shiftText();
-    }else{
-        staticText();
-    }
+    shiftText();
 
-    matrix->addToFrameBuffer(frame);
+    matrix->setDisplayData(frame);
     matrix->sendData();
-
 }
 
 void ScrollText::restart() {
@@ -191,19 +101,8 @@ void ScrollText::restart() {
     idTextArrayIndex = 0;
     matrixBitOffset = 0;
 
-    scroll = true;
-    needScrolling = false;
-
-
 }
 
-void ScrollText::button1ISR(bool state) {
-
-}
-
-void ScrollText::button2ISR(bool state) {
-
-}
 
 
 

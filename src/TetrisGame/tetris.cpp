@@ -327,7 +327,7 @@ void Tetris::detectLoss() {
             scrollTextController->setColor(&overlayWhite, &slightlyRed);
             stringBuffer = "";
             stringBuffer.concat(score);
-            scrollTextController->setText(&stringBuffer, false);
+            scrollTextController->setText(&stringBuffer, true);
 
 
         }
