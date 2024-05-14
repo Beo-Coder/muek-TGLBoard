@@ -79,6 +79,10 @@ static const uint8_t l9[] = {0b01110, 0b10001, 0b10001, 0b01111, 0b00001, 0b0000
 // Other chars
 static const uint8_t l_[] = {0b00000, 0b00000, 0b00000, 0b00000, 0b00000, 0b00000, 0b00000, 0b00000,
                              5}; // Space (5 pixels wide)
+
+static const uint8_t l_0[] = {0b00000, 0b00000, 0b00000, 0b00000, 0b00000, 0b00000, 0b00000, 0b00000,
+                              0}; // Space (0 pixel wide) Only for special things
+
 static const uint8_t l_1[] = {0b00000, 0b00000, 0b00000, 0b00000, 0b00000, 0b00000, 0b00000, 0b00000,
                               1}; // Space (1 pixel wide)
 static const uint8_t l_2[] = {0b00000, 0b00000, 0b00000, 0b00000, 0b00000, 0b00000, 0b00000, 0b00000,
@@ -148,7 +152,7 @@ static const uint8_t smileCircle[] = {0b00111100, 0b01000010, 0b10100101, 0b1000
 
 
 static const String normalChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz 0123456789().,?!_-:[]{}<>;";
-static const String specialChars = "HS1234l|AaOoUu()";
+static const String specialChars = "HS01234l|AaOoUu()";
 
 // Gets stored in ROM
 static const uint8_t SINGLE_SPACE_INDEX = specialChars.indexOf('1') + normalChars.length();
@@ -159,7 +163,7 @@ static const uint8_t *Letter[] = {lA, lB, lC, lD, lE, lF, lG, lH, lI, lJ, lK, lL
                                   roundBracketO1, roundBracketC1, lDot, lComma, lQuestionMark, lExclamationMark, lUnderscore,
                                   lDash, lColon,squareBracketO,squareBracketC,curlyBracketO,curlyBracketC,angleBracketO,angleBracketC,lSemicolon,
 
-                                  heart, smileCircle, l_1, l_2, l_3, l_4, lLine, lLine, lAe, lae, lOe, loe, lUe,lue, roundBracketO2, roundBracketC2};
+                                  heart, smileCircle, l_0, l_1, l_2, l_3, l_4, lLine, lLine, lAe, lae, lOe, loe, lUe,lue, roundBracketO2, roundBracketC2};
 
 
 #endif //LETTERS_H

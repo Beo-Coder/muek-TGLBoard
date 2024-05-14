@@ -13,7 +13,7 @@
 #include "text_controller.h"
 #include "scroll_text.h"
 
-#define NUMBER_FREE_PIXELS_ADDED_STATIC_TEXT 3 // Note that SPACE_BETWEEN LETTERS is also added. Only added if text is to large to fit on display
+#define NUMBER_FREE_PIXELS_ADDED_STATIC_TEXT 1 // Only added if the text is too large to fit on display
 #define STATIC_TEXT_WAIT_TIME_START 3
 #define STATIC_TEXT_WAIT_TIME_END 3
 
@@ -21,7 +21,7 @@ class StaticText : public ScrollText{
 
     bool needScrolling;
     uint8_t staticTextTime;
-    bool stopScrolling;
+    uint8_t state;
 
     void refreshText();
     void initText();
@@ -31,6 +31,8 @@ public:
     explicit StaticText(MatrixOutput *matrixOutput, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]);
 
     void setText(String *text, bool clearDisplay) override;
+
+    void createAndLoadFrame() override;
 
     void refresh() override;
     void restart() override;

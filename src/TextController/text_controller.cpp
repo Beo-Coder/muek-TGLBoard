@@ -4,6 +4,7 @@
 
 #include "text_controller.h"
 
+
 TextController::TextController(MatrixOutput *matrix, Color (*frame)[8][16]) : display_program(matrix, frame) {
     idTextArraySize = 0;
     idTextArrayIndex = 0;
@@ -12,20 +13,17 @@ TextController::TextController(MatrixOutput *matrix, Color (*frame)[8][16]) : di
 }
 
 void TextController::setText(String *text, bool clearDisplay) {
-    if(clearDisplay){
+    if (clearDisplay) {
         clearFrame();
     }
     createIDTextArray(text);
 }
 
 void TextController::setColor(Color *textColor, Color *backgroundColor) {
-    this->textColor = textColor;
-    this->backgroundColor = backgroundColor;
+    TextController::textColor = textColor;
+    TextController::backgroundColor = backgroundColor;
 
 }
-
-
-
 
 
 void TextController::button1ISR(bool state) {
@@ -35,5 +33,7 @@ void TextController::button1ISR(bool state) {
 void TextController::button2ISR(bool state) {
 
 }
+
+
 
 

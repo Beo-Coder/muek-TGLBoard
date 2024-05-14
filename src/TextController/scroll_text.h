@@ -12,27 +12,42 @@
 #include "display_program.h"
 #include "text_controller.h"
 
-#define MAX_TEXT_LENGTH 500
-#define SPACE_BETWEEN_LETTERS 1
-
 
 
 class ScrollText : public TextController{
 
 
-    uint8_t matrixBitOffset;
+
+    bool leftShift;
 
 
 protected:
+    inline static uint8_t spaceBetweenLetters = 1;
+
+    uint8_t matrixBitOffset;
     void createIDTextArray(String *text) override;
-    void shiftText();
+
+
     void shiftToLeftSide();
+
+    void shiftTextLeft();
+    void shiftTextRight();
+
+    void loadNewBitsLeftShift();
+    void loadNewBitsRightShift();
+
+
 
 
 
 
 public:
     explicit ScrollText(MatrixOutput *matrixOutput, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]);
+
+    void setMode(bool leftShift = true);
+    void setSpaceBetweenLetters(uint8_t space);
+
+    virtual void createAndLoadFrame();
 
 
 

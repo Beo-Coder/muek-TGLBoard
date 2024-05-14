@@ -12,19 +12,24 @@
 #include "color.h"
 
 #define MAX_TEXT_LENGTH 500
-#define SPACE_BETWEEN_LETTERS 1
 
 
-class TextController : public display_program{
+class TextController : public display_program {
 
 protected:
-    uint8_t idTextArray[MAX_TEXT_LENGTH];
-    uint16_t idTextArraySize;
-    uint16_t idTextArrayIndex;
+
+    inline static uint8_t idTextArray[MAX_TEXT_LENGTH]{0};
+    inline static uint16_t idTextArraySize{0};
+    inline static uint16_t idTextArrayIndex{0};
 
 
-    Color *textColor;
-    Color *backgroundColor;
+    inline static Color *textColor{nullptr};
+    inline static Color *backgroundColor{nullptr};
+
+
+
+
+
 
 
 
@@ -36,6 +41,8 @@ public:
 
     virtual void setText(String *text, bool clearDisplay);
     void setColor(Color *textColor, Color *backgroundColor);
+
+
 
 
 
