@@ -34,7 +34,7 @@ void Tetris::reset() {
 void Tetris::loop() {
     if (loss && millis() - prevScrollMillis >= SCORE_TEXT_SCROLL_SPEED) {
 
-        scrollTextController->refresh();
+        textController->createAndLoadFrame();
 
         prevScrollMillis = millis();
     }
@@ -130,13 +130,13 @@ void Tetris::handleScheduledActions() {
     }
 }
 
-Tetris::Tetris(MatrixOutput *ledMatrix, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH], ScrollText *scrollController) : display_program(ledMatrix, frame) {
+Tetris::Tetris(MatrixOutput *ledMatrix, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH], TextController *scrollController) : display_program(ledMatrix, frame) {
     /* redundant happens in display_program constructor already
     this->matrix = ledMatrix;
     this->frame = frame;
     */
     // reset(); // already done in main.cpp
-    this->scrollTextController = scrollController;
+    this->textController = scrollController;
     refreshSpeed = frameSpeed; // we would actually prefer no delay but if we must...
 
 }
@@ -323,11 +323,12 @@ void Tetris::detectLoss() {
         if (map[i][LOSS_Y]) {
             loss |= true;
             // prepare score display
-            scrollTextController->restart();
-            scrollTextController->setColor(&overlayWhite, &slightlyRed);
+            textController->restart();
+            textController->setColor(&overlayWhite, &slightlyRed);
             stringBuffer = "";
             stringBuffer.concat(score);
-            scrollTextController->setText(&stringBuffer, true);
+            textController->setText(&stringBuffer, true);
+            textController->createAndLoadFrame();
 
 
         }

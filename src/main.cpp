@@ -3,17 +3,18 @@
 #include "hardware/irq.h"
 
 #include "PIOMatrixOutput/pio_matrix_output.h"
-#include "ScrollText/scroll_text.h"
+#include "TextController/scroll_text.h"
 #include "color.h"
 #include "DinoGame/dinoGame.h"
 #include "Firework/firework_animation.h"
 #include "TetrisGame/tetris.h"
 #include "SnakeAI/snake_ai_animation.h"
+#include "TextController//static_text.h"
 
 #define BUTTON1 18
 #define BUTTON2 19
 
-Color color1(1,0,0);
+Color color1(3,0,0);
 Color color2(0,0,0);
 
 
@@ -27,17 +28,23 @@ PIO pio = pio0;
 
 MatrixOutput ledMatrix(pio, 0, 0, 10, 11);
 
-ScrollText scrollTextController(&ledMatrix, &frame);
+ScrollText scrollText(&ledMatrix, &frame);
+StaticText staticText(&ledMatrix, &frame);
+
+
 DinoGame game(&ledMatrix, &frame);
 FireworkAnimation fireworks(&ledMatrix, &frame);
-Tetris tetrisGame(&ledMatrix, &frame, &scrollTextController);
+Tetris tetrisGame(&ledMatrix, &frame, &staticText);
 SnakeAI snake(&ledMatrix, &frame);
+
+
 
 
 display_program *programs[2];
 
 
-String text = "Hello <W>orld!;   ";
+String text = "Hello";
+String text2 = "Hello World!  ";
 
 
 
@@ -59,17 +66,7 @@ void button2_isr() {
 void setup() {
     Serial.begin(115200);
     delay(3500); // Just so that the Serial Console has time to connect
-
-
-    programs[0] = &tetrisGame;
-    programs[0]->restart();
-
-    scrollTextController.setText(&text);
-    scrollTextController.setColor(&color1,&color2);
-
-
     Serial.println("Hello World");
-
 
     pinMode(BUTTON1, INPUT_PULLDOWN);
     pinMode(BUTTON2, INPUT_PULLDOWN);
@@ -79,28 +76,16 @@ void setup() {
 
 
 
-    color1.setRed(0.5);
-    color1.setGreen(0);
-    color1.setBlue(0);
 
-    color1.setBrightness(10);
+    programs[0] = &tetrisGame;
+    programs[0]->restart();
 
 
 
-    color2.setRed(0);
-    color2.setGreen(0);
-    color2.setBlue(0);
 
 
 
-    //ledMatrix.setFrameBufferInterval(90);
-    //ledMatrix.enableFrameBuffer();
     ledMatrix.enableSubframes();
-
-
-
-    // scrollTextController.setColor(&color1, &color2);
-    // scrollTextController.setText(&text);
 
 
 

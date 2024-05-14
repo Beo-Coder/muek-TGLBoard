@@ -38,7 +38,7 @@ void StaticText::initText() {
         needScrolling = false;
 
         // fill it up with blank spaces
-        for (int i = textLength; i < MATRIX_LENGTH; i += 2) {
+        for (int i = textLength; i < MATRIX_LENGTH; i++) {
             idTextArray[idTextArraySize] = SINGLE_SPACE_INDEX;
             idTextArraySize++;
         }

@@ -42,6 +42,8 @@ public:
     virtual void setText(String *text, bool clearDisplay);
     void setColor(Color *textColor, Color *backgroundColor);
 
+    virtual void createAndLoadFrame() = 0;
+
 
 
 
