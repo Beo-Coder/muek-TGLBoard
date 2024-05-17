@@ -327,7 +327,7 @@ void Tetris::detectLoss() {
             textController->setColor(&overlayWhite, &slightlyRed);
             stringBuffer = "";
             stringBuffer.concat(score);
-            textController->setText(&stringBuffer, true);
+            textController->setText(&stringBuffer);
             textController->createAndLoadFrame();
 
 
