@@ -5,26 +5,25 @@
 #ifndef MUEK_TGL_BOARD2_STATIC_TEXT_H
 #define MUEK_TGL_BOARD2_STATIC_TEXT_H
 
+namespace details_text_controller{
+    class StaticSubcontroller;
+}
+
+
+
 #include <Arduino.h>
-#include "letters.h"
-#include "PIOMatrixOutput/pio_matrix_output.h"
-#include "color.h"
-#include "display_program.h"
 #include "text_controller.h"
-#include "scroll_text.h"
 
-#define NUMBER_FREE_PIXELS_ADDED_STATIC_TEXT 1 // Only added if the text is too large to fit on display
-#define STATIC_TEXT_WAIT_TIME_START 3
-#define STATIC_TEXT_WAIT_TIME_END 3
 
-class StaticText : public ScrollText{
+namespace details_static_text{
+    static const uint8_t SPACE_BETWEEN_LETTERS = 1;
+}
 
-    bool needScrolling;
-    uint8_t staticTextTime;
-    uint8_t state;
+class StaticText : public TextController {
 
-    void refreshText();
-    void initText();
+    details_text_controller::StaticSubcontroller *subcontroller;
+
+    void createIDTextArray(String *text) override;
 
 public:
 
@@ -32,9 +31,12 @@ public:
 
     void setText(String *text) override;
 
+    void setColor(Color *textColor, Color *backgroundColor) override;
+
     void createAndLoadFrame() override;
 
     void refresh() override;
+
     void restart() override;
 
 

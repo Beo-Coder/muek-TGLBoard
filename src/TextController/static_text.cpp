@@ -3,119 +3,28 @@
 //
 
 #include "static_text.h"
+#include "charsets/charset.h"
+#include "subcontroller/static_subcontroller.h"
 
-StaticText::StaticText(MatrixOutput *matrixOutput, Color (*frame)[8][16]) : ScrollText(matrixOutput, frame) {
 
-    needScrolling = false;
-    staticTextTime = 0;
-    state = 0;
+StaticText::StaticText(MatrixOutput *matrixOutput, Color (*frame)[8][16]) : TextController(matrixOutput, frame) {
 
     refreshSpeed = 120;
+    subcontroller = new details_text_controller::StaticSubcontroller(0, 0, frame, idTextArray, &normalLetters,
+                                                                     textColor, backgroundColor);
 
-}
-
-
-void StaticText::initText() {
-    uint16_t textLength = 0;
-    for (int i = 0; i < idTextArraySize; i++) {
-        textLength += (Letter[idTextArray[i]])[8];
-        // textLength += spaceBetweenLetters;
-
-    }
-    // textLength -= spaceBetweenLetters;
-
-
-
-    if (textLength > MATRIX_LENGTH) {
-        needScrolling = true;
-        shiftToLeftSide();
-
-        for (int i = 0; i <= NUMBER_FREE_PIXELS_ADDED_STATIC_TEXT; i++) {
-            idTextArray[idTextArraySize] = SINGLE_SPACE_INDEX;
-            idTextArraySize++;
-        }
-    } else {
-        needScrolling = false;
-
-        // fill it up with blank spaces
-        for (int i = textLength; i < MATRIX_LENGTH; i++) {
-            idTextArray[idTextArraySize] = SINGLE_SPACE_INDEX;
-            idTextArraySize++;
-        }
-
-        shiftToLeftSide();
-    }
-    staticTextTime = 0;
-
-
-}
-
-
-void StaticText::refreshText() {
-
-    if (needScrolling) {
-        staticTextTime++;
-
-
-        // Wait until wait time is over, then shift to the left
-        if (staticTextTime >= STATIC_TEXT_WAIT_TIME_START && (state == 0 || state == 1)) {
-            shiftTextLeft();
-            loadNewBitsLeftShift();
-            state = 1;
-
-        }
-
-        // if shifted all the way, wait and set the indices to right shift operation on the same postion
-        // (could be done smarter)
-        if (idTextArrayIndex == idTextArraySize - 1 && matrixBitOffset == 0 && staticTextTime != 0 && state == 1) {
-            staticTextTime = 0;
-            state = 2;
-
-
-            idTextArrayIndex = idTextArraySize - 1;
-            matrixBitOffset = 0;
-
-
-            for (int j = 0; j < MATRIX_LENGTH + 1; j++) {
-                loadNewBitsRightShift(false);
-            }
-
-
-        }
-
-
-        // "Reset" the scroll text to the start (is over the right shift, because of timing constraints)
-        if (idTextArrayIndex == 0 && matrixBitOffset == Letter[idTextArray[idTextArrayIndex]][8] - 1 && state == 3) {
-            staticTextTime = 0;
-            state = 0;
-            matrixBitOffset = 0;
-            idTextArrayIndex = 0;
-            shiftToLeftSide();
-
-        }
-
-        // Shift right, back to the "start"
-        if (staticTextTime >= STATIC_TEXT_WAIT_TIME_END && (state == 2 || state == 3)) {
-            shiftTextRight();
-            loadNewBitsRightShift();
-            state = 3;
-
-        }
-
-
-    }
 
 }
 
 
 void StaticText::setText(String *text) {
     TextController::setText(text);
-    initText();
+    subcontroller->initText();
 }
 
 
 void StaticText::createAndLoadFrame() {
-    refreshText();
+    subcontroller->refreshText();
 
     matrix->setDisplayData(frame);
 }
@@ -127,12 +36,45 @@ void StaticText::refresh() {
 }
 
 void StaticText::restart() {
-    ScrollText::restart();
-    needScrolling = false;
-    staticTextTime = 0;
-    state = 0;
 
 
+}
+
+void StaticText::createIDTextArray(String *text) {
+    idTextArraySize = 0;
+    idTextArrayIndex = 0;
+    for (unsigned int i = 0; i < text->length(); i++) {
+        char charAtIndex = text->charAt(i);
+        if (charAtIndex == '%') {
+            charAtIndex = text->charAt(i + 1);
+            int index = details_letters_normal::specialChars.indexOf(charAtIndex);
+            if (index != -1) {
+                idTextArray[idTextArraySize] = index + details_letters_normal::normalChars.length();
+                i++;
+            }
+
+        } else {
+            int index = details_letters_normal::normalChars.indexOf(charAtIndex);
+            if (index != -1) {
+                idTextArray[idTextArraySize] = index;
+            }
+        }
+        idTextArraySize++;
+
+        // Add spaces between letters
+        for (int j = 0; j < details_static_text::SPACE_BETWEEN_LETTERS; j++) {
+            idTextArray[idTextArraySize] = details_letters_normal::SINGLE_SPACE_INDEX;
+            idTextArraySize++;
+        }
+
+    }
+    subcontroller->setArraySize(idTextArraySize);
+
+}
+
+void StaticText::setColor(Color *textColor, Color *backgroundColor) {
+    TextController::setColor(textColor, backgroundColor);
+    subcontroller->setColor(textColor, backgroundColor);
 }
 
 

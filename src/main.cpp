@@ -1,20 +1,29 @@
 #include <Arduino.h>
-#include "hardware/pio.h"
-#include "hardware/irq.h"
+#include <hardware/pio.h>
+#include <hardware/irq.h>
 
 #include "PIOMatrixOutput/pio_matrix_output.h"
-#include "TextController/scroll_text.h"
 #include "color.h"
+
+#include "TextController/scroll_text.h"
+#include "TextController//static_text.h"
+#include "TextController/tiny_text.h"
+
+
 #include "DinoGame/dinoGame.h"
 #include "Firework/firework_animation.h"
 #include "TetrisGame/tetris.h"
 #include "SnakeAI/snake_ai_animation.h"
-#include "TextController//static_text.h"
+
+
+
+
 
 #define BUTTON1 18
 #define BUTTON2 19
 
-Color color1(3,0,0);
+Color color1(1,0,0);
+Color color3(0,1,0);
 Color color2(0,0,0);
 
 
@@ -30,6 +39,7 @@ MatrixOutput ledMatrix(pio, 0, 0, 10, 11);
 
 ScrollText scrollText(&ledMatrix, &frame);
 StaticText staticText(&ledMatrix, &frame);
+TinyText tinyText(&ledMatrix, &frame);
 
 
 DinoGame game(&ledMatrix, &frame);
@@ -43,8 +53,8 @@ SnakeAI snake(&ledMatrix, &frame);
 display_program *programs[2];
 
 
-String text = "Hello";
-String text2 = "Hello World!  ";
+String text = "Hello%nWorld";
+
 
 
 
@@ -77,13 +87,11 @@ void setup() {
 
 
 
-    programs[0] = &staticText;
+    programs[0] = &tinyText;
     programs[0]->restart();
 
-    staticText.setColor(&color1, &color2);
-    staticText.setText(&text, false);
-
-
+    tinyText.setColor(&color1, &color3, &color2);
+    tinyText.setText(&text);
 
 
 
@@ -102,13 +110,11 @@ void loop() {
 
 
 
-    while(millis()-lastMillis > programs[0]->refreshSpeed || programs[0]->refreshSpeed == 0){
+    if(millis()-lastMillis > programs[0]->refreshSpeed || programs[0]->refreshSpeed == 0){
         lastMillis = millis();
-        // Serial.println(game.score);
         programs[0]->refresh();
 
     }
-
 
 
 }

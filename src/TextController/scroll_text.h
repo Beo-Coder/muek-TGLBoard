@@ -5,13 +5,18 @@
 #ifndef MUEK_ARGB_MATRIX_BOARD_SCROLL_TEXT_H
 #define MUEK_ARGB_MATRIX_BOARD_SCROLL_TEXT_H
 
+
+namespace details_text_controller{
+    class Subcontroller;
+}
+
 #include <Arduino.h>
-#include "letters.h"
-#include "PIOMatrixOutput/pio_matrix_output.h"
-#include "color.h"
-#include "display_program.h"
 #include "text_controller.h"
 
+
+namespace details_scroll_text{
+    static const uint8_t SPACE_BETWEEN_LETTERS = 1;
+}
 
 
 class ScrollText : public TextController{
@@ -19,33 +24,20 @@ class ScrollText : public TextController{
 
 
     bool leftShift;
+    details_text_controller::Subcontroller *subcontroller;
 
 
-protected:
-    inline static uint8_t spaceBetweenLetters = 1;
 
-    uint8_t matrixBitOffset;
     void createIDTextArray(String *text) override;
-
-
-    void shiftToLeftSide();
-
-    void shiftTextLeft();
-    void shiftTextRight();
-
-    void loadNewBitsLeftShift(bool loadFrame = true);
-    void loadNewBitsRightShift(bool loadFrame = true);
-
-
-
 
 
 
 public:
     explicit ScrollText(MatrixOutput *matrixOutput, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]);
 
+    void setColor(Color *textColor, Color *backgroundColor) override;
+
     void setMode(bool leftShift = true);
-    void setSpaceBetweenLetters(uint8_t space);
 
     void createAndLoadFrame() override;
 

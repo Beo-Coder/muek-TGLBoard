@@ -334,6 +334,7 @@ void MatrixOutput::calcSubframes(Color (*display)[MATRIX_HEIGHT][MATRIX_LENGTH],
 
 
 
+
             fracData[0] = (((*display)[i][j].getBlue()) - (float) baseData[0]) * MAX_SUBFRAMES;
             fracData[1] = (((*display)[i][j].getRed()) - (float) baseData[1]) * MAX_SUBFRAMES;
             fracData[2] = (((*display)[i][j].getGreen()) - (float) baseData[2]) * MAX_SUBFRAMES;

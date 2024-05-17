@@ -3,12 +3,14 @@
 //
 
 #include "scroll_text.h"
+#include "charsets/charset.h"
+#include "subcontroller/subcontroller.h"
 
 ScrollText::ScrollText(MatrixOutput *matrixOutput, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]) : TextController(
         matrixOutput, frame) {
     idTextArraySize = 0;
-    idTextArrayIndex = 0;
-    matrixBitOffset = 0;
+
+    subcontroller = new details_text_controller::Subcontroller(0,0,frame,idTextArray,&normalLetters,textColor,backgroundColor);
 
     leftShift = true;
 
@@ -19,20 +21,18 @@ ScrollText::ScrollText(MatrixOutput *matrixOutput, Color (*frame)[MATRIX_HEIGHT]
 
 void ScrollText::createIDTextArray(String *text) {
     idTextArraySize = 0;
-    idTextArrayIndex = 0;
-    matrixBitOffset = 0;
     for (unsigned int i = 0; i < text->length(); i++) {
         char charAtIndex = text->charAt(i);
         if (charAtIndex == '%') {
             charAtIndex = text->charAt(i + 1);
-            int index = specialChars.indexOf(charAtIndex);
+            int index = details_letters_normal::specialChars.indexOf(charAtIndex);
             if (index != -1) {
-                idTextArray[idTextArraySize] = index + normalChars.length();
+                idTextArray[idTextArraySize] = index + details_letters_normal::normalChars.length();
                 i++;
             }
 
         } else {
-            int index = normalChars.indexOf(charAtIndex);
+            int index = details_letters_normal::normalChars.indexOf(charAtIndex);
             if (index != -1) {
                 idTextArray[idTextArraySize] = index;
             }
@@ -40,122 +40,28 @@ void ScrollText::createIDTextArray(String *text) {
         idTextArraySize++;
 
         // Add spaces between letters
-        for (int j = 0; j < spaceBetweenLetters; j++) {
-            idTextArray[idTextArraySize] = SINGLE_SPACE_INDEX;
+        for (int j = 0; j < details_scroll_text::SPACE_BETWEEN_LETTERS; j++) {
+            idTextArray[idTextArraySize] = details_letters_normal::SINGLE_SPACE_INDEX;
             idTextArraySize++;
         }
         setMode(leftShift);
 
     }
+    subcontroller->setArraySize(idTextArraySize);
 
 }
 
 
-void ScrollText::shiftToLeftSide() {
-    for (int i = 0; i < MATRIX_LENGTH; i++) {
-        shiftTextLeft();
-        loadNewBitsLeftShift();
-    }
-}
 
-
-void ScrollText::shiftTextLeft() {
-
-    for (int row = 0; row < 8; row++) {
-
-        for (int column = 0; column < MATRIX_LENGTH - 1; column++) {
-            (*frame)[row][column] = (*frame)[row][column + 1];
-
-        }
-    }
-
-}
-
-void ScrollText::loadNewBitsLeftShift(bool loadFrame) {
-
-    const uint8_t *letter = Letter[idTextArray[matrixBitOffset / Letter[idTextArray[idTextArrayIndex]][8] +
-                                               idTextArrayIndex]];
-    if(loadFrame){
-        for (int row = 0; row < 8; row++) {
-
-
-            if (letter[row] >> (letter[8] - 1 - matrixBitOffset) % (letter[8]) & 0x01) {
-                (*frame)[row][MATRIX_LENGTH - 1] = *textColor;
-
-            } else {
-                (*frame)[row][MATRIX_LENGTH - 1] = *backgroundColor;
-
-            }
-
-        }
-    }
-
-
-    matrixBitOffset++;
-    if (matrixBitOffset % (letter[8]) == 0) {
-        matrixBitOffset = 0;
-        idTextArrayIndex++;
-    }
-
-    idTextArrayIndex = idTextArrayIndex % idTextArraySize;
-
-}
-
-void ScrollText::shiftTextRight() {
-    for (int row = 0; row < 8; row++) {
-
-        for (int column = MATRIX_LENGTH - 1; column > 0; column--) {
-            (*frame)[row][column] = (*frame)[row][column - 1];
-
-        }
-    }
-
-}
-
-void ScrollText::loadNewBitsRightShift(bool loadFrame) {
-    const uint8_t *letter = Letter[idTextArray[matrixBitOffset / Letter[idTextArray[idTextArrayIndex]][8] +
-                                               idTextArrayIndex]];
-
-    if (matrixBitOffset >= 0 && loadFrame) {
-        for (int row = 0; row < 8; row++) {
-
-
-            if (letter[row] >> (matrixBitOffset) % (letter[8]) & 0x01) {
-                (*frame)[row][0] = *textColor;
-
-            } else {
-                (*frame)[row][0] = *backgroundColor;
-
-            }
-
-        }
-    }
-
-
-    matrixBitOffset++;
-    if (matrixBitOffset % (letter[8]) == 0) {
-        matrixBitOffset = 0;
-
-        if (idTextArrayIndex == 0) {
-            idTextArrayIndex = idTextArraySize - 1;
-        } else {
-            idTextArrayIndex--;
-        }
-
-
-    }
-
-
-}
 
 
 void ScrollText::createAndLoadFrame() {
     if (leftShift) {
-        shiftTextLeft();
-        loadNewBitsLeftShift();
+        subcontroller->shiftTextLeft();
+        subcontroller->loadNewDataLeftShift();
     } else {
-        shiftTextRight();
-        loadNewBitsRightShift();
+        subcontroller->shiftTextRight();
+        subcontroller->loadNewDataRightShift();
     }
     matrix->setDisplayData(frame);
 
@@ -170,12 +76,11 @@ void ScrollText::setMode(bool leftShift) {
     } else {
         idTextArrayIndex = idTextArraySize - 1;
     }
+    subcontroller->setIdArrayIndex(idTextArrayIndex);
 
 }
 
-void ScrollText::setSpaceBetweenLetters(uint8_t space) {
-    spaceBetweenLetters = space;
-}
+
 
 
 void ScrollText::refresh() {
@@ -190,8 +95,11 @@ void ScrollText::restart() {
 
     idTextArraySize = 0;
     idTextArrayIndex = 0;
-    matrixBitOffset = 0;
+}
 
+void ScrollText::setColor(Color *textColor, Color *backgroundColor) {
+    TextController::setColor(textColor, backgroundColor);
+    subcontroller->setColor(textColor, backgroundColor);
 }
 
 
