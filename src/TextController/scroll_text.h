@@ -33,8 +33,8 @@ protected:
     void shiftTextLeft();
     void shiftTextRight();
 
-    void loadNewBitsLeftShift();
-    void loadNewBitsRightShift();
+    void loadNewBitsLeftShift(bool loadFrame = true);
+    void loadNewBitsRightShift(bool loadFrame = true);
 
 
 
@@ -47,7 +47,7 @@ public:
     void setMode(bool leftShift = true);
     void setSpaceBetweenLetters(uint8_t space);
 
-    virtual void createAndLoadFrame();
+    void createAndLoadFrame() override;
 
 
 

@@ -77,22 +77,7 @@ void StaticText::refreshText() {
 
 
             for (int j = 0; j < MATRIX_LENGTH + 1; j++) {
-                const uint8_t *letter = Letter[idTextArray[
-                        matrixBitOffset / (Letter[idTextArray[idTextArrayIndex]][8]) + idTextArrayIndex]];
-
-
-                matrixBitOffset++;
-                if (matrixBitOffset % (letter[8]) == 0) {
-                    matrixBitOffset = 0;
-
-                    if (idTextArrayIndex == 0) {
-                        idTextArrayIndex = idTextArraySize - 1;
-                    } else {
-                        idTextArrayIndex--;
-                    }
-                }
-
-
+                loadNewBitsRightShift(false);
             }
 
 
@@ -123,8 +108,8 @@ void StaticText::refreshText() {
 }
 
 
-void StaticText::setText(String *text, bool clearDisplay) {
-    TextController::setText(text, clearDisplay);
+void StaticText::setText(String *text) {
+    TextController::setText(text);
     initText();
 }
 

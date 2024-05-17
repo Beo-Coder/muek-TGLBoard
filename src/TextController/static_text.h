@@ -30,7 +30,7 @@ public:
 
     explicit StaticText(MatrixOutput *matrixOutput, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]);
 
-    void setText(String *text, bool clearDisplay) override;
+    void setText(String *text) override;
 
     void createAndLoadFrame() override;
 

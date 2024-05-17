@@ -12,10 +12,7 @@ TextController::TextController(MatrixOutput *matrix, Color (*frame)[8][16]) : di
     backgroundColor = &colorBlank;
 }
 
-void TextController::setText(String *text, bool clearDisplay) {
-    if (clearDisplay) {
-        clearFrame();
-    }
+void TextController::setText(String *text) {
     createIDTextArray(text);
 }
 

@@ -71,22 +71,25 @@ void ScrollText::shiftTextLeft() {
 
 }
 
-void ScrollText::loadNewBitsLeftShift() {
+void ScrollText::loadNewBitsLeftShift(bool loadFrame) {
 
     const uint8_t *letter = Letter[idTextArray[matrixBitOffset / Letter[idTextArray[idTextArrayIndex]][8] +
                                                idTextArrayIndex]];
-    for (int row = 0; row < 8; row++) {
+    if(loadFrame){
+        for (int row = 0; row < 8; row++) {
 
 
-        if (letter[row] >> (letter[8] - 1 - matrixBitOffset) % (letter[8]) & 0x01) {
-            (*frame)[row][MATRIX_LENGTH - 1] = *textColor;
+            if (letter[row] >> (letter[8] - 1 - matrixBitOffset) % (letter[8]) & 0x01) {
+                (*frame)[row][MATRIX_LENGTH - 1] = *textColor;
 
-        } else {
-            (*frame)[row][MATRIX_LENGTH - 1] = *backgroundColor;
+            } else {
+                (*frame)[row][MATRIX_LENGTH - 1] = *backgroundColor;
+
+            }
 
         }
-
     }
+
 
     matrixBitOffset++;
     if (matrixBitOffset % (letter[8]) == 0) {
@@ -109,11 +112,11 @@ void ScrollText::shiftTextRight() {
 
 }
 
-void ScrollText::loadNewBitsRightShift() {
+void ScrollText::loadNewBitsRightShift(bool loadFrame) {
     const uint8_t *letter = Letter[idTextArray[matrixBitOffset / Letter[idTextArray[idTextArrayIndex]][8] +
                                                idTextArrayIndex]];
 
-    if (matrixBitOffset >= 0) {
+    if (matrixBitOffset >= 0 && loadFrame) {
         for (int row = 0; row < 8; row++) {
 
 

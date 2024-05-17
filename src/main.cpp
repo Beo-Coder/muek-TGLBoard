@@ -77,8 +77,11 @@ void setup() {
 
 
 
-    programs[0] = &tetrisGame;
+    programs[0] = &staticText;
     programs[0]->restart();
+
+    staticText.setColor(&color1, &color2);
+    staticText.setText(&text, false);
 
 
 

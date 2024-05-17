@@ -39,7 +39,7 @@ public:
 
     TextController(MatrixOutput *matrix, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]);
 
-    virtual void setText(String *text, bool clearDisplay);
+    virtual void setText(String *text);
     void setColor(Color *textColor, Color *backgroundColor);
 
     virtual void createAndLoadFrame() = 0;
