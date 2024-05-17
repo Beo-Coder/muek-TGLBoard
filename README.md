@@ -6,11 +6,11 @@
 You need PlatformIO to use this project.  
 Arduino IDE might work too (not tested).
 
-For own programming, you can use my pioMatrixOutput library.
+For your own programming, you can use my pioMatrixOutput library.
 Documentation is here [pioMatrixOutput](READMEpioMatrixOutput.md)
 
-For own scroll text, you can use my library.
-Documentation is here [scrollText](READMEscrollText.md)
+For your own text, you can use my library.
+Documentation is here [Textcontroller](README_textController.md)
 
 
 # Hardware
