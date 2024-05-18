@@ -5,6 +5,7 @@
 #include "dinoGame.h"
 #include "enemy.h"
 #include "player.h"
+#include "BeoCommon.h"
 
 
 
@@ -130,7 +131,7 @@ int8_t *getRandomEnemy() {
         totalWeight += enemyHeights[i][1];
     }
 
-    unsigned int randomValue = rand() % totalWeight;
+    unsigned int randomValue = randomInt(0, totalWeight);
 
 
     unsigned int cumulativeWeight = 0;

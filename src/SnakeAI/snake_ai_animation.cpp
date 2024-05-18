@@ -4,6 +4,7 @@
 
 #include "snake_ai_animation.h"
 #include "snake_ai_settings.h"
+#include "BeoCommon.h"
 
 SnakeAI::SnakeAI(MatrixOutput *ledMatrix, Color (*frame)[8][16]) : display_program(ledMatrix, frame) {
     refreshSpeed = 50;
@@ -185,7 +186,7 @@ uint16_t SnakeAI::aiGetDistanceFood(uint16_t potentialMovePathIndex) {
 
     distance = pathIndexFood - potentialMovePathIndex;
     if (distance < 0) {
-        distance = MATRIX_SIZE - abs(distance);
+        distance = MATRIX_SIZE - absolut(distance);
     }
     return distance;
 }

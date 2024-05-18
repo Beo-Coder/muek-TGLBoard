@@ -5,7 +5,7 @@
 #ifndef TGL_BOARD_BEO_COMMON_H
 #define TGL_BOARD_BEO_COMMON_H
 
-#define abs(x) ((x)>0?(x):-(x))
+#define absolut(x) ((x)>0?(x):-(x))
 
 namespace beo{
     int randomInt(int min, int max);

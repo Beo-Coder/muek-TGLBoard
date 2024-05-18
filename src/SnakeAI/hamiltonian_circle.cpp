@@ -15,8 +15,8 @@ uint16_t details_snake_ai::HamiltonianCircle::getYFromIndexPrim(uint16_t index){
 }
 
 bool details_snake_ai::HamiltonianCircle::isAdjacentPrim(uint16_t index1, uint16_t index2){
-    uint16_t deltaX = abs(getXFromIndexPrim(index1) - getXFromIndexPrim(index2));
-    uint16_t deltaY = abs(getYFromIndexPrim(index1) - getYFromIndexPrim(index2));
+    uint16_t deltaX = absolut(getXFromIndexPrim(index1) - getXFromIndexPrim(index2));
+    uint16_t deltaY = absolut(getYFromIndexPrim(index1) - getYFromIndexPrim(index2));
     return (deltaX == 1 && deltaY == 0) || (deltaX == 0 && deltaY == 1);
 }
 
@@ -139,12 +139,12 @@ bool details_snake_ai::HamiltonianCircle::hasEdgeInDirection(uint16_t pos, int16
 
 
 bool details_snake_ai::HamiltonianCircle::hasNoEdge(uint16_t pos, int32_t dir){
-    if(abs(dir) == 1){
+    if(absolut(dir) == 1){
         if(hasEdgeInDirection(pos, (1 << 8)) || hasEdgeInDirection(pos, -(1 << 8))){
             return false;
         }
     }
-    if(abs(dir) == (1<<8)){
+    if(absolut(dir) == (1 << 8)){
         if(hasEdgeInDirection(pos, 1) || hasEdgeInDirection(pos, -1)){
             return false;
         }
