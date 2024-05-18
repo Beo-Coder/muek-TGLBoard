@@ -3,6 +3,7 @@
 //
 
 #include "snake_ai_animation.h"
+#include "snake_ai_settings.h"
 
 SnakeAI::SnakeAI(MatrixOutput *ledMatrix, Color (*frame)[8][16]) : display_program(ledMatrix, frame) {
     refreshSpeed = 50;

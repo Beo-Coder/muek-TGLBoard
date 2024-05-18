@@ -5,7 +5,7 @@
 #ifndef TETRIS_TETRISBLOCKS_H
 #define TETRIS_TETRISBLOCKS_H
 
-#include "color.h"
+#include "PIOMatrixOutput/color.h"
 
 
 static const bool pieceI[4][4] = {{1,1,1,1},

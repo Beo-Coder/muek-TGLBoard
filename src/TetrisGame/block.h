@@ -5,7 +5,8 @@
 #ifndef TETRIS_BLOCK_H
 #define TETRIS_BLOCK_H
 
-#include "color.h"
+class Color;
+
 
 class Block {
 private:

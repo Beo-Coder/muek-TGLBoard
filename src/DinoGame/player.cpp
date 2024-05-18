@@ -3,6 +3,8 @@
 //
 
 #include "player.h"
+#include "enemy.h"
+#include "dinogame_settings.h"
 
 details_dino_game::Player::Player(int8_t startPosX, int8_t startPosY, int8_t sizeX, int8_t sizeY) : Entity(startPosX,
                                                                                                            startPosY,

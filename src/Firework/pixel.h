@@ -5,8 +5,10 @@
 #ifndef MUEK_ARGB_MATRIX_BOARD_PIXEL_H
 #define MUEK_ARGB_MATRIX_BOARD_PIXEL_H
 
-#include "Arduino.h"
-#include "color.h"
+class Color;
+
+#include <Arduino.h>
+
 
 
 namespace details_firework {

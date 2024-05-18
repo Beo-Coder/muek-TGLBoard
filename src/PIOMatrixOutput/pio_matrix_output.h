@@ -5,35 +5,14 @@
 #ifndef UNTITLED24_PIOMATRIXOUTPUT_H
 #define UNTITLED24_PIOMATRIXOUTPUT_H
 
-#include <Arduino.h>
-#include "hardware/pio.h"
-#include "hardware/dma.h"
-#include "hardware/irq.h"
-#include "hardware/watchdog.h"
-#include "hardware/timer.h"
-#include "hardware/sync.h"
-#include "pio_program.pio.h"
+class Color;
+
+#include <hardware/pio.h>
+#include <hardware/dma.h>
 #include "color.h"
+#include "pio_matrix_settings.h"
 
 
-#define MATRIX_LENGTH 16
-#define MATRIX_HEIGHT 8
-
-
-#define MATRIX_SUBMATRIX_COUNT 2
-
-
-#define MATRIX_SIZE (MATRIX_LENGTH*MATRIX_HEIGHT)
-#define MATRIX_SUBMATRIX_SIZE (MATRIX_SIZE/MATRIX_SUBMATRIX_COUNT)
-
-
-#define MAX_FRAMES_IN_BUFFER 10
-#define MAX_SUBFRAMES 8
-
-#define TIMER_INDEX 1
-
-#define dataSendTime 1950 // in µs
-#define subframePauseIntervall 350 // in µs (must be at least 150 (probably more))
 
 
 class MatrixOutput {

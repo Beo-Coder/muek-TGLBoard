@@ -5,12 +5,13 @@
 #ifndef TETRIS_TETRIS_H
 #define TETRIS_TETRIS_H
 
-#include "color.h"
-#include "PIOMatrixOutput/pio_matrix_output.h"
-#include "block.h"
+class TextController;
+class Block;
+
 #include "display_program.h"
-#include "TextController/text_controller.h"
-#include <hardware/structs/rosc.h>
+
+
+
 
 #define SCROLL_SPEED 400
 #define SCORE_TEXT_SCROLL_SPEED 200

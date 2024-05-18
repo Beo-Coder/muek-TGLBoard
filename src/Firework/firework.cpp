@@ -3,6 +3,8 @@
 //
 
 #include "firework.h"
+#include "BeoCommon.h"
+#include "pixel.h"
 
 details_firework::Firework::Firework() {
     dead = true;

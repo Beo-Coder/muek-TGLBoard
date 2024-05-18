@@ -5,7 +5,7 @@
 #ifndef MUEK_ARGB_MATRIX_BOARD_COLOR_H
 #define MUEK_ARGB_MATRIX_BOARD_COLOR_H
 
-#include "Arduino.h"
+#include <Arduino.h>
 
 #define MAX_COLOR_VALUE 255
 #define MIN_COLOR_VALUE 0

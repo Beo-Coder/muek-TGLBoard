@@ -1,9 +1,6 @@
 #include <Arduino.h>
-#include <hardware/pio.h>
-#include <hardware/irq.h>
 
 #include "PIOMatrixOutput/pio_matrix_output.h"
-#include "color.h"
 
 #include "TextController/scroll_text.h"
 #include "TextController//static_text.h"
@@ -42,7 +39,7 @@ StaticText staticText(&ledMatrix, &frame);
 TinyText tinyText(&ledMatrix, &frame);
 
 
-DinoGame game(&ledMatrix, &frame);
+DinoGame dinoGame(&ledMatrix, &frame);
 FireworkAnimation fireworks(&ledMatrix, &frame);
 Tetris tetrisGame(&ledMatrix, &frame, &staticText);
 SnakeAI snake(&ledMatrix, &frame);
@@ -87,7 +84,7 @@ void setup() {
 
 
 
-    programs[0] = &tinyText;
+    programs[0] = &fireworks;
     programs[0]->restart();
 
     tinyText.setColor(&color1, &color3, &color2);

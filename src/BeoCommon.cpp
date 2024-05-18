@@ -3,7 +3,7 @@
 //
 
 #include "BeoCommon.h"
-
+#include <hardware/structs/rosc.h>
 
 
 int randomInt(int min, int max){

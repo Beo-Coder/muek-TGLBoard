@@ -3,7 +3,7 @@
 #include "hardware/irq.h"
 
 #include "PIOMatrixOutput/pio_matrix_output.h"
-#include "color.h"
+#include "PIOMatrixOutput/color.h"
 #include "ScrollText/scroll_text.h"
 
 #define BUTTON1 18

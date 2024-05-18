@@ -5,9 +5,8 @@
 #ifndef MUEK_ARGB_MATRIX_BOARD_HAILTIONIAN_CIRCLE_H
 #define MUEK_ARGB_MATRIX_BOARD_HAILTIONIAN_CIRCLE_H
 
-#include "Arduino.h"
-#include "PIOMatrixOutput/pio_matrix_output.h"
-#include "BeoCommon.h"
+#include <Arduino.h>
+#include "PIOMatrixOutput/pio_matrix_settings.h"
 #include "snake_ai_settings.h"
 
 #define PRIM_LENGTH (MATRIX_LENGTH/2)

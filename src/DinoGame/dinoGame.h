@@ -5,16 +5,16 @@
 #ifndef MUEK_ARGB_MATRIX_BOARD_DINOGAME_H
 #define MUEK_ARGB_MATRIX_BOARD_DINOGAME_H
 
-#include "Arduino.h"
-#include "PIOMatrixOutput/pio_matrix_output.h"
-#include "color.h"
-#include "display_program.h"
-#include "BeoCommon.h"
+namespace details_dino_game{
+    class Enemy;
+    class Player;
+}
 
+
+#include <Arduino.h>
+#include "display_program.h"
 #include "dinogame_settings.h"
-#include "entity.h"
-#include "enemy.h"
-#include "player.h"
+
 
 
 

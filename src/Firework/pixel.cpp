@@ -3,6 +3,8 @@
 //
 
 #include "pixel.h"
+#include "PIOMatrixOutput/color.h"
+
 
 details_firework::Pixel::Pixel() {
     posX = -1;

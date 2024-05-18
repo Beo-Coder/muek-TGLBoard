@@ -3,7 +3,8 @@
 //
 
 #include "pio_matrix_output.h"
-
+#include "pio_program.pio.h"
+#include "color.h"
 
 void timerHandler() {
     if (timer_hw->ints == 1 << TIMER_INDEX) {

@@ -5,10 +5,10 @@
 #ifndef MUEK_ARGB_MATRIX_BOARD_DISPLAY_PROGRAM_H
 #define MUEK_ARGB_MATRIX_BOARD_DISPLAY_PROGRAM_H
 
-#include "Arduino.h"
-#include "color.h"
-#include "PIOMatrixOutput/pio_matrix_output.h"
+class MatrixOutput;
+class Color;
 
+#include "PIOMatrixOutput/pio_matrix_output.h"
 
 class display_program {
 

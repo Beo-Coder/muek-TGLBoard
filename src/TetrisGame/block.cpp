@@ -3,6 +3,7 @@
 //
 
 #include "block.h"
+#include "PIOMatrixOutput/color.h"
 
 void Block::translateBlockToColor() {
     for (int i = 0; i < 4; ++i) {

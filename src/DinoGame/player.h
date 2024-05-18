@@ -4,13 +4,14 @@
 
 #ifndef MUEK_ARGB_MATRIX_BOARD_PLAYER_H
 #define MUEK_ARGB_MATRIX_BOARD_PLAYER_H
+namespace details_dino_game {
+    class Enemy;
+}
+class Color;
 
-#include "Arduino.h"
-#include "color.h"
-
-#include "dinogame_settings.h"
+#include <Arduino.h>
+#include "PIOMatrixOutput/pio_matrix_settings.h"
 #include "entity.h"
-#include "enemy.h"
 
 
 

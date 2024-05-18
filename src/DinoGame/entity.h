@@ -5,12 +5,11 @@
 #ifndef MUEK_ARGB_MATRIX_BOARD_ENTITY_H
 #define MUEK_ARGB_MATRIX_BOARD_ENTITY_H
 
+class Color;
 
-#include "Arduino.h"
-#include "color.h"
-#include "PIOMatrixOutput/pio_matrix_output.h"
+#include <Arduino.h>
+#include "PIOMatrixOutput/pio_matrix_settings.h"
 
-#include "dinogame_settings.h"
 
 
 namespace details_dino_game {

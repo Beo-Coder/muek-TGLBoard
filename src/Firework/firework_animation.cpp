@@ -3,7 +3,8 @@
 //
 
 #include "firework_animation.h"
-
+#include "firework.h"
+#include "BeoCommon.h"
 
 
 

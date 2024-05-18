@@ -4,6 +4,9 @@
 
 #include "tetris.h"
 #include "tetrisBlocks.h"
+#include <hardware/structs/rosc.h>
+#include "TextController/text_controller.h"
+#include "block.h"
 
 
 // pick random block

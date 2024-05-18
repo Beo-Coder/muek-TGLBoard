@@ -6,17 +6,16 @@
 #define MUEK_ARGB_MATRIX_BOARD_SNAKEAIANIMATION_H
 
 
-
-#include "Arduino.h"
-#include "PIOMatrixOutput/pio_matrix_output.h"
-#include "color.h"
+#include <Arduino.h>
 #include "display_program.h"
-#include "BeoCommon.h"
 
-#include "snake_ai_settings.h"
-#include "hamiltonian_circle.h"
 #include "snake.h"
 #include "food.h"
+#include "hamiltonian_circle.h"
+
+
+
+
 
 
 
