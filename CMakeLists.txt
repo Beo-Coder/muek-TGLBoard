@@ -12,7 +12,7 @@ pico_sdk_init()
 
 add_executable(TGL-Board src/main.cpp
         src/display_program.cpp
-        src/BeoCommon.cpp
+        src/beo_common.cpp
         src/TextController/tiny_text.cpp
         src/TextController/text_controller.cpp
         src/TextController/static_text.cpp
