@@ -3,7 +3,7 @@
 //
 
 #include "hamiltonian_circle.h"
-#include "BeoCommon.h"
+#include "beo_common.h"
 
 
 uint16_t details_snake_ai::HamiltonianCircle::getXFromIndexPrim(uint16_t index){

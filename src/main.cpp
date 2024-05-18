@@ -5,7 +5,7 @@
 #endif
 
 
-#include "BeoCommon.h"
+#include "beo_common.h"
 
 #include "PIOMatrixOutput/pio_matrix_output.h"
 
@@ -98,8 +98,6 @@ void setup() {
 
 
     ledMatrix.enableSubframes();
-
-    Serial.println(SystemCoreClock);
 
 
 

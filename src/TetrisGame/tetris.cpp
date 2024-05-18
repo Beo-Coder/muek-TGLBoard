@@ -7,7 +7,7 @@
 #include <hardware/structs/rosc.h>
 #include "TextController/text_controller.h"
 #include "block.h"
-#include "BeoCommon.h"
+#include "beo_common.h"
 
 
 // pick random block
