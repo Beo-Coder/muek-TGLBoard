@@ -26,13 +26,13 @@ TinyText::TinyText(MatrixOutput *matrixOutput, Color (*frame)[8][16]) : TextCont
 
 
 
-void TinyText::createIDTextArray(String *text) {
+void TinyText::createIDTextArray(std::string *text) {
     createIDTextArray(text, 0);
 
 }
 
 
-void TinyText::createIDTextArray(String *text, uint8_t startIndex) {
+void TinyText::createIDTextArray(std::string *text, uint8_t startIndex) {
     uint16_t *localIdTextArraySize = upperTextArraySize;
     uint16_t bitOffset = 0;
     if(startIndex == 0){
@@ -49,10 +49,10 @@ void TinyText::createIDTextArray(String *text, uint8_t startIndex) {
 
 
     for (unsigned int i = 0; i < text->length(); i++) {
-        char charAtIndex = text->charAt(i);
+        char charAtIndex = text->at(i);
         if (charAtIndex == '%') {
-            charAtIndex = text->charAt(i + 1);
-            int index = details_letters_tiny::tinySpecialChars.indexOf(charAtIndex);
+            charAtIndex = text->at(i + 1);
+            unsigned int index = details_letters_tiny::tinySpecialChars.find(charAtIndex);
 
             if (index == details_letters_tiny::breakCharSpecialIndex) {
                 localIdTextArraySize = &lowerTextArraySize;
@@ -62,14 +62,14 @@ void TinyText::createIDTextArray(String *text, uint8_t startIndex) {
 
             }
 
-            if (index != -1) {
+            if (index != std::string::npos) {
                 idTextArray[(*localIdTextArraySize)+bitOffset] = index + details_letters_tiny::tinyNormalChars.length();
                 i++;
             }
 
         } else {
-            int index = details_letters_tiny::tinyNormalChars.indexOf(charAtIndex);
-            if (index != -1) {
+            unsigned int index = details_letters_tiny::tinyNormalChars.find(charAtIndex);
+            if (index != std::string::npos) {
                 idTextArray[(*localIdTextArraySize)+bitOffset] = index;
             }
         }
@@ -100,7 +100,7 @@ void TinyText::createIDTextArray(String *text, uint8_t startIndex) {
 
 
 
-void TinyText::setText(String *text) {
+void TinyText::setText(std::string *text) {
     createIDTextArray(text);
 
     upperController->setArraySize(*upperTextArraySize);
@@ -139,12 +139,12 @@ void TinyText::setColor(Color *upperTextColor, Color *lowerTextColor, Color *bac
 
 }
 
-void TinyText::setUpperText(String *text) {
+void TinyText::setUpperText(std::string *text) {
     createIDTextArray(text, 0);
 
 }
 
-void TinyText::setLowerText(String *text) {
+void TinyText::setLowerText(std::string *text) {
     createIDTextArray(text, 1);
 
 }

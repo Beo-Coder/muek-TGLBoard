@@ -17,7 +17,7 @@ StaticText::StaticText(MatrixOutput *matrixOutput, Color (*frame)[8][16]) : Text
 }
 
 
-void StaticText::setText(String *text) {
+void StaticText::setText(std::string *text) {
     TextController::setText(text);
     subcontroller->initText();
 }
@@ -40,22 +40,22 @@ void StaticText::restart() {
 
 }
 
-void StaticText::createIDTextArray(String *text) {
+void StaticText::createIDTextArray(std::string *text) {
     idTextArraySize = 0;
     idTextArrayIndex = 0;
     for (unsigned int i = 0; i < text->length(); i++) {
-        char charAtIndex = text->charAt(i);
+        char charAtIndex = text->at(i);
         if (charAtIndex == '%') {
-            charAtIndex = text->charAt(i + 1);
-            int index = details_letters_normal::specialChars.indexOf(charAtIndex);
-            if (index != -1) {
+            charAtIndex = text->at(i + 1);
+            unsigned int index = details_letters_normal::specialChars.find(charAtIndex);
+            if (index != std::string::npos) {
                 idTextArray[idTextArraySize] = index + details_letters_normal::normalChars.length();
                 i++;
             }
 
         } else {
-            int index = details_letters_normal::normalChars.indexOf(charAtIndex);
-            if (index != -1) {
+            unsigned int index = details_letters_normal::normalChars.find(charAtIndex);
+            if (index != std::string::npos) {
                 idTextArray[idTextArraySize] = index;
             }
         }

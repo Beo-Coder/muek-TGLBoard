@@ -8,9 +8,14 @@
 class Color;
 class MatrixOutput;
 
+#ifdef ARDUINO
+    #include <Arduino.h>
+#else
+    #include "pico/stdlib.h"
+#endif
 
-#include <Arduino.h>
 #include "display_program.h"
+#include <string>
 
 
 #define MAX_TEXT_LENGTH 500
@@ -29,13 +34,13 @@ protected:
     inline static Color *backgroundColor{nullptr};
 
 
-    virtual void createIDTextArray(String *text) = 0;
+    virtual void createIDTextArray(std::string *text) = 0;
 
 public:
 
     TextController(MatrixOutput *matrix, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]);
 
-    virtual void setText(String *text);
+    virtual void setText(std::string *text);
 
     virtual void setColor(Color *textColor, Color *backgroundColor);
 

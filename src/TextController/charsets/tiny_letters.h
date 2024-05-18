@@ -5,7 +5,13 @@
 #ifndef TGL_BOARD_TEXTCONTROLLER_TINY_LETTERS_H
 #define TGL_BOARD_TEXTCONTROLLER_TINY_LETTERS_H
 
-#include <Arduino.h>
+#ifdef ARDUINO
+    #include <Arduino.h>
+#else
+    #include "pico/stdlib.h"
+#endif
+
+#include <string>
 
 namespace details_letters_tiny {
 
@@ -82,12 +88,12 @@ namespace details_letters_tiny {
     static const uint8_t breakChar[] = {0x00, 0x00, 0x00, 0x00, 0};
 
 
-    static const String tinyNormalChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz 0123456789().,?!_-:[];+/\\";
-    static const String tinySpecialChars = "12l|n";
+    static const std::string tinyNormalChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz 0123456789().,?!_-:[];+/\\";
+    static const std::string tinySpecialChars = "12l|n";
 
-    static const uint16_t SINGLE_SPACE_INDEX = tinySpecialChars.indexOf("1") + tinyNormalChars.length();
+    static const uint16_t SINGLE_SPACE_INDEX = tinySpecialChars.find('1') + tinyNormalChars.length();
 
-    static const uint16_t breakCharSpecialIndex = tinySpecialChars.indexOf("n");
+    static const uint16_t breakCharSpecialIndex = tinySpecialChars.find('n');
 
 
     static const uint8_t *tinyLetter[] = {tinyA, tinyB, tinyC, tinyD, tinyE, tinyF, tinyG, tinyH, tinyI, tinyJ, tinyK,

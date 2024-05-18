@@ -11,7 +11,15 @@ namespace details_dino_game{
 }
 
 
-#include <Arduino.h>
+
+#ifdef ARDUINO
+    #include <Arduino.h>
+#else
+    #include "pico/stdlib.h"
+#endif
+
+#include <string>
+
 #include "display_program.h"
 #include "dinogame_settings.h"
 

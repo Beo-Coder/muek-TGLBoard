@@ -19,21 +19,21 @@ ScrollText::ScrollText(MatrixOutput *matrixOutput, Color (*frame)[MATRIX_HEIGHT]
 
 }
 
-void ScrollText::createIDTextArray(String *text) {
+void ScrollText::createIDTextArray(std::string *text) {
     idTextArraySize = 0;
     for (unsigned int i = 0; i < text->length(); i++) {
-        char charAtIndex = text->charAt(i);
+        char charAtIndex = text->at(i);
         if (charAtIndex == '%') {
-            charAtIndex = text->charAt(i + 1);
-            int index = details_letters_normal::specialChars.indexOf(charAtIndex);
-            if (index != -1) {
+            charAtIndex = text->at(i + 1);
+            unsigned int index = details_letters_normal::specialChars.find(charAtIndex);
+            if (index != std::string::npos) {
                 idTextArray[idTextArraySize] = index + details_letters_normal::normalChars.length();
                 i++;
             }
 
         } else {
-            int index = details_letters_normal::normalChars.indexOf(charAtIndex);
-            if (index != -1) {
+            unsigned int index = details_letters_normal::normalChars.find(charAtIndex);
+            if (index != std::string::npos) {
                 idTextArray[idTextArraySize] = index;
             }
         }

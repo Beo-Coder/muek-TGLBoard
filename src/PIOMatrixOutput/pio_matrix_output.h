@@ -35,12 +35,12 @@ class MatrixOutput {
     uint8_t frameBufferWriteIndex;
     uint8_t frameBufferReadIndex;
     uint8_t frameBufferLength;
-    boolean frameBufferEnable;
+    bool frameBufferEnable;
     uint32_t frameBufferInterval;
 
     uint8_t subframeBufferIndex;
-    boolean subframeBufferEnable;
-    boolean firstSubframe;
+    bool subframeBufferEnable;
+    bool firstSubframe;
 
 
     uint32_t timerFrameCount;
@@ -48,7 +48,7 @@ class MatrixOutput {
     bool timerSubframeCountEnable;
     uint32_t timerSubframeCount;
 
-    static void enableTimer(boolean enable = true);
+    static void enableTimer(bool enable = true);
 
     static void setTimer();
 
@@ -78,11 +78,11 @@ public:
 
     uint8_t getFreeFrames() const;
 
-    void enableFrameBuffer(boolean enable = true);
+    void enableFrameBuffer(bool enable = true);
 
     void setFrameBufferInterval(uint32_t interval);
 
-    void enableSubframes(boolean enable = true);
+    void enableSubframes(bool enable = true);
 
 
     void clearDisplay();

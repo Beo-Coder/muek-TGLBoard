@@ -49,7 +49,7 @@ private:
     bool rotated;
     bool button1Cache;
     bool button2Cache;
-    String stringBuffer;
+    std::string stringBuffer;
 
     bool loss;
     unsigned int score;

@@ -6,7 +6,12 @@
 #define TGL_BOARD_SNAKE_AI_SNAKE_AI_ANIMATION_H
 
 
-#include <Arduino.h>
+#ifdef ARDUINO
+    #include <Arduino.h>
+#else
+    #include "pico/stdlib.h"
+#endif
+
 #include "display_program.h"
 
 #include "snake.h"
@@ -35,7 +40,7 @@ class SnakeAI : public display_program{
     details_snake_ai::HamiltonianCircle hamiltonianCircle;
 
 
-    boolean stopDead = false;
+    bool stopDead = false;
     uint8_t moves;
 
     void placeNewFood();

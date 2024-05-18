@@ -1,4 +1,11 @@
-#include <Arduino.h>
+#ifdef ARDUINO
+    #include <Arduino.h>
+#else
+    #include "pico/stdlib.h"
+#endif
+
+
+#include "BeoCommon.h"
 
 #include "PIOMatrixOutput/pio_matrix_output.h"
 
@@ -11,8 +18,6 @@
 #include "Firework/firework_animation.h"
 #include "TetrisGame/tetris.h"
 #include "SnakeAI/snake_ai_animation.h"
-
-
 
 
 
@@ -50,21 +55,23 @@ SnakeAI snake(&ledMatrix, &frame);
 display_program *programs[2];
 
 
-String text = "Hello%nWorld";
+std::string text = "Hello World 12";
 
 
 
 
-void button1_isr() {
-    programs[0]->button1ISR(digitalRead(BUTTON1));
-
-}
-
-void button2_isr() {
-    programs[0]->button2ISR(digitalRead(BUTTON2));
-
-
-
+void button_isr(uint gpio, uint32_t events){
+    uint8_t state = events>>3; // Rise: 8>>3 = 1; Fall: 4>>3 = 0
+    switch (gpio){
+        case BUTTON1:
+            programs[0]->button1ISR(state);
+            break;
+        case BUTTON2:
+            programs[0]->button2ISR(events>>3);
+            break;
+        default:
+            break;
+    }
 }
 
 
@@ -75,16 +82,13 @@ void setup() {
     delay(3500); // Just so that the Serial Console has time to connect
     Serial.println("Hello World");
 
-    pinMode(BUTTON1, INPUT_PULLDOWN);
-    pinMode(BUTTON2, INPUT_PULLDOWN);
-
-    attachInterrupt(digitalPinToInterrupt(18), button1_isr, CHANGE);
-    attachInterrupt(digitalPinToInterrupt(19), button2_isr, CHANGE);
+    gpio_set_irq_enabled_with_callback(BUTTON1, GPIO_IRQ_EDGE_RISE | GPIO_IRQ_EDGE_FALL, true, &button_isr);
+    gpio_set_irq_enabled_with_callback(BUTTON2, GPIO_IRQ_EDGE_RISE | GPIO_IRQ_EDGE_FALL, true, &button_isr);
 
 
 
 
-    programs[0] = &fireworks;
+    programs[0] = &tetrisGame;
     programs[0]->restart();
 
     tinyText.setColor(&color1, &color3, &color2);
@@ -94,6 +98,8 @@ void setup() {
 
 
     ledMatrix.enableSubframes();
+
+    Serial.println(SystemCoreClock);
 
 
 
@@ -107,8 +113,8 @@ void loop() {
 
 
 
-    if(millis()-lastMillis > programs[0]->refreshSpeed || programs[0]->refreshSpeed == 0){
-        lastMillis = millis();
+    if(beo::millis()-lastMillis > programs[0]->refreshSpeed || programs[0]->refreshSpeed == 0){
+        lastMillis = beo::millis();
         programs[0]->refresh();
 
     }

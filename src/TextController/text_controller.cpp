@@ -12,7 +12,7 @@ TextController::TextController(MatrixOutput *matrix, Color (*frame)[8][16]) : di
     backgroundColor = &colorBlank;
 }
 
-void TextController::setText(String *text) {
+void TextController::setText(std::string *text) {
     createIDTextArray(text);
 }
 

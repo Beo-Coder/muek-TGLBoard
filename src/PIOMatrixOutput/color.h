@@ -5,7 +5,13 @@
 #ifndef TGL_BOARD_PIO_MATRIX_OUTPUT_COLOR_H
 #define TGL_BOARD_PIO_MATRIX_OUTPUT_COLOR_H
 
-#include <Arduino.h>
+
+#ifdef ARDUINO
+    #include <Arduino.h>
+#else
+    #include "pico/stdlib.h"
+#endif
+
 
 #define MAX_COLOR_VALUE 255
 #define MIN_COLOR_VALUE 0

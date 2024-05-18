@@ -7,8 +7,11 @@
 
 class Color;
 
-#include <Arduino.h>
-
+#ifdef ARDUINO
+    #include <Arduino.h>
+#else
+    #include "pico/stdlib.h"
+#endif
 
 
 namespace details_firework {

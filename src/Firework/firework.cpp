@@ -40,20 +40,20 @@ void details_firework::Firework::start(int8_t posX, int8_t posY, Color *color) {
         // This could certainly be improved
         switch (i % 4) {
             case 0:
-                pixel[i]->dirX = float(randomInt(0, FIREWORK_SPEED_VALUE_X + 1));
-                pixel[i]->dirY = float(randomInt(0, FIREWORK_SPEED_VALUE_Y + 1));
+                pixel[i]->dirX = float(beo::randomInt(0, FIREWORK_SPEED_VALUE_X + 1));
+                pixel[i]->dirY = float(beo::randomInt(0, FIREWORK_SPEED_VALUE_Y + 1));
                 break;
             case 1:
-                pixel[i]->dirX = float(randomInt(-FIREWORK_SPEED_VALUE_X, 0));
-                pixel[i]->dirY = float(randomInt(0, FIREWORK_SPEED_VALUE_Y + 1));
+                pixel[i]->dirX = float(beo::randomInt(-FIREWORK_SPEED_VALUE_X, 0));
+                pixel[i]->dirY = float(beo::randomInt(0, FIREWORK_SPEED_VALUE_Y + 1));
                 break;
             case 2:
-                pixel[i]->dirX = float(randomInt(0, FIREWORK_SPEED_VALUE_X + 1));
-                pixel[i]->dirY = float(randomInt(-FIREWORK_SPEED_VALUE_Y, 0));
+                pixel[i]->dirX = float(beo::randomInt(0, FIREWORK_SPEED_VALUE_X + 1));
+                pixel[i]->dirY = float(beo::randomInt(-FIREWORK_SPEED_VALUE_Y, 0));
                 break;
             case 3:
-                pixel[i]->dirX = float(randomInt(-FIREWORK_SPEED_VALUE_X, 0));
-                pixel[i]->dirY = float(randomInt(-FIREWORK_SPEED_VALUE_Y, 0));
+                pixel[i]->dirX = float(beo::randomInt(-FIREWORK_SPEED_VALUE_X, 0));
+                pixel[i]->dirY = float(beo::randomInt(-FIREWORK_SPEED_VALUE_Y, 0));
                 break;
         }
 

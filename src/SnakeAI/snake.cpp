@@ -74,7 +74,8 @@ void details_snake_ai::Snake::move(details_snake_ai::Direction dir) {
 
 
 
-boolean details_snake_ai::Snake::checkHeadColliding() {
+bool
+details_snake_ai::Snake::checkHeadColliding() {
     uint8_t snakeX = snakeBody[0] & 0xFF;
     uint8_t snakeY = (snakeBody[0] >> 8) & 0xFF;
 
@@ -94,7 +95,7 @@ boolean details_snake_ai::Snake::checkHeadColliding() {
 
 
 
-boolean details_snake_ai::Snake::getDead() const {
+bool details_snake_ai::Snake::getDead() const {
     return dead;
 }
 
@@ -102,7 +103,7 @@ int16_t details_snake_ai::Snake::getLength() const {
     return length;
 }
 
-boolean details_snake_ai::Snake::checkFoodCollision(uint16_t foodPos) {
+bool details_snake_ai::Snake::checkFoodCollision(uint16_t foodPos) {
     return foodPos == snakeBody[0];
 }
 
@@ -142,7 +143,7 @@ uint16_t details_snake_ai::Snake::getPositionNotInSnake() {
     }
 
 
-    uint16_t randomPositionIndex = randomInt(0, numberPositions);
+    uint16_t randomPositionIndex = beo::randomInt(0, numberPositions);
     posX = positions[randomPositionIndex]%MATRIX_LENGTH;
     posY = positions[randomPositionIndex]/MATRIX_LENGTH;
 

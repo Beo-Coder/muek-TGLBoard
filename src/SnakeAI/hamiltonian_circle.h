@@ -5,7 +5,13 @@
 #ifndef TGL_BOARD_SNAKE_AI_HAMILTONIAN_CIRCLE_H
 #define TGL_BOARD_SNAKE_AI_HAMILTONIAN_CIRCLE_H
 
-#include <Arduino.h>
+
+#ifdef ARDUINO
+    #include <Arduino.h>
+#else
+    #include "pico/stdlib.h"
+#endif
+
 #include "PIOMatrixOutput/pio_matrix_settings.h"
 #include "snake_ai_settings.h"
 

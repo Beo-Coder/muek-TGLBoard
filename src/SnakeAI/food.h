@@ -5,7 +5,11 @@
 #ifndef TGL_BOARD_SNAKE_AI_FOOD_H
 #define TGL_BOARD_SNAKE_AI_FOOD_H
 
-#include <Arduino.h>
+#ifdef ARDUINO
+    #include <Arduino.h>
+#else
+    #include "pico/stdlib.h"
+#endif
 
 
 

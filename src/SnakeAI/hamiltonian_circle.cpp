@@ -45,7 +45,7 @@ void details_snake_ai::HamiltonianCircle::primsAlgorithm(){
 
                 for(uint16_t j=0; j < PRIM_SIZE; j++){
                     if(!edgeSelected[j] && isAdjacentPrim(i, j)){
-                        uint16_t randomValue = randomInt(0, UINT16_MAX);
+                        uint16_t randomValue = beo::randomInt(0, UINT16_MAX);
                         if(minimumNodeValue > randomValue){
                             minimumNodeValue = randomValue;
                             minimumNodeI = i;

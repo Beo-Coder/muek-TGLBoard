@@ -10,7 +10,12 @@ namespace details_text_controller{
     class Subcontroller;
 }
 
-#include <Arduino.h>
+#ifdef ARDUINO
+    #include <Arduino.h>
+#else
+    #include "pico/stdlib.h"
+#endif
+
 #include "text_controller.h"
 
 
@@ -28,7 +33,7 @@ class ScrollText : public TextController{
 
 
 
-    void createIDTextArray(String *text) override;
+    void createIDTextArray(std::string *text) override;
 
 
 

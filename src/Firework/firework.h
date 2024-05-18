@@ -12,7 +12,12 @@ namespace details_firework {
 class Color;
 
 
-#include <Arduino.h>
+#ifdef ARDUINO
+    #include <Arduino.h>
+#else
+    #include "pico/stdlib.h"
+#endif
+
 #include "PIOMatrixOutput/pio_matrix_settings.h"
 #include "firework_settings.h"
 

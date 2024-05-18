@@ -7,6 +7,7 @@
 #include <hardware/structs/rosc.h>
 #include "TextController/text_controller.h"
 #include "block.h"
+#include "BeoCommon.h"
 
 
 // pick random block
@@ -18,8 +19,8 @@ void Tetris::reset() {
     scheduleRotation = false;
     loss = false;
     score = 0;
-    prevMillis = millis();
-    prevScrollMillis = millis();
+    prevMillis = beo::millis();
+    prevScrollMillis = beo::millis();
     // empty arrays and frame
     clearFrame();
     for (int i = 0; i < MATRIX_HEIGHT; ++i) {
@@ -35,25 +36,26 @@ void Tetris::reset() {
 }
 
 void Tetris::loop() {
-    if (loss && millis() - prevScrollMillis >= SCORE_TEXT_SCROLL_SPEED) {
+    uint32_t currentMillis = beo::millis();
+    if (loss && currentMillis - prevScrollMillis >= SCORE_TEXT_SCROLL_SPEED) {
 
         textController->createAndLoadFrame();
 
-        prevScrollMillis = millis();
+        prevScrollMillis = currentMillis;
     }
-    if (millis() - prevMillis >= frameSpeed) { // update display
+    if (currentMillis - prevMillis >= frameSpeed) { // update display
         graphicTick();
 
     }
 
-    if (millis() - prevMillis >= tickSpeed && !loss) { // update game
+    if (currentMillis - prevMillis >= tickSpeed && !loss) { // update game
         tick();
 
-        prevMillis = millis();
+        prevMillis = currentMillis;
     }
 
 
-    if (loss && millis() - prevMillis >= LOSS_DELAY) {
+    if (loss && currentMillis - prevMillis >= LOSS_DELAY) {
         reset();
     }
 
@@ -329,7 +331,7 @@ void Tetris::detectLoss() {
             textController->restart();
             textController->setColor(&overlayWhite, &slightlyRed);
             stringBuffer = "";
-            stringBuffer.concat(score);
+            stringBuffer.append(std::to_string(score));
             textController->setText(&stringBuffer);
             textController->createAndLoadFrame();
 

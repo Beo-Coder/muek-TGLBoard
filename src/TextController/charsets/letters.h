@@ -5,7 +5,13 @@
 #ifndef TGL_BOARD_TEXTCONTROLLER_LETTERS_H
 #define TGL_BOARD_TEXTCONTROLLER_LETTERS_H
 
-#include <Arduino.h>
+#ifdef ARDUINO
+    #include <Arduino.h>
+#else
+    #include "pico/stdlib.h"
+#endif
+
+#include <string>
 
 namespace details_letters_normal {
 
@@ -157,11 +163,11 @@ namespace details_letters_normal {
 
 
 
-    static const String normalChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz 0123456789().,?!_-:[]{}<>;";
-    static const String specialChars = "HS01234l|AaOoUu()";
+    static const std::string normalChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz 0123456789().,?!_-:[]{}<>;";
+    static const std::string specialChars = "HS01234l|AaOoUu()";
 
     // Gets stored in ROM
-    static const uint8_t SINGLE_SPACE_INDEX = specialChars.indexOf('1') + normalChars.length();
+    static const uint8_t SINGLE_SPACE_INDEX = specialChars.find('1') + normalChars.length();
 
     static const uint8_t *Letter[] = {lA, lB, lC, lD, lE, lF, lG, lH, lI, lJ, lK, lL, lM, lN, lO, lP, lQ, lR, lS, lT,
                                       lU,

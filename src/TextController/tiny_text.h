@@ -10,7 +10,14 @@ namespace details_text_controller{
 }
 class Color;
 class MatrixOutput;
-#include <Arduino.h>
+
+#ifdef ARDUINO
+    #include <Arduino.h>
+#else
+    #include "pico/stdlib.h"
+#endif
+
+
 #include "text_controller.h"
 
 
@@ -35,18 +42,18 @@ class TinyText : public TextController {
     uint16_t lowerTextArraySize;
 
 
-    void createIDTextArray(String *text) override;
-    void createIDTextArray(String *text, uint8_t startIndex);
+    void createIDTextArray(std::string *text) override;
+    void createIDTextArray(std::string *text, uint8_t startIndex);
 
 
 public:
 
     explicit TinyText(MatrixOutput *matrixOutput, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]);
 
-    void setText(String *text) override;
+    void setText(std::string *text) override;
 
-    void setUpperText(String *text);
-    void setLowerText(String *text);
+    void setUpperText(std::string *text);
+    void setLowerText(std::string *text);
 
     void setColor(Color *upperTextColor,Color *lowerTextColor,Color *backgroundColor);
 

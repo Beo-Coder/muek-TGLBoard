@@ -9,7 +9,13 @@ namespace details_firework{
     class Firework;
 }
 
-#include <Arduino.h>
+
+#ifdef ARDUINO
+    #include <Arduino.h>
+#else
+    #include "pico/stdlib.h"
+#endif
+
 #include "display_program.h"
 #include "firework_settings.h"
 

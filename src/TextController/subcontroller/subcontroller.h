@@ -8,7 +8,12 @@
 class Color;
 struct Charset;
 
-#include <Arduino.h>
+#ifdef ARDUINO
+    #include <Arduino.h>
+#else
+    #include "pico/stdlib.h"
+#endif
+
 #include "PIOMatrixOutput/pio_matrix_output.h"
 
 

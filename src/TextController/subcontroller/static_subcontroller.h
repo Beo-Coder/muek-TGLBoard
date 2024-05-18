@@ -6,7 +6,12 @@
 #define TGL_BOARD_TEXTCONTROLLER_STATIC_SUBCONTROLLER_H
 
 
-#include <Arduino.h>
+#ifdef ARDUINO
+    #include <Arduino.h>
+#else
+    #include "pico/stdlib.h"
+#endif
+
 #include "subcontroller.h"
 
 namespace details_text_controller {

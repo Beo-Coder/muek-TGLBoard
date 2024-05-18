@@ -5,7 +5,13 @@
 #ifndef TGL_BOARD_FIREWORK_DINO_GAME_DINO_GAME_SETTINGS_H
 #define TGL_BOARD_FIREWORK_DINO_GAME_DINO_GAME_SETTINGS_H
 
-#include <Arduino.h>
+
+#ifdef ARDUINO
+    #include <Arduino.h>
+#else
+    #include "pico/stdlib.h"
+#endif
+
 #include "PIOMatrixOutput/color.h"
 
 

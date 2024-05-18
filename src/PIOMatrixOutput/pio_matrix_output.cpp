@@ -150,7 +150,7 @@ MatrixOutput::MatrixOutput(PIO pio, uint8_t sm, uint8_t dmaChannel, uint8_t pin_
 
 }
 
-void MatrixOutput::enableTimer(boolean enable) {
+void MatrixOutput::enableTimer(bool enable) {
     irq_set_enabled(TIMER_INDEX, enable);
     setTimer();
     hw_clear_bits(&timer_hw->intr, 1u << TIMER_INDEX);
@@ -230,7 +230,7 @@ uint8_t MatrixOutput::getFreeFrames() const {
 }
 
 
-void MatrixOutput::enableFrameBuffer(boolean enable) {
+void MatrixOutput::enableFrameBuffer(bool enable) {
     frameBufferEnable = enable;
 
 
@@ -251,7 +251,7 @@ void MatrixOutput::setFrameBufferInterval(uint32_t interval) {
     frameBufferInterval = interval;
 }
 
-void MatrixOutput::enableSubframes(boolean enable) {
+void MatrixOutput::enableSubframes(bool enable) {
     subframeBufferEnable = enable;
 
     if (enable) {

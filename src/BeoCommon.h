@@ -5,9 +5,15 @@
 #ifndef TGL_BOARD_BEO_COMMON_H
 #define TGL_BOARD_BEO_COMMON_H
 
+#define abs(x) ((x)>0?(x):-(x))
+
+namespace beo{
+    int randomInt(int min, int max);
+
+    unsigned long millis();
 
 
-int randomInt(int min, int max);
+}
 
 
 #endif //TGL_BOARD_BEO_COMMON_H
