@@ -21,7 +21,7 @@ class MatrixOutput;
 #define MAX_TEXT_LENGTH 500
 
 
-class TextController : public display_program {
+class TextController : public DisplayProgram {
 
 protected:
 

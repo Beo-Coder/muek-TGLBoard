@@ -22,7 +22,7 @@ namespace details_firework{
 
 
 
-class FireworkAnimation : public display_program {
+class FireworkAnimation : public DisplayProgram {
 
 
 

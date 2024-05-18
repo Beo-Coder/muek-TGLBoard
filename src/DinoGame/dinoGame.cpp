@@ -24,7 +24,7 @@
 
 
 
-DinoGame::DinoGame(MatrixOutput *ledMatrix, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]) : display_program(ledMatrix, frame) {
+DinoGame::DinoGame(MatrixOutput *ledMatrix, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]) : DisplayProgram(ledMatrix, frame) {
     //  matrix = ledMatrix;
 
     numberEnemies = 1;

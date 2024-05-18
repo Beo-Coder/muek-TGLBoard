@@ -22,7 +22,7 @@ class Block;
 
 #define LOSS_Y 2
 
-class Tetris : public display_program{
+class Tetris : public DisplayProgram{
 public:
     // display program requirements:
     void refresh() override;

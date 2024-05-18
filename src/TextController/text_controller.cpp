@@ -5,7 +5,7 @@
 #include "text_controller.h"
 
 
-TextController::TextController(MatrixOutput *matrix, Color (*frame)[8][16]) : display_program(matrix, frame) {
+TextController::TextController(MatrixOutput *matrix, Color (*frame)[8][16]) : DisplayProgram(matrix, frame) {
     idTextArraySize = 0;
     idTextArrayIndex = 0;
     textColor = &colorRed;

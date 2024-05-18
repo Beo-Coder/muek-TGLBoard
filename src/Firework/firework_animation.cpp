@@ -8,7 +8,7 @@
 
 
 
-FireworkAnimation::FireworkAnimation(MatrixOutput *ledMatrix, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]) : display_program(ledMatrix, frame) {
+FireworkAnimation::FireworkAnimation(MatrixOutput *ledMatrix, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]) : DisplayProgram(ledMatrix, frame) {
     refreshSpeed = SIMULATION_SPEED;
     timeSinceLastFirework = 0;
     lastFireWorkPostion = 0;

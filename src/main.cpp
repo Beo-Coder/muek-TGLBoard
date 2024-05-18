@@ -53,7 +53,7 @@ SnakeAI snake(&ledMatrix, &frame);
 
 
 
-display_program *programs[2];
+DisplayProgram *programs[2];
 
 
 std::string text = "Hello World 12";
@@ -93,7 +93,7 @@ int main(){
 
 
 
-    programs[0] = &tetrisGame;
+    programs[0] = &snake;
     programs[0]->restart();
 
     tinyText.setColor(&color1, &color3, &color2);

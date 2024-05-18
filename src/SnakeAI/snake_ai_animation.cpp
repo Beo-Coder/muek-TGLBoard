@@ -6,8 +6,8 @@
 #include "snake_ai_settings.h"
 #include "beo_common.h"
 
-SnakeAI::SnakeAI(MatrixOutput *ledMatrix, Color (*frame)[8][16]) : display_program(ledMatrix, frame) {
-    refreshSpeed = 0;
+SnakeAI::SnakeAI(MatrixOutput *ledMatrix, Color (*frame)[8][16]) : DisplayProgram(ledMatrix, frame) {
+    refreshSpeed = 50;
     moves = 0;
 
 }

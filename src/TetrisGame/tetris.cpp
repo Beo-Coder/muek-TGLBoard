@@ -135,7 +135,7 @@ void Tetris::handleScheduledActions() {
     }
 }
 
-Tetris::Tetris(MatrixOutput *ledMatrix, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH], TextController *scrollController) : display_program(ledMatrix, frame) {
+Tetris::Tetris(MatrixOutput *ledMatrix, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH], TextController *scrollController) : DisplayProgram(ledMatrix, frame) {
     /* redundant happens in display_program constructor already
     this->matrix = ledMatrix;
     this->frame = frame;
