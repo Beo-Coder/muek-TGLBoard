@@ -34,7 +34,7 @@ static Color *foodColor = &colorRed;
 
 
 
-class SnakeAI : public display_program{
+class SnakeAI : public DisplayProgram{
     details_snake_ai::Snake snake;
     details_snake_ai::Food food;
     details_snake_ai::HamiltonianCircle hamiltonianCircle;

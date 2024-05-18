@@ -10,14 +10,14 @@ class Color;
 
 #include "PIOMatrixOutput/pio_matrix_output.h"
 
-class display_program {
+class DisplayProgram {
 
 protected:
     Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH];
     MatrixOutput *matrix;
 
 public:
-    display_program(MatrixOutput *matrix, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]);
+    DisplayProgram(MatrixOutput *matrix, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]);
 
 
     uint32_t refreshSpeed;

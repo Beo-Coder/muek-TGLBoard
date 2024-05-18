@@ -26,7 +26,7 @@ namespace details_dino_game{
 
 
 
-class DinoGame : public display_program {
+class DinoGame : public DisplayProgram {
 
 
     details_dino_game::Enemy *enemies[MAX_ENEMIES];
