@@ -1,10 +1,7 @@
 #include <Arduino.h>
-#include "hardware/pio.h"
-#include "hardware/irq.h"
 
 #include "PIOMatrixOutput/pio_matrix_output.h"
-#include "PIOMatrixOutput/color.h"
-#include "ScrollText/scroll_text.h"
+#include "TextController//scroll_text.h"
 
 #define BUTTON1 18
 #define BUTTON2 19
@@ -20,21 +17,10 @@ PIO pio = pio0;
 MatrixOutput ledMatrix(pio, 0, 0, 10, 11);
 ScrollText scrollText(&ledMatrix, &frame);
 
-String text = "Hello World %H  ";
+std::string text = "Hello World %H  ";
 
 Color color1(1,0,0);
 Color color2(0,0,0);
-
-
-
-
-void button1_isr() {
-
-}
-
-void button2_isr() {
-
-}
 
 
 
@@ -45,14 +31,6 @@ void setup() {
 
 
     Serial.println("Hello World");
-
-
-    pinMode(BUTTON1, INPUT_PULLDOWN);
-    pinMode(BUTTON2, INPUT_PULLDOWN);
-
-    attachInterrupt(digitalPinToInterrupt(18), button1_isr, CHANGE);
-    attachInterrupt(digitalPinToInterrupt(19), button2_isr, CHANGE);
-
 
 
     scrollText.setColor(&color1, &color2);

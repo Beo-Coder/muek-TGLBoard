@@ -2,7 +2,21 @@
 
 ### 8x16 RGB Board
 
+
+# Note
+You can either use PlatformIO (Arduino Framework) or the official C/C++ SDK from Raspberry Pi.  
+If you want to use the C/C++ SDK, please use the c-SDK branch.
+
+Code compiled with the C-SDK in release mode
+is approximately 1.65 times faster than code compiled with the Arduino framework.
+
+But code compiled with the C-SDK in debug mode
+is approximately 0.79 times slower than code compiled with the Arduino framework.
+
+Calculations are based on the creation of 1000 hamiltonian circles.
+
 # Usage
+
 You need PlatformIO to use this project.  
 Arduino IDE might work too (not tested).
 

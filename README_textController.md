@@ -49,7 +49,7 @@ Scroll text, static text and tiny text.
 ### Set text (All controllers)
 `textController.setText(<text>);`
 
-- **text**: Address of the text stored as a string.
+- **text**: Address of the text stored as `std::string`.
 
 
 <br/>
@@ -58,7 +58,7 @@ Scroll text, static text and tiny text.
 `textController.setUpperText(<text>);`  
 `textController.setLowerText(<text>);`
 
-- **text**: Address of the text stored as a string.
+- **text**: Address of the text stored as `std::string`.  
 Sets the text individual for the upper/lower half.
 
 
