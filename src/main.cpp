@@ -82,7 +82,7 @@ int main(){
     clocks_init();
     stdio_init_all();
 
-    delay(3500); // Just so that the Serial Console has time to connect
+    sleep_ms(3500); // Just so that the Serial Console has time to connect
 
     gpio_set_irq_enabled_with_callback(BUTTON1, GPIO_IRQ_EDGE_RISE | GPIO_IRQ_EDGE_FALL, true, &button_isr);
     gpio_set_irq_enabled_with_callback(BUTTON2, GPIO_IRQ_EDGE_RISE | GPIO_IRQ_EDGE_FALL, true, &button_isr);

@@ -11,22 +11,29 @@ pico_sdk_init()
 
 
 add_executable(TGL-Board src/main.cpp
+        src/display_program.cpp
+        src/BeoCommon.cpp
+        src/TextController/tiny_text.cpp
+        src/TextController/text_controller.cpp
+        src/TextController/static_text.cpp
+        src/TextController/scroll_text.cpp
+        src/TextController/subcontroller/subcontroller.cpp
+        src/TextController/subcontroller/static_subcontroller.cpp
+        src/TetrisGame/tetris.cpp
+        src/TetrisGame/block.cpp
+        src/SnakeAI/snake_ai_animation.cpp
+        src/SnakeAI/snake.cpp
+        src/SnakeAI/hamiltonian_circle.cpp
+        src/SnakeAI/food.cpp
         src/PIOMatrixOutput/pio_matrix_output.cpp
         src/PIOMatrixOutput/color.cpp
-        src/BeoCommon.cpp
-        src/display_program.cpp
-        src/SnakeAI/food.cpp
-        src/SnakeAI/hamiltonian_circle.cpp
-        src/SnakeAI/snake.cpp
-        src/SnakeAI/snake_ai_animation.cpp
-        src/Firework/firework.cpp
-        src/Firework/firework_animation.cpp
         src/Firework/pixel.cpp
-        src/ScrollText/scroll_text.cpp
-        src/DinoGame/dinoGame.cpp
+        src/Firework/firework_animation.cpp
+        src/Firework/firework.cpp
+        src/DinoGame/player.cpp
         src/DinoGame/enemy.cpp
-        src/DinoGame/entity.cpp
-        src/DinoGame/player.cpp)
+        src/DinoGame/dinoGame.cpp
+        src/DinoGame/entity.cpp)
 
 target_include_directories(TGL-Board PUBLIC ${CMAKE_CURRENT_LIST_DIR}/src)
 
