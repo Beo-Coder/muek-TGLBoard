@@ -2,8 +2,8 @@
 // Created by leo on 03.04.24.
 //
 
-#ifndef MUEK_ARGB_MATRIX_BOARD_COLOR_H
-#define MUEK_ARGB_MATRIX_BOARD_COLOR_H
+#ifndef TGL_BOARD_PIO_MATRIX_OUTPUT_COLOR_H
+#define TGL_BOARD_PIO_MATRIX_OUTPUT_COLOR_H
 
 #include <Arduino.h>
 
@@ -77,4 +77,4 @@ static Color colorPurple(NORMAL_BRIGHTNESS,0,NORMAL_BRIGHTNESS);
 static Color *allColors[NUMBER_NORMAL_COLORS] = {&colorRed, &colorBlue, &colorGreen, &colorWhite, &colorYellow, &colorCyan, &colorPurple};
 
 
-#endif //MUEK_ARGB_MATRIX_BOARD_COLOR_H
+#endif //TGL_BOARD_PIO_MATRIX_OUTPUT_COLOR_H

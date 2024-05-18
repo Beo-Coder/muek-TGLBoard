@@ -2,8 +2,8 @@
 // Created by Leo Baschang on 02.03.24.
 //
 
-#ifndef UNTITLED24_PIOMATRIXOUTPUT_H
-#define UNTITLED24_PIOMATRIXOUTPUT_H
+#ifndef TGL_BOARD_PIO_MATRIX_OUTPUT_PIO_MATRIX_OUTPUT_H
+#define TGL_BOARD_PIO_MATRIX_OUTPUT_PIO_MATRIX_OUTPUT_H
 
 class Color;
 
@@ -108,4 +108,4 @@ static MatrixOutput *instancesDMA[16]; // index is DMA Channel
 
 
 
-#endif //UNTITLED24_PIOMATRIXOUTPUT_H
+#endif //TGL_BOARD_PIO_MATRIX_OUTPUT_PIO_MATRIX_OUTPUT_H

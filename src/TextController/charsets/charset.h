@@ -2,8 +2,8 @@
 // Created by leo on 17.05.24.
 //
 
-#ifndef MUEK_TGL_BOARD2_CHARSET_H
-#define MUEK_TGL_BOARD2_CHARSET_H
+#ifndef TGL_BOARD_TEXTCONTROLLER_CHARSET_H
+#define TGL_BOARD_TEXTCONTROLLER_CHARSET_H
 
 #include "letters.h"
 #include "tiny_letters.h"
@@ -25,4 +25,4 @@ static Charset tinyLetters{4, details_letters_tiny::tinyLetter, details_letters_
 
 
 
-#endif //MUEK_TGL_BOARD2_CHARSET_H
+#endif //TGL_BOARD_TEXTCONTROLLER_CHARSET_H

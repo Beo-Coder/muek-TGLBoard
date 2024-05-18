@@ -2,8 +2,8 @@
 // Created by leo on 01.05.24.
 //
 
-#ifndef MUEK_ARGB_MATRIX_BOARD_FIREWORK_H
-#define MUEK_ARGB_MATRIX_BOARD_FIREWORK_H
+#ifndef TGL_BOARD_FIREWORK_FIREWORK_H
+#define TGL_BOARD_FIREWORK_FIREWORK_H
 
 
 namespace details_firework {
@@ -50,4 +50,4 @@ namespace details_firework {
 
 
 
-#endif //MUEK_ARGB_MATRIX_BOARD_FIREWORK_H
+#endif //TGL_BOARD_FIREWORK_FIREWORK_H

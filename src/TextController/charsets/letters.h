@@ -2,8 +2,8 @@
 // Created by leo on 03.03.24.
 //
 
-#ifndef LETTERS_H
-#define LETTERS_H
+#ifndef TGL_BOARD_TEXTCONTROLLER_LETTERS_H
+#define TGL_BOARD_TEXTCONTROLLER_LETTERS_H
 
 #include <Arduino.h>
 
@@ -178,4 +178,4 @@ namespace details_letters_normal {
                                       lUe, lue, roundBracketO2, roundBracketC2};
 
 }
-#endif //LETTERS_H
+#endif //TGL_BOARD_TEXTCONTROLLER_LETTERS_H

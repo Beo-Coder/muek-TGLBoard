@@ -2,12 +2,13 @@
 // Created by leo on 01.05.24.
 //
 
+
+
+#ifndef TGL_BOARD_FIREWORK_FIREWORK_SETTINGS_H
+#define TGL_BOARD_FIREWORK_FIREWORK_SETTINGS_H
+
 #include <Arduino.h>
 #include "PIOMatrixOutput/color.h"
-
-#ifndef MUEK_ARGB_MATRIX_BOARD_FIREWORK_SETTINGS_H
-#define MUEK_ARGB_MATRIX_BOARD_FIREWORK_SETTINGS_H
-
 
 #define SIMULATION_SPEED 220
 
@@ -55,4 +56,4 @@ static uint8_t postions[NUMBER_POSITIONS] = {3, 5, 7, 9, 11, 13}; // Array of al
 
 
 
-#endif //MUEK_ARGB_MATRIX_BOARD_FIREWORK_SETTINGS_H
+#endif //TGL_BOARD_FIREWORK_FIREWORK_SETTINGS_H

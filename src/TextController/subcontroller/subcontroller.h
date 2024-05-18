@@ -2,8 +2,8 @@
 // Created by leo on 17.05.24.
 //
 
-#ifndef MUEK_TGL_BOARD2_SUBCONTROLLER_H
-#define MUEK_TGL_BOARD2_SUBCONTROLLER_H
+#ifndef TGL_BOARD_TEXTCONTROLLER_SUBCONTROLLER_H
+#define TGL_BOARD_TEXTCONTROLLER_SUBCONTROLLER_H
 
 class Color;
 struct Charset;
@@ -61,4 +61,4 @@ namespace details_text_controller{
 
 
 
-#endif //MUEK_TGL_BOARD2_SUBCONTROLLER_H
+#endif //TGL_BOARD_TEXTCONTROLLER_SUBCONTROLLER_H

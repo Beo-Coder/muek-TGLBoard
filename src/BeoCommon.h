@@ -2,12 +2,12 @@
 // Created by leo on 27.04.24.
 //
 
-#ifndef MUEK_ARGB_MATRIX_BOARD_BEOCOMMON_H
-#define MUEK_ARGB_MATRIX_BOARD_BEOCOMMON_H
+#ifndef TGL_BOARD_BEO_COMMON_H
+#define TGL_BOARD_BEO_COMMON_H
 
 
 
 int randomInt(int min, int max);
 
 
-#endif //MUEK_ARGB_MATRIX_BOARD_BEOCOMMON_H
+#endif //TGL_BOARD_BEO_COMMON_H

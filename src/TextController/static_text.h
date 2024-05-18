@@ -2,8 +2,8 @@
 // Created by leo on 11.05.24.
 //
 
-#ifndef MUEK_TGL_BOARD2_STATIC_TEXT_H
-#define MUEK_TGL_BOARD2_STATIC_TEXT_H
+#ifndef TGL_BOARD_TEXTCONTROLLER_STATIC_TEXT_H
+#define TGL_BOARD_TEXTCONTROLLER_STATIC_TEXT_H
 
 namespace details_text_controller{
     class StaticSubcontroller;
@@ -43,4 +43,4 @@ public:
 };
 
 
-#endif //MUEK_TGL_BOARD2_STATIC_TEXT_H
+#endif //TGL_BOARD_TEXTCONTROLLER_STATIC_TEXT_H

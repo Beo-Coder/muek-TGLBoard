@@ -2,8 +2,8 @@
 // Created by leo on 01.05.24.
 //
 
-#ifndef MUEK_ARGB_MATRIX_BOARD_ENEMY_H
-#define MUEK_ARGB_MATRIX_BOARD_ENEMY_H
+#ifndef TGL_BOARD_FIREWORK_DINO_GAME_ENEMY_H
+#define TGL_BOARD_FIREWORK_DINO_GAME_ENEMY_H
 
 
 class Color;
@@ -37,4 +37,4 @@ namespace details_dino_game {
 }
 
 
-#endif //MUEK_ARGB_MATRIX_BOARD_ENEMY_H
+#endif //TGL_BOARD_FIREWORK_DINO_GAME_ENEMY_H

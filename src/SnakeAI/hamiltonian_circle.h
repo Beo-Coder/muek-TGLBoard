@@ -2,8 +2,8 @@
 // Created by leo on 01.05.24.
 //
 
-#ifndef MUEK_ARGB_MATRIX_BOARD_HAILTIONIAN_CIRCLE_H
-#define MUEK_ARGB_MATRIX_BOARD_HAILTIONIAN_CIRCLE_H
+#ifndef TGL_BOARD_SNAKE_AI_HAMILTONIAN_CIRCLE_H
+#define TGL_BOARD_SNAKE_AI_HAMILTONIAN_CIRCLE_H
 
 #include <Arduino.h>
 #include "PIOMatrixOutput/pio_matrix_settings.h"
@@ -62,4 +62,4 @@ namespace details_snake_ai {
 }
 
 
-#endif //MUEK_ARGB_MATRIX_BOARD_HAILTIONIAN_CIRCLE_H
+#endif //TGL_BOARD_SNAKE_AI_HAMILTONIAN_CIRCLE_H

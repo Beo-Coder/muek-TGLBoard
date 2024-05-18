@@ -2,8 +2,8 @@
 // Created by leo on 01.05.24.
 //
 
-#ifndef MUEK_ARGB_MATRIX_BOARD_PIXEL_H
-#define MUEK_ARGB_MATRIX_BOARD_PIXEL_H
+#ifndef TGL_BOARD_FIREWORK_PIXEL_H
+#define TGL_BOARD_FIREWORK_PIXEL_H
 
 class Color;
 
@@ -28,4 +28,4 @@ namespace details_firework {
 }
 
 
-#endif //MUEK_ARGB_MATRIX_BOARD_PIXEL_H
+#endif //TGL_BOARD_FIREWORK_PIXEL_H

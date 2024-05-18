@@ -2,8 +2,8 @@
 // Created by leo on 06.03.24.
 //
 
-#ifndef MUEK_ARGB_MATRIX_BOARD_SCROLL_TEXT_H
-#define MUEK_ARGB_MATRIX_BOARD_SCROLL_TEXT_H
+#ifndef TGL_BOARD_TEXTCONTROLLER_SCROLL_TEXT_H
+#define TGL_BOARD_TEXTCONTROLLER_SCROLL_TEXT_H
 
 
 namespace details_text_controller{
@@ -51,4 +51,4 @@ public:
 };
 
 
-#endif //MUEK_ARGB_MATRIX_BOARD_SCROLL_TEXT_H
+#endif //TGL_BOARD_TEXTCONTROLLER_SCROLL_TEXT_H

@@ -2,8 +2,8 @@
 // Created by leo on 14.05.24.
 //
 
-#ifndef MUEK_TGL_BOARD2_TINY_LETTERS_H
-#define MUEK_TGL_BOARD2_TINY_LETTERS_H
+#ifndef TGL_BOARD_TEXTCONTROLLER_TINY_LETTERS_H
+#define TGL_BOARD_TEXTCONTROLLER_TINY_LETTERS_H
 
 #include <Arduino.h>
 
@@ -105,4 +105,4 @@ namespace details_letters_tiny {
                                           tiny_1, tiny_2, tinyPipe, tinyPipe, breakChar};
 
 }
-#endif //MUEK_TGL_BOARD2_TINY_LETTERS_H
+#endif //TGL_BOARD_TEXTCONTROLLER_TINY_LETTERS_H

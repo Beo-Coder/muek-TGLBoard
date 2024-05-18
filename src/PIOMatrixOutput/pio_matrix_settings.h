@@ -2,8 +2,8 @@
 // Created by leo on 18.05.24.
 //
 
-#ifndef MUEK_TGL_BOARD2_PIO_MATRIX_SETTINGS_H
-#define MUEK_TGL_BOARD2_PIO_MATRIX_SETTINGS_H
+#ifndef TGL_BOARD_PIO_MATRIX_OUTPUT_PIO_MATRIX_SETTINGS_H
+#define TGL_BOARD_PIO_MATRIX_OUTPUT_PIO_MATRIX_SETTINGS_H
 
 
 #define MATRIX_LENGTH 16
@@ -25,4 +25,4 @@
 #define dataSendTime 1950 // in µs
 #define subframePauseIntervall 350 // in µs (must be at least 150 (probably more))
 
-#endif //MUEK_TGL_BOARD2_PIO_MATRIX_SETTINGS_H
+#endif //TGL_BOARD_PIO_MATRIX_OUTPUT_PIO_MATRIX_SETTINGS_H
