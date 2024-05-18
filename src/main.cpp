@@ -6,7 +6,7 @@
 
 #include <hardware/clocks.h>
 
-#include "BeoCommon.h"
+#include "beo_common.h"
 
 #include "PIOMatrixOutput/pio_matrix_output.h"
 
@@ -73,7 +73,6 @@ void button_isr(uint gpio, uint32_t events){
         default:
             break;
     }
-
 }
 
 

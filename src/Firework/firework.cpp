@@ -3,7 +3,7 @@
 //
 
 #include "firework.h"
-#include "BeoCommon.h"
+#include "beo_common.h"
 #include "pixel.h"
 
 details_firework::Firework::Firework() {

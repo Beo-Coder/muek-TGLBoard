@@ -2,7 +2,7 @@
 // Created by leo on 27.04.24.
 //
 
-#include "BeoCommon.h"
+#include "beo_common.h"
 #include <hardware/structs/rosc.h>
 #include <hardware/timer.h>
 

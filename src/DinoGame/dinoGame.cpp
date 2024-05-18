@@ -5,7 +5,7 @@
 #include "dinoGame.h"
 #include "enemy.h"
 #include "player.h"
-#include "BeoCommon.h"
+#include "beo_common.h"
 
 
 

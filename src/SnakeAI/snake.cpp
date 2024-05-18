@@ -3,7 +3,7 @@
 //
 
 #include "snake.h"
-#include "BeoCommon.h"
+#include "beo_common.h"
 
 details_snake_ai::Snake::Snake() {
     reset();
