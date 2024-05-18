@@ -131,7 +131,7 @@ int8_t *getRandomEnemy() {
         totalWeight += enemyHeights[i][1];
     }
 
-    unsigned int randomValue = randomInt(0, totalWeight);
+    unsigned int randomValue = beo::randomInt(0, totalWeight);
 
 
     unsigned int cumulativeWeight = 0;
