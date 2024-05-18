@@ -2,10 +2,9 @@
 // Created by leo on 01.05.24.
 //
 
-#ifndef MUEK_ARGB_MATRIX_BOARD_SNAKE_AI_SETTINGS_H
-#define MUEK_ARGB_MATRIX_BOARD_SNAKE_AI_SETTINGS_H
+#ifndef TGL_BOARD_SNAKE_AI_SNAKE_AI_SETTINGS_H
+#define TGL_BOARD_SNAKE_AI_SNAKE_AI_SETTINGS_H
 
-#include "pico/stdlib.h"
 
 #define LENGTH_GROWTH 1
 #define START_LENGTH 3
@@ -28,4 +27,4 @@ namespace details_snake_ai{
 
 }
 
-#endif //MUEK_ARGB_MATRIX_BOARD_SNAKE_AI_SETTINGS_H
+#endif //TGL_BOARD_SNAKE_AI_SNAKE_AI_SETTINGS_H

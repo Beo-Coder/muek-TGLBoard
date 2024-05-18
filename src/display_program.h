@@ -2,14 +2,13 @@
 // Created by leo on 28.04.24.
 //
 
-#ifndef MUEK_ARGB_MATRIX_BOARD_DISPLAY_PROGRAM_H
-#define MUEK_ARGB_MATRIX_BOARD_DISPLAY_PROGRAM_H
+#ifndef TGL_BOARD_DISPLAY_PROGRAM_H
+#define TGL_BOARD_DISPLAY_PROGRAM_H
 
-#include <stdio.h>
-#include "pico/stdlib.h"
-#include "PIOMatrixOutput/color.h"
+class MatrixOutput;
+class Color;
+
 #include "PIOMatrixOutput/pio_matrix_output.h"
-
 
 class display_program {
 
@@ -46,4 +45,4 @@ public:
 
 
 
-#endif //MUEK_ARGB_MATRIX_BOARD_DISPLAY_PROGRAM_H
+#endif //TGL_BOARD_DISPLAY_PROGRAM_H

@@ -2,11 +2,16 @@
 // Created by leo on 03.04.24.
 //
 
-#ifndef MUEK_ARGB_MATRIX_BOARD_COLOR_H
-#define MUEK_ARGB_MATRIX_BOARD_COLOR_H
+#ifndef TGL_BOARD_PIO_MATRIX_OUTPUT_COLOR_H
+#define TGL_BOARD_PIO_MATRIX_OUTPUT_COLOR_H
 
-#include <stdio.h>
-#include "pico/stdlib.h"
+
+#ifdef ARDUINO
+    #include <Arduino.h>
+#else
+    #include "pico/stdlib.h"
+#endif
+
 
 #define MAX_COLOR_VALUE 255
 #define MIN_COLOR_VALUE 0
@@ -31,6 +36,13 @@ public:
     float blue;
     float red;
     float green;
+
+    bool equals(Color* reference); // this can not compare colors, just if the color is sourced from the same object
+
+    void set(Color* reference);
+    void add(Color* addition);
+    void multiply(float factor);
+    void average(Color* addition);
 
     void setRed(float value);
     void setGreen(float value);
@@ -71,4 +83,4 @@ static Color colorPurple(NORMAL_BRIGHTNESS,0,NORMAL_BRIGHTNESS);
 static Color *allColors[NUMBER_NORMAL_COLORS] = {&colorRed, &colorBlue, &colorGreen, &colorWhite, &colorYellow, &colorCyan, &colorPurple};
 
 
-#endif //MUEK_ARGB_MATRIX_BOARD_COLOR_H
+#endif //TGL_BOARD_PIO_MATRIX_OUTPUT_COLOR_H

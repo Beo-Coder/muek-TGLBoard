@@ -2,21 +2,25 @@
 // Created by leo on 01.05.24.
 //
 
-#ifndef MUEK_ARGB_MATRIX_BOARD_SNAKEAIANIMATION_H
-#define MUEK_ARGB_MATRIX_BOARD_SNAKEAIANIMATION_H
+#ifndef TGL_BOARD_SNAKE_AI_SNAKE_AI_ANIMATION_H
+#define TGL_BOARD_SNAKE_AI_SNAKE_AI_ANIMATION_H
 
 
+#ifdef ARDUINO
+    #include <Arduino.h>
+#else
+    #include "pico/stdlib.h"
+#endif
 
-#include "pico/stdlib.h"
-#include "PIOMatrixOutput/pio_matrix_output.h"
-#include "PIOMatrixOutput/color.h"
 #include "display_program.h"
-#include "BeoCommon.h"
 
-#include "snake_ai_settings.h"
-#include "hamiltonian_circle.h"
 #include "snake.h"
 #include "food.h"
+#include "hamiltonian_circle.h"
+
+
+
+
 
 
 
@@ -54,9 +58,6 @@ class SnakeAI : public display_program{
     static uint8_t getXPos(uint16_t pos);
     static uint8_t getYPos(uint16_t pos);
 
-    uint32_t startTime;
-    uint32_t endTime;
-
 
 
 public:
@@ -71,4 +72,4 @@ public:
 };
 
 
-#endif //MUEK_ARGB_MATRIX_BOARD_SNAKEAIANIMATION_H
+#endif //TGL_BOARD_SNAKE_AI_SNAKE_AI_ANIMATION_H

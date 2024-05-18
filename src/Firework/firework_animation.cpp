@@ -3,7 +3,8 @@
 //
 
 #include "firework_animation.h"
-
+#include "firework.h"
+#include "BeoCommon.h"
 
 
 
@@ -48,19 +49,19 @@ void FireworkAnimation::calcFrame() {
 
 void FireworkAnimation::createNewFirework() {
     // Get "random" location (not to near to previous firework)
-    uint8_t postion = randomInt(0, NUMBER_POSITIONS);
+    uint8_t postion = beo::randomInt(0, NUMBER_POSITIONS);
     uint8_t tries = 0;
     while (lastFireWorkPostion + MIN_SPACE_BETWEEN_POSTIONS >= postion &&
            lastFireWorkPostion - MIN_SPACE_BETWEEN_POSTIONS <= postion && tries < 50) {
-        postion = randomInt(0, NUMBER_POSITIONS);
+        postion = beo::randomInt(0, NUMBER_POSITIONS);
         tries++;
     }
 
-    addNewFirework(postions[postion], randomInt(FIREWORK_EXPLODE_Y_MIN, FIREWORK_EXPLODE_Y_MAX), randomColor[fireworkColor]);
+    addNewFirework(postions[postion], beo::randomInt(FIREWORK_EXPLODE_Y_MIN, FIREWORK_EXPLODE_Y_MAX), randomColor[fireworkColor]);
 
     timeSinceLastFirework = 0;
     lastFireWorkPostion = postion;
-    fireworkColor = (fireworkColor + randomInt(1,NUMBER_FIREWORK_COLORS/2)) % NUMBER_FIREWORK_COLORS;
+    fireworkColor = (fireworkColor + beo::randomInt(1,NUMBER_FIREWORK_COLORS/2)) % NUMBER_FIREWORK_COLORS;
 
 }
 

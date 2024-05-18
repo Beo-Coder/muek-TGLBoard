@@ -2,10 +2,16 @@
 // Created by leo on 01.05.24.
 //
 
-#ifndef MUEK_ARGB_MATRIX_BOARD_DINOGAME_SETTINGS_H
-#define MUEK_ARGB_MATRIX_BOARD_DINOGAME_SETTINGS_H
+#ifndef TGL_BOARD_FIREWORK_DINO_GAME_DINO_GAME_SETTINGS_H
+#define TGL_BOARD_FIREWORK_DINO_GAME_DINO_GAME_SETTINGS_H
 
-#include "pico/stdlib.h"
+
+#ifdef ARDUINO
+    #include <Arduino.h>
+#else
+    #include "pico/stdlib.h"
+#endif
+
 #include "PIOMatrixOutput/color.h"
 
 
@@ -148,4 +154,4 @@ static Color **enemySkin[10][4][4] = {
 
 
 
-#endif //MUEK_ARGB_MATRIX_BOARD_DINOGAME_SETTINGS_H
+#endif //TGL_BOARD_FIREWORK_DINO_GAME_DINO_GAME_SETTINGS_H

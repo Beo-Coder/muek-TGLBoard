@@ -2,17 +2,24 @@
 // Created by leo on 01.05.24.
 //
 
-#ifndef MUEK_ARGB_MATRIX_BOARD_FIREWORK_H
-#define MUEK_ARGB_MATRIX_BOARD_FIREWORK_H
+#ifndef TGL_BOARD_FIREWORK_FIREWORK_H
+#define TGL_BOARD_FIREWORK_FIREWORK_H
 
 
-#include "pico/stdlib.h"
-#include "PIOMatrixOutput/pio_matrix_output.h"
-#include "PIOMatrixOutput/color.h"
-#include "BeoCommon.h"
+namespace details_firework {
+    class Pixel;
+}
+class Color;
 
+
+#ifdef ARDUINO
+    #include <Arduino.h>
+#else
+    #include "pico/stdlib.h"
+#endif
+
+#include "PIOMatrixOutput/pio_matrix_settings.h"
 #include "firework_settings.h"
-#include "pixel.h"
 
 
 namespace details_firework {
@@ -48,4 +55,4 @@ namespace details_firework {
 
 
 
-#endif //MUEK_ARGB_MATRIX_BOARD_FIREWORK_H
+#endif //TGL_BOARD_FIREWORK_FIREWORK_H

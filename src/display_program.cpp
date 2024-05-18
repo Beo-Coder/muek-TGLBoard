@@ -2,6 +2,7 @@
 // Created by leo on 29.04.24.
 //
 #include "display_program.h"
+#include "PIOMatrixOutput/pio_matrix_output.h"
 
 display_program::display_program(MatrixOutput *matrix, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]) {
     this->matrix = matrix;

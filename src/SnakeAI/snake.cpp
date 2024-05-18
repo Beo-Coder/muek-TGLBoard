@@ -3,6 +3,7 @@
 //
 
 #include "snake.h"
+#include "BeoCommon.h"
 
 details_snake_ai::Snake::Snake() {
     reset();
@@ -73,7 +74,8 @@ void details_snake_ai::Snake::move(details_snake_ai::Direction dir) {
 
 
 
-bool details_snake_ai::Snake::checkHeadColliding() {
+bool
+details_snake_ai::Snake::checkHeadColliding() {
     uint8_t snakeX = snakeBody[0] & 0xFF;
     uint8_t snakeY = (snakeBody[0] >> 8) & 0xFF;
 
@@ -141,7 +143,7 @@ uint16_t details_snake_ai::Snake::getPositionNotInSnake() {
     }
 
 
-    uint16_t randomPositionIndex = randomInt(0, numberPositions);
+    uint16_t randomPositionIndex = beo::randomInt(0, numberPositions);
     posX = positions[randomPositionIndex]%MATRIX_LENGTH;
     posY = positions[randomPositionIndex]/MATRIX_LENGTH;
 

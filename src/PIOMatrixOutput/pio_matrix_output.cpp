@@ -3,7 +3,8 @@
 //
 
 #include "pio_matrix_output.h"
-
+#include "pio_program.pio.h"
+#include "color.h"
 
 void timerHandler() {
     if (timer_hw->ints == 1 << TIMER_INDEX) {
@@ -331,6 +332,7 @@ void MatrixOutput::calcSubframes(Color (*display)[MATRIX_HEIGHT][MATRIX_LENGTH],
             baseData[0] = (uint8_t) (*display)[i][j].getBlue();
             baseData[1] = (uint8_t) (*display)[i][j].getRed();
             baseData[2] = (uint8_t) (*display)[i][j].getGreen();
+
 
 
 

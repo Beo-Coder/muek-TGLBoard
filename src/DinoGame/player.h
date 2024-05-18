@@ -2,15 +2,22 @@
 // Created by leo on 01.05.24.
 //
 
-#ifndef MUEK_ARGB_MATRIX_BOARD_PLAYER_H
-#define MUEK_ARGB_MATRIX_BOARD_PLAYER_H
+#ifndef TGL_BOARD_FIREWORK_DINO_GAME_PLAYER_H
+#define TGL_BOARD_FIREWORK_DINO_GAME_PLAYER_H
+namespace details_dino_game {
+    class Enemy;
+}
+class Color;
 
-#include "pico/stdlib.h"
-#include "PIOMatrixOutput/color.h"
 
-#include "dinogame_settings.h"
+#ifdef ARDUINO
+    #include <Arduino.h>
+#else
+    #include "pico/stdlib.h"
+#endif
+
+#include "PIOMatrixOutput/pio_matrix_settings.h"
 #include "entity.h"
-#include "enemy.h"
 
 
 
@@ -37,4 +44,4 @@ namespace details_dino_game {
 }
 
 
-#endif //MUEK_ARGB_MATRIX_BOARD_PLAYER_H
+#endif //TGL_BOARD_FIREWORK_DINO_GAME_PLAYER_H

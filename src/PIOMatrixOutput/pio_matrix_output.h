@@ -2,39 +2,17 @@
 // Created by Leo Baschang on 02.03.24.
 //
 
-#ifndef UNTITLED24_PIOMATRIXOUTPUT_H
-#define UNTITLED24_PIOMATRIXOUTPUT_H
+#ifndef TGL_BOARD_PIO_MATRIX_OUTPUT_PIO_MATRIX_OUTPUT_H
+#define TGL_BOARD_PIO_MATRIX_OUTPUT_PIO_MATRIX_OUTPUT_H
 
-#include <stdio.h>
-#include "pico/stdlib.h"
+class Color;
 
-#include "hardware/pio.h"
-#include "hardware/dma.h"
-#include "hardware/irq.h"
-#include "hardware/watchdog.h"
-#include "hardware/timer.h"
-#include "hardware/sync.h"
-#include "pio_program.pio.h"
+#include <hardware/pio.h>
+#include <hardware/dma.h>
 #include "color.h"
-
-#define MATRIX_LENGTH 16
-#define MATRIX_HEIGHT 8
+#include "pio_matrix_settings.h"
 
 
-#define MATRIX_SUBMATRIX_COUNT 2
-
-
-#define MATRIX_SIZE (MATRIX_LENGTH*MATRIX_HEIGHT)
-#define MATRIX_SUBMATRIX_SIZE (MATRIX_SIZE/MATRIX_SUBMATRIX_COUNT)
-
-
-#define MAX_FRAMES_IN_BUFFER 10
-#define MAX_SUBFRAMES 4
-
-#define TIMER_INDEX 1
-
-#define dataSendTime 1960 // in µs
-#define subframePauseIntervall 350 // in µs (must be at least 150 (probably more))
 
 
 class MatrixOutput {
@@ -130,4 +108,4 @@ static MatrixOutput *instancesDMA[16]; // index is DMA Channel
 
 
 
-#endif //UNTITLED24_PIOMATRIXOUTPUT_H
+#endif //TGL_BOARD_PIO_MATRIX_OUTPUT_PIO_MATRIX_OUTPUT_H

@@ -3,10 +3,10 @@
 //
 
 #include "BeoCommon.h"
+#include <hardware/structs/rosc.h>
+#include <hardware/timer.h>
 
-
-
-int randomInt(int min, int max){
+int beo::randomInt(int min, int max){
     int range = (max-min);
     uint32_t randomNumber;
     for(int i=0; i<4*8;i++){
@@ -16,13 +16,9 @@ int randomInt(int min, int max){
     return int(randomNumber % range) + min;
 }
 
-/*
-uint32_t abs(int32_t value){
-    if(value < 0){
-        return value*(-1);
-    }
-    return value;
+unsigned long beo::millis() {
+    return (timer_hw->timerawl) / 1000;
+
 }
- */
 
 

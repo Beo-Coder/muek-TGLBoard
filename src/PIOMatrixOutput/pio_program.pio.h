@@ -6,8 +6,8 @@
 
 #if !PICO_NO_HARDWARE
 
-#include "hardware/pio.h"
-#include "hardware/clocks.h"
+#include <hardware/pio.h>
+#include <hardware/clocks.h>
 
 #endif
 
@@ -74,7 +74,7 @@ static inline void argb_program_init(PIO pio, uint sm, uint offset, uint pin1, u
     pio_sm_clear_fifos(pio, sm);
 
     // set clock divider
-    float div = (float(frequency_count_khz(CLOCKS_FC0_SRC_VALUE_PLL_SYS_CLKSRC_PRIMARY))*1000) / (800000 * 9);
+    float div = float(clock_get_hz(clk_sys)) / (800000 * 9);
     sm_config_set_clkdiv(&c, div);
 
     // init program

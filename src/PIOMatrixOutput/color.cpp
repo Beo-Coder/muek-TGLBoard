@@ -120,6 +120,48 @@ float Color::getRGB(uint8_t colorNumber, bool raw) {
     return -1;
 }
 
+void Color::set(Color *reference) {
+    setRed(reference->red);
+    setGreen(reference->green);
+    setBlue(reference->blue);
+}
+
+bool Color::equals(Color *reference) {
+    return red == reference->red && green == reference->green && blue == reference->blue;
+}
+
+void Color::add(Color *addition) {
+    // if the value overflows max value will be used
+    if (red + addition->red >= MAX_COLOR_VALUE) {
+        setRed(MAX_COLOR_VALUE);
+    } else {
+        setRed(red + addition->red);
+    }
+    if (green + addition->green >= MAX_COLOR_VALUE) {
+        setGreen(MAX_COLOR_VALUE);
+    } else {
+        setGreen(green + addition->green);
+    }
+    if (blue + addition->blue >= MAX_COLOR_VALUE) {
+        setBlue(MAX_COLOR_VALUE);
+    } else {
+        setBlue(blue + addition->blue);
+    }
+}
+
+void Color::multiply(float factor) {
+    setRed(red * factor);
+    setGreen(green * factor);
+    setBlue(green * factor);
+}
+
+void Color::average(Color *addition) {
+    // calculate the avg color
+    setRed((red + addition->red) /2);
+    setGreen((green + addition->green) /2);
+    setBlue((blue + addition->blue) /2);
+}
+
 
 
 

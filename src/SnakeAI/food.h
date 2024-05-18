@@ -2,11 +2,15 @@
 // Created by leo on 01.05.24.
 //
 
-#ifndef MUEK_ARGB_MATRIX_BOARD_FOOD_H
-#define MUEK_ARGB_MATRIX_BOARD_FOOD_H
+#ifndef TGL_BOARD_SNAKE_AI_FOOD_H
+#define TGL_BOARD_SNAKE_AI_FOOD_H
 
-#include "pico/stdlib.h"
-#include "snake_ai_settings.h"
+#ifdef ARDUINO
+    #include <Arduino.h>
+#else
+    #include "pico/stdlib.h"
+#endif
+
 
 
 namespace details_snake_ai {
@@ -22,4 +26,4 @@ namespace details_snake_ai {
 }
 
 
-#endif //MUEK_ARGB_MATRIX_BOARD_FOOD_H
+#endif //TGL_BOARD_SNAKE_AI_FOOD_H

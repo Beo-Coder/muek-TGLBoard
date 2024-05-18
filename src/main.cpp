@@ -1,24 +1,32 @@
-#include <stdio.h>
+#ifdef ARDUINO
+    #include <Arduino.h>
+#else
+    #include "pico/stdlib.h"
+#endif
 
-#include "pico/stdlib.h"
-#include <string>
+#include <hardware/clocks.h>
 
-#include "hardware/pio.h"
-#include "hardware/irq.h"
+#include "BeoCommon.h"
 
 #include "PIOMatrixOutput/pio_matrix_output.h"
-#include "PIOMatrixOutput/color.h"
 
-#include "ScrollText/scroll_text.h"
+#include "TextController/scroll_text.h"
+#include "TextController//static_text.h"
+#include "TextController/tiny_text.h"
+
+
 #include "DinoGame/dinoGame.h"
 #include "Firework/firework_animation.h"
+#include "TetrisGame/tetris.h"
 #include "SnakeAI/snake_ai_animation.h"
+
 
 
 #define BUTTON1 18
 #define BUTTON2 19
 
-Color color1(5,0,0);
+Color color1(1,0,0);
+Color color3(0,1,0);
 Color color2(0,0,0);
 
 
@@ -27,32 +35,44 @@ Color frame[8][16];
 uint32_t lastMillis = 0;
 
 
-std::string text = "Now also in C%/Cpp SDK   ";
-
 PIO pio = pio0;
 
 
 MatrixOutput ledMatrix(pio, 0, 0, 10, 11);
 
+ScrollText scrollText(&ledMatrix, &frame);
+StaticText staticText(&ledMatrix, &frame);
+TinyText tinyText(&ledMatrix, &frame);
 
-ScrollText scrollTextController(&ledMatrix, &frame);
-DinoGame game(&ledMatrix, &frame);
+
+DinoGame dinoGame(&ledMatrix, &frame);
 FireworkAnimation fireworks(&ledMatrix, &frame);
+Tetris tetrisGame(&ledMatrix, &frame, &staticText);
 SnakeAI snake(&ledMatrix, &frame);
+
+
 
 
 display_program *programs[2];
 
 
+std::string text = "Hello World 12";
 
-void button_isr(uint gpio, uint32_t events) {
+
+
+
+void button_isr(uint gpio, uint32_t events){
     uint8_t state = events>>3; // Rise: 8>>3 = 1; Fall: 4>>3 = 0
-    if(gpio == BUTTON1){
-        programs[0]->button1ISR(state);
-    }else if (gpio == BUTTON2){
-        programs[0]->button2ISR(events>>3);
+    switch (gpio){
+        case BUTTON1:
+            programs[0]->button1ISR(state);
+            break;
+        case BUTTON2:
+            programs[0]->button2ISR(events>>3);
+            break;
+        default:
+            break;
     }
-
 
 }
 
@@ -62,41 +82,42 @@ int main(){
     clocks_init();
     stdio_init_all();
 
-    printf("Hello World!\n");
+    delay(3500); // Just so that the Serial Console has time to connect
 
-    gpio_set_irq_enabled_with_callback(BUTTON1, GPIO_IRQ_EDGE_RISE | GPIO_IRQ_EDGE_FALL,true,&button_isr);
-    gpio_set_irq_enabled_with_callback(BUTTON2, GPIO_IRQ_EDGE_RISE | GPIO_IRQ_EDGE_FALL,true,&button_isr);
+    gpio_set_irq_enabled_with_callback(BUTTON1, GPIO_IRQ_EDGE_RISE | GPIO_IRQ_EDGE_FALL, true, &button_isr);
+    gpio_set_irq_enabled_with_callback(BUTTON2, GPIO_IRQ_EDGE_RISE | GPIO_IRQ_EDGE_FALL, true, &button_isr);
 
-
-
-    programs[0] = &scrollTextController;
+    programs[0] = &snake;
     programs[0]->restart();
+
+
+
+
+
+    programs[0] = &tetrisGame;
+    programs[0]->restart();
+
+    tinyText.setColor(&color1, &color3, &color2);
+    tinyText.setText(&text);
 
 
     ledMatrix.enableSubframes();
 
 
 
-    scrollTextController.setColor(&color1, &color2);
-    scrollTextController.setText(&text);
-
-
 
 
     while (true){
 
-        uint32_t time = (timer_hw->timelr) / 1000;
-        if(time-lastMillis > programs[0]->refreshSpeed || programs[0]->refreshSpeed == 0){
-            lastMillis = time;
+        if(beo::millis()-lastMillis > programs[0]->refreshSpeed || programs[0]->refreshSpeed == 0){
+            lastMillis = beo::millis();
             programs[0]->refresh();
-
-
         }
 
     }
-    return 0;
+
+
 
 }
-
 
 

@@ -2,19 +2,18 @@
 // Created by leo on 27.04.24.
 //
 
-#ifndef MUEK_ARGB_MATRIX_BOARD_BEOCOMMON_H
-#define MUEK_ARGB_MATRIX_BOARD_BEOCOMMON_H
-
-#include <stdio.h>
-#include "pico/stdlib.h"
-#include "hardware/structs/rosc.h"
+#ifndef TGL_BOARD_BEO_COMMON_H
+#define TGL_BOARD_BEO_COMMON_H
 
 #define abs(x) ((x)>0?(x):-(x))
 
+namespace beo{
+    int randomInt(int min, int max);
 
-int randomInt(int min, int max);
-
-// uint32_t abs(int32_t value);
+    unsigned long millis();
 
 
-#endif //MUEK_ARGB_MATRIX_BOARD_BEOCOMMON_H
+}
+
+
+#endif //TGL_BOARD_BEO_COMMON_H

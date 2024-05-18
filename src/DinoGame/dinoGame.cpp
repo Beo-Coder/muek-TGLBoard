@@ -3,6 +3,9 @@
 //
 
 #include "dinoGame.h"
+#include "enemy.h"
+#include "player.h"
+
 
 
 

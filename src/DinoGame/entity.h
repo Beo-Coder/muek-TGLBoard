@@ -2,15 +2,20 @@
 // Created by leo on 01.05.24.
 //
 
-#ifndef MUEK_ARGB_MATRIX_BOARD_ENTITY_H
-#define MUEK_ARGB_MATRIX_BOARD_ENTITY_H
+#ifndef TGL_BOARD_FIREWORK_DINO_GAME_ENTITY_H
+#define TGL_BOARD_FIREWORK_DINO_GAME_ENTITY_H
+
+class Color;
 
 
-#include "pico/stdlib.h"
-#include "PIOMatrixOutput/color.h"
-#include "PIOMatrixOutput/pio_matrix_output.h"
+#ifdef ARDUINO
+    #include <Arduino.h>
+#else
+    #include "pico/stdlib.h"
+#endif
 
-#include "dinogame_settings.h"
+#include "PIOMatrixOutput/pio_matrix_settings.h"
+
 
 
 namespace details_dino_game {
@@ -36,4 +41,4 @@ namespace details_dino_game {
 
 
 
-#endif //MUEK_ARGB_MATRIX_BOARD_ENTITY_H
+#endif //TGL_BOARD_FIREWORK_DINO_GAME_ENTITY_H
