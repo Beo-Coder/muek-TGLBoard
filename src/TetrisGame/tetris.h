@@ -9,6 +9,7 @@ class TextController;
 class Block;
 
 #include "display_program.h"
+#include <string>
 
 
 
