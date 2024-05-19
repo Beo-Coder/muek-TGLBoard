@@ -46,9 +46,10 @@ void MatrixOutput::internalTimerHandler() {
         }
 
     }
+
     if (subframeBufferEnable && timerSubframeCountEnable) {
-        timerSubframeCount++;
-        if ((timerSubframeCount >= (subframePauseIntervall / 10))) {
+
+        if ((timerSubframeCount >= (subframePauseIntervall / 10) )) {
 
             timerSubframeCount = 0;
             timerSubframeCountEnable = false;
@@ -58,6 +59,9 @@ void MatrixOutput::internalTimerHandler() {
             subframeBufferIndex = (subframeBufferIndex + 1) % MAX_SUBFRAMES;
 
             
+        }
+        if(timer_hw->timerawl - lastSendData >= dataSendTime){
+            timerSubframeCount++;
         }
 
     }
@@ -284,11 +288,11 @@ void MatrixOutput::clearDisplay() {
 
 void MatrixOutput::sendFrame(uint8_t frameBufferIndex, uint8_t subframeIndex) {
 
-    while(timer_hw->timelr - lastSendData <  dataSendTime);
+    while(time_us_64() - lastSendData <  dataSendTime);
 
     dma_channel_set_read_addr(dmaChannel, &(frameBuffer[frameBufferIndex][subframeIndex]), true);
     pio_sm_set_enabled(pio, sm, true);
-    lastSendData = timer_hw->timelr;
+    lastSendData = time_us_64();
 
 
 }

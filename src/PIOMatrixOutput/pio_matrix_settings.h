@@ -22,7 +22,7 @@
 
 #define TIMER_INDEX 1
 
-#define dataSendTime 1950 // in µs
-#define subframePauseIntervall 350 // in µs (must be at least 150 (probably more))
+#define dataSendTime (1920 + 50 + 6) // (time_to_output_data + time_to_latch_data + some_buffer_time) (in µs)
+#define subframePauseIntervall (0) // Time to add after dataSendTime in µs. Only in steps of 10. +/- 5µs
 
 #endif //TGL_BOARD_PIO_MATRIX_OUTPUT_PIO_MATRIX_SETTINGS_H
