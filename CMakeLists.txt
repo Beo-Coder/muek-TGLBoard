@@ -33,7 +33,8 @@ add_executable(TGL-Board src/main.cpp
         src/DinoGame/player.cpp
         src/DinoGame/enemy.cpp
         src/DinoGame/dinoGame.cpp
-        src/DinoGame/entity.cpp)
+        src/DinoGame/entity.cpp
+        src/GameOfLife/game_of_life_animation.cpp)
 
 target_include_directories(TGL-Board PUBLIC ${CMAKE_CURRENT_LIST_DIR}/src)
 
