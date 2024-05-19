@@ -17,7 +17,7 @@ int beo::randomInt(int min, int max){
 }
 
 unsigned long beo::millis() {
-    return (timer_hw->timerawl) / 1000;
+    return time_us_64() / 1000;
 
 }
 
