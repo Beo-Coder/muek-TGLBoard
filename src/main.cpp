@@ -18,6 +18,7 @@
 #include "Firework/firework_animation.h"
 #include "TetrisGame/tetris.h"
 #include "SnakeAI/snake_ai_animation.h"
+#include "GameOfLife/game_of_life_animation.h"
 
 
 
@@ -48,6 +49,7 @@ DinoGame dinoGame(&ledMatrix, &frame);
 FireworkAnimation fireworks(&ledMatrix, &frame);
 Tetris tetrisGame(&ledMatrix, &frame, &staticText);
 SnakeAI snake(&ledMatrix, &frame);
+GameOfLife gameOfLife(&ledMatrix, &frame);
 
 
 
@@ -88,7 +90,7 @@ void setup() {
 
 
 
-    programs[0] = &snake;
+    programs[0] = &gameOfLife;
     programs[0]->restart();
 
     tinyText.setColor(&color1, &color3, &color2);
