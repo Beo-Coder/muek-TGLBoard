@@ -20,6 +20,9 @@ Calculations are based on the creation of 1000 hamiltonian circles.
 You need PlatformIO to use this project.  
 Arduino IDE might work too (not tested).
 
+In the platform.ini file, there are now two build environments.
+`pico_normal` and `pico_fast` you can read about the differences here [Floating Point Computation](README_floating_point_computation.md)
+
 For your own programming, you can use my pioMatrixOutput library.
 Documentation is here [pioMatrixOutput](READMEpioMatrixOutput.md)
 
