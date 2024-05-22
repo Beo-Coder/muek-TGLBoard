@@ -24,6 +24,8 @@ namespace details_static_text{
 
 class StaticText : public TextController {
 
+    bool textInitialized;
+
     details_text_controller::StaticSubcontroller *subcontroller;
 
     void createIDTextArray(std::string *text) override;

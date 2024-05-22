@@ -10,6 +10,7 @@
 StaticText::StaticText(MatrixOutput *matrixOutput, Color (*frame)[8][16]) : TextController(matrixOutput, frame) {
 
     refreshSpeed = 120;
+    textInitialized = false;
     subcontroller = new details_text_controller::StaticSubcontroller(0, 0, frame, idTextArray, &normalLetters,
                                                                      textColor, backgroundColor);
 
@@ -19,11 +20,15 @@ StaticText::StaticText(MatrixOutput *matrixOutput, Color (*frame)[8][16]) : Text
 
 void StaticText::setText(std::string *text) {
     TextController::setText(text);
-    subcontroller->initText();
+    textInitialized = false;
 }
 
 
 void StaticText::createAndLoadFrame() {
+    if(!textInitialized){
+        subcontroller->initText();
+        textInitialized = true;
+    }
     subcontroller->refreshText();
 
     matrix->setDisplayData(frame);
