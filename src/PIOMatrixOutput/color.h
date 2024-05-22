@@ -11,33 +11,42 @@
 #else
     #include "pico/stdlib.h"
 #endif
+#include "pio_matrix_settings.h"
+#include <cmath>
 
 
-#define MAX_COLOR_VALUE 255
+
+#define NORMAL_BITS 8
+#define MAX_COLOR_VALUE_RAW ((1 << (NORMAL_BITS+(uint8_t)log2(MAX_SUBFRAMES))) - 1)
+#define MAX_COLOR_VALUE_SET ((1<<NORMAL_BITS)-1)
 #define MIN_COLOR_VALUE 0
+
 
 #define NORMAL_BRIGHTNESS 1
 
-#define MIN_BRIGHTNESS 1
-#define MAX_BRIGHTNESS 255
+
 
 
 class Color {
 
+    uint16_t blue;
+    uint16_t red;
+    uint16_t green;
 
 
-    float brightness;
-
-
-    static float checkAndReturnValid(float value);
 
 public:
+    static uint16_t checkAndReturnValid(uint16_t value);
+    static uint16_t calcFixedPointNumber(float value);
+    static float calcFloatingPointNumber(uint16_t value);
+    static uint8_t toUint8(uint16_t value);
+    static uint8_t getNumberOfActiveSubframes(uint16_t value);
 
-    float blue;
-    float red;
-    float green;
 
-    bool equals(Color* reference); // this can not compare colors, just if the color is sourced from the same object
+
+
+
+    bool equals(Color* reference) const;
 
     void set(Color* reference);
     void add(Color* addition);
@@ -48,39 +57,81 @@ public:
     void setGreen(float value);
     void setBlue(float value);
 
-    float getRed(bool raw=false);
-    float getGreen(bool raw=false);
-    float getBlue(bool raw=false);
 
-    void setRGB(uint8_t colorNumber, float value); // 0: red; 1: green; 2: blue
-    float getRGB(uint8_t colorNumber, bool raw=false); // 0: red; 1: green; 2: blue
+    void setRedRaw(uint16_t value);
+    void setGreenRaw(uint16_t value);
+    void setBlueRaw(uint16_t value);
 
-    void setBrightness(float value);
-    float getBrightness();
+    float getRed() const;
+    float getGreen() const;
+    float getBlue() const;
+
+
+    uint16_t getRedRaw() const;
+    uint16_t getGreenRaw() const;
+    uint16_t getBlueRaw() const;
+
+
+
 
 
 
     Color(float red, float green, float blue);
     Color();
 
-    uint32_t calc();
+    /**
+     * Only for internal use
+     **/
+    uint32_t calc() const;
+
+    /**
+     * Only for internal use
+     **/
+    uint16_t getRed8Bit() const;
+
+    /**
+     * Only for internal use
+     **/
+    uint16_t getGreen8Bit() const;
+
+    /**
+     * Only for internal use
+     **/
+    uint16_t getBlue8Bit() const;
+
+    /**
+     * Only for internal use
+     **/
+    uint8_t getRedActiveSubframes() const;
+
+    /**
+     * Only for internal use
+     **/
+    uint8_t getGreenActiveSubframes() const;
+
+    /**
+     * Only for internal use
+     **/
+    uint8_t getBlueActiveSubframes() const;
+
+
 };
 
 // Clear "color"
-static Color colorBlank(0,0,0);
+extern Color colorBlank;
 
 // Some static colors
-static Color colorRed(NORMAL_BRIGHTNESS,0,0);
-static Color colorGreen(0,NORMAL_BRIGHTNESS,0);
-static Color colorBlue(0,0,NORMAL_BRIGHTNESS);
+extern Color colorRed;
+extern Color colorGreen;
+extern Color colorBlue;
 
-static Color colorWhite(NORMAL_BRIGHTNESS,NORMAL_BRIGHTNESS,NORMAL_BRIGHTNESS);
-static Color colorYellow(NORMAL_BRIGHTNESS,NORMAL_BRIGHTNESS,0);
-static Color colorCyan(0,NORMAL_BRIGHTNESS,NORMAL_BRIGHTNESS);
-static Color colorPurple(NORMAL_BRIGHTNESS,0,NORMAL_BRIGHTNESS);
+extern Color colorWhite;
+extern Color colorYellow;
+extern Color colorCyan;
+extern Color colorPurple;
 
 #define NUMBER_NORMAL_COLORS 7
-static Color *allColors[NUMBER_NORMAL_COLORS] = {&colorRed, &colorBlue, &colorGreen, &colorWhite, &colorYellow, &colorCyan, &colorPurple};
+extern Color *allColors[NUMBER_NORMAL_COLORS];
 
 
 #endif //TGL_BOARD_PIO_MATRIX_OUTPUT_COLOR_H

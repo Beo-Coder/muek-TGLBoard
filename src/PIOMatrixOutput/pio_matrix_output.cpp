@@ -171,18 +171,21 @@ void MatrixOutput::setTimer() {
 void
 MatrixOutput::createFrame(uint32_t (*display)[MATRIX_HEIGHT][MATRIX_LENGTH], uint8_t index, uint8_t subframeIndex) {
 
-
+    // Create matrix, where the first index is submatrix, and the second index is led in this submatrix
     for (int i = 0; i < MATRIX_SIZE; i++) {
-
         matrix[i / MATRIX_SUBMATRIX_SIZE][i % MATRIX_SUBMATRIX_SIZE] = (*display)[i / MATRIX_LENGTH][i % MATRIX_LENGTH];
-
     }
 
-    int bitsShifted = 0;
+    // Create matrix, where the first index is the index in the framebuffer,
+    // second index is subframe index,
+    // third index is points to a filled 32 bit value with color data.
+    // Every second bit is for one submatrix.
+    // Bits: 12121212121212...; 1: bit for first submatrix; 2: bit for seconds submatrix
+    uint32_t bitsShifted = 0;
     for (int i = 0; i < MATRIX_SUBMATRIX_SIZE; i++) {
-        for (int j = 0; j < 24; j++) {
+        for (int j = 23; j >= 0; j--) {
             for (int k = 0; k < MATRIX_SUBMATRIX_COUNT; k++) {
-                frameBuffer[index][subframeIndex][bitsShifted / 32] = (frameBuffer[index][subframeIndex][bitsShifted / 32] << 1) | ((matrix[MATRIX_SUBMATRIX_COUNT - 1 - k][i] >> (23 - j) & 0x01));
+                frameBuffer[index][subframeIndex][bitsShifted / 32] = (frameBuffer[index][subframeIndex][bitsShifted / 32] << 1) | ((matrix[MATRIX_SUBMATRIX_COUNT - 1 - k][i] >> (j) & 0x01));
                 bitsShifted++;
 
             }
@@ -333,16 +336,14 @@ void MatrixOutput::calcSubframes(Color (*display)[MATRIX_HEIGHT][MATRIX_LENGTH],
             uint8_t baseData[3];
             uint8_t fracData[3];
 
-            baseData[0] = (uint8_t) (*display)[i][j].getBlue();
-            baseData[1] = (uint8_t) (*display)[i][j].getRed();
-            baseData[2] = (uint8_t) (*display)[i][j].getGreen();
+            baseData[0] = (*display)[i][j].getBlue8Bit();
+            baseData[1] = (*display)[i][j].getRed8Bit();
+            baseData[2] = (*display)[i][j].getGreen8Bit();
 
 
-
-
-            fracData[0] = (((*display)[i][j].getBlue()) - (float) baseData[0]) * MAX_SUBFRAMES;
-            fracData[1] = (((*display)[i][j].getRed()) - (float) baseData[1]) * MAX_SUBFRAMES;
-            fracData[2] = (((*display)[i][j].getGreen()) - (float) baseData[2]) * MAX_SUBFRAMES;
+            fracData[0] = (*display)[i][j].getBlueActiveSubframes();
+            fracData[1] = (*display)[i][j].getRedActiveSubframes();
+            fracData[2] = (*display)[i][j].getGreenActiveSubframes();
 
 
             for (int k = 0; k < 3; k++) {
@@ -356,7 +357,7 @@ void MatrixOutput::calcSubframes(Color (*display)[MATRIX_HEIGHT][MATRIX_LENGTH],
 
             for (int subframe = 1; subframe < MAX_SUBFRAMES; subframe++) {
                 for (int k = 0; k < 3; k++) {
-                    if ((fracData[k] - subframe <= 0.0001)) {
+                    if ((fracData[k] - subframe <= 0)) {
                         outDisplay[subframe][i][j] |= baseData[k] << (8 * k);
                     } else {
                         outDisplay[subframe][i][j] |= (baseData[k] + 1) << (8 * k);

@@ -14,9 +14,6 @@ FireworkAnimation::FireworkAnimation(MatrixOutput *ledMatrix, Color (*frame)[MAT
     lastFireWorkPostion = 0;
     fireworkColor = 0;
 
-    for(details_firework::Firework* & i : firework){
-        i = new details_firework::Firework();
-    }
     clearFrame();
 
 
@@ -40,8 +37,8 @@ void FireworkAnimation::calcFrame() {
     timeSinceLastFirework++;
     clearFrame();
 
-    for (details_firework::Firework* & i : firework) {
-        i->calcFrame(frame);
+    for (details_firework::Firework & i : firework) {
+        i.calcFrame(frame);
     }
 
 
@@ -66,9 +63,9 @@ void FireworkAnimation::createNewFirework() {
 }
 
 void FireworkAnimation::addNewFirework(int8_t explodePosX, int8_t explodePosY, Color *color) {
-    for (details_firework::Firework* & i : firework) {
-        if (i->dead) {
-            i->start(explodePosX, explodePosY, color);
+    for (details_firework::Firework & i : firework) {
+        if (i.dead) {
+            i.start(explodePosX, explodePosY, color);
             break;
         }
     }

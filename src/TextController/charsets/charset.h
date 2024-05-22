@@ -15,8 +15,8 @@ struct Charset{
 
 };
 
-static Charset normalLetters{8, details_letters_normal::Letter, details_letters_normal::SINGLE_SPACE_INDEX};
-static Charset tinyLetters{4, details_letters_tiny::tinyLetter, details_letters_tiny::SINGLE_SPACE_INDEX};
+extern Charset normalLetters;
+extern Charset tinyLetters;
 
 
 

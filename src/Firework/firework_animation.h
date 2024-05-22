@@ -18,6 +18,7 @@ namespace details_firework{
 
 #include "display_program.h"
 #include "firework_settings.h"
+#include "firework.h"
 
 
 
@@ -30,7 +31,7 @@ class FireworkAnimation : public DisplayProgram {
     uint8_t lastFireWorkPostion; // Index in position array
     uint8_t fireworkColor; // index in color array
 
-    details_firework::Firework *firework[MAX_NUMBER_FIREWORKS];
+    details_firework::Firework firework[MAX_NUMBER_FIREWORKS];
 
 
     void calcFrame();
