@@ -19,6 +19,7 @@ namespace details_game_of_life{
 
 
 
+
     const static uint8_t startPattern[3][3] ={{0,1,0},
                                               {0,0,1},
                                               {1,1,1}};
@@ -40,6 +41,7 @@ class GameOfLife : public DisplayProgram {
     uint16_t deadGameTicks;
 
     const Color *gameColor;
+    uint8_t lastColorIndex;
 
     uint8_t getNeighbours(uint8_t xPos, uint8_t yPos);
 
