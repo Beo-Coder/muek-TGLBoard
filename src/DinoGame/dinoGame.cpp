@@ -11,19 +11,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 DinoGame::DinoGame(MatrixOutput *ledMatrix, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH], TextController *staticController) : DisplayProgram(ledMatrix, frame) {
     //  matrix = ledMatrix;
 

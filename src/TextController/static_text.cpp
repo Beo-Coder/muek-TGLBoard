@@ -41,6 +41,9 @@ void StaticText::refresh() {
 }
 
 void StaticText::restart() {
+    textInitialized = false;
+    idTextArraySize = 0;
+    idTextArrayIndex = 0;
 
 
 }

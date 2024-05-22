@@ -10,6 +10,7 @@
 TinyText::TinyText(MatrixOutput *matrixOutput, Color (*frame)[8][16]) : TextController(matrixOutput, frame) {
     refreshSpeed = 120;
 
+    *upperTextArraySize = 0;
     lowerTextArraySize = 0;
     lowerTextColor = &colorGreen;
 
@@ -120,6 +121,9 @@ void TinyText::refresh() {
 }
 
 void TinyText::restart() {
+    *upperTextArraySize = 0;
+    lowerTextArraySize = 0;
+    idTextArrayIndex = 0;
 
 }
 

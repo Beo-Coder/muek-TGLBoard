@@ -91,10 +91,9 @@ void ScrollText::refresh() {
 
 
 void ScrollText::restart() {
-    clearFrame();
-
     idTextArraySize = 0;
     idTextArrayIndex = 0;
+    leftShift = true;
 }
 
 void ScrollText::setColor(Color *textColor, Color *backgroundColor) {

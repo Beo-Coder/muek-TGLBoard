@@ -14,9 +14,6 @@ FireworkAnimation::FireworkAnimation(MatrixOutput *ledMatrix, Color (*frame)[MAT
     lastFireWorkPostion = 0;
     fireworkColor = 0;
 
-    clearFrame();
-
-
 }
 
 
@@ -81,6 +78,9 @@ void FireworkAnimation::button2ISR(bool state) {
 }
 
 void FireworkAnimation::restart() {
+    timeSinceLastFirework = 0;
+    lastFireWorkPostion = 0;
+    fireworkColor = 0;
 
 }
 
