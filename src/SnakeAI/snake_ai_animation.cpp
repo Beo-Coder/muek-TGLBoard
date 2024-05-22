@@ -81,13 +81,33 @@ void SnakeAI::renderFrame() {
     uint8_t posY = getYPos(snake.snakeBody[0]);
 
     // Head postion (if head should have a different color)
-    (*frame)[MATRIX_HEIGHT - posY - 1][posX] = *snakeColor;
+    (*frame)[MATRIX_HEIGHT - posY - 1][posX] = *snakeHeadColor;
 
+
+
+    uint8_t lastXPixels = LAST_X_PIXELS_DIMMER;
     // Body postion
-    for (int i = 1; i < snake.getLength(); i++) {
+    if(snake.getLength() > LAST_X_PIXELS_DIMMER){
+        for (int i = 1; i <= snake.getLength()-LAST_X_PIXELS_DIMMER; i++) {
+            posX = getXPos(snake.snakeBody[i]);
+            posY = getYPos(snake.snakeBody[i]);
+            (*frame)[MATRIX_HEIGHT - posY - 1][posX] = *snakeColor;
+        }
+    }else{
+        lastXPixels = snake.getLength();
+    }
+
+
+    // The last X pixels have a different color
+    Color tailColor;
+    for (int i = snake.getLength()-lastXPixels+1; i < snake.getLength(); i++) {
+        tailColor.set(snakeColor);
+        uint8_t cycle = i-(snake.getLength()-lastXPixels);
+        float data = (((float(NORMAL_BRIGHTNESS)/(float(lastXPixels+1)))*float(lastXPixels-cycle))/NORMAL_BRIGHTNESS);
+        tailColor.multiply(data);
         posX = getXPos(snake.snakeBody[i]);
         posY = getYPos(snake.snakeBody[i]);
-        (*frame)[MATRIX_HEIGHT - posY - 1][posX] = *snakeColor;
+        (*frame)[MATRIX_HEIGHT - posY - 1][posX] = tailColor;
     }
 
 

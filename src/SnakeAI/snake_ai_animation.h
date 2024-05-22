@@ -26,6 +26,7 @@
 
 
 static Color *snakeColor = &colorGreen;
+static Color *snakeHeadColor = &colorGreen;
 static Color *foodColor = &colorRed;
 
 
