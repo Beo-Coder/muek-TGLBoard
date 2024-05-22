@@ -28,7 +28,7 @@
 #define ENEMY_TYPES 6
 
 
-static int8_t enemyHeights[ENEMY_TYPES][4] = {{0, 2, ENEMY_ENEMY, ENEMY_SIZE_2},
+static const int8_t enemyHeights[ENEMY_TYPES][4] = {{0, 2, ENEMY_ENEMY, ENEMY_SIZE_2},
                                               {0, 4, ENEMY_WORM,  ENEMY_SIZE_1},
                                               {3, 2, ENEMY_BIRD,  ENEMY_SIZE_1},
                                               {6, 1, ENEMY_BIRD,  ENEMY_SIZE_1},
@@ -36,7 +36,7 @@ static int8_t enemyHeights[ENEMY_TYPES][4] = {{0, 2, ENEMY_ENEMY, ENEMY_SIZE_2},
                                               {4, 1, ENEMY_BIRD,  ENEMY_SIZE_1}
 }; // 0: height; 1: probability; 2: enemySkin; 3: enemySizeIndex;
 
-static int8_t enemySize[3][2] = {
+static const int8_t enemySize[3][2] = {
         {3, 2},
         {2, 3},
 };
@@ -57,7 +57,7 @@ static int8_t enemySize[3][2] = {
 // Level section
 #define LEVELS 12
 
-static uint32_t levels[LEVELS][3] = {
+static const uint32_t levels[LEVELS][3] = {
         {0,    100, 1},
         {100,  100, 2},
         {500,  95,  2},
@@ -74,13 +74,13 @@ static uint32_t levels[LEVELS][3] = {
 // Level section END
 
 
-static Color *entityColorBlank = &colorBlank;
+static const Color *entityColorBlank = &colorBlank;
 
-static Color *playerColor1 = &colorGreen;
-static Color *playerColor2 = &colorWhite;
+static const Color *playerColor1 = &colorGreen;
+static const Color *playerColor2 = &colorWhite;
 
 
-static Color **playerSkin[4][4][2] = {
+static const Color **playerSkin[4][4][2] = {
         {
                 {&playerColor1, &playerColor1},
                 {&playerColor1, &playerColor2},
@@ -111,17 +111,17 @@ static Color colorEnemyOrange;
 static Color colorEnemyBlue;
  */
 
-static Color *colorCollision = new Color(3,0,0);
+static const Color *colorCollision = new Color(3,0,0);
 
 
-static Color *enemyColor1 = &colorPurple;
-static Color *enemyColor2 = &colorRed;
-static Color *enemyColor3 = new Color(2,1,0);
-static Color *enemyColor4 = &colorBlue;
+static const Color *enemyColor1 = &colorPurple;
+static const Color *enemyColor2 = &colorRed;
+static const Color *enemyColor3 = new Color(2,1,0);
+static const Color *enemyColor4 = &colorBlue;
 
 
 
-static Color **enemySkin[10][4][4] = {
+static const Color **enemySkin[10][4][4] = {
         {
                 {&entityColorBlank, &enemyColor1,      &entityColorBlank},
                 {&enemyColor2, &enemyColor1,      &enemyColor1},

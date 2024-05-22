@@ -20,13 +20,16 @@ class Color;
 
 #include "PIOMatrixOutput/pio_matrix_settings.h"
 #include "firework_settings.h"
+#include "pixel.h"
 
 
 namespace details_firework {
     class Firework {
 
-        Pixel *pixel[PIXEL_PER_FIREWORK];
+        Pixel pixel[PIXEL_PER_FIREWORK];
         Color pixelColor;
+
+        uint8_t explosionBrightness;
 
         int8_t startPosX;
         int8_t startPosY;

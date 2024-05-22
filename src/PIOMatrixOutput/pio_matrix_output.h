@@ -31,7 +31,7 @@ class MatrixOutput {
     uint32_t lastSendData;
 
 
-    uint32_t frameBuffer[MAX_FRAMES_IN_BUFFER + 1][MAX_SUBFRAMES][MATRIX_SIZE * 3 / 4];
+    uint32_t frameBuffer[MAX_FRAMES_IN_BUFFER][MAX_SUBFRAMES][MATRIX_SIZE * 3 / 4];
     uint8_t frameBufferWriteIndex;
     uint8_t frameBufferReadIndex;
     uint8_t frameBufferLength;

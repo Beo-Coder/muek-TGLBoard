@@ -5,162 +5,194 @@
 #include "color.h"
 
 
+Color colorBlank(0,0,0);
+
+// Some static colors
+Color colorRed(NORMAL_BRIGHTNESS,0,0);
+Color colorGreen(0,NORMAL_BRIGHTNESS,0);
+Color colorBlue(0,0,NORMAL_BRIGHTNESS);
+
+Color colorWhite(NORMAL_BRIGHTNESS,NORMAL_BRIGHTNESS,NORMAL_BRIGHTNESS);
+Color colorYellow(NORMAL_BRIGHTNESS,NORMAL_BRIGHTNESS,0);
+Color colorCyan(0,NORMAL_BRIGHTNESS,NORMAL_BRIGHTNESS);
+Color colorPurple(NORMAL_BRIGHTNESS,0,NORMAL_BRIGHTNESS);
+
+Color *allColors[] = {&colorRed, &colorBlue, &colorGreen, &colorWhite, &colorYellow, &colorCyan, &colorPurple};
+
+
+
+
 Color::Color(float red, float green, float blue) {
-    this->red = checkAndReturnValid(red);
-    this->green = checkAndReturnValid(green);
-    this->blue = checkAndReturnValid(blue);
-    brightness = 1;
+    this->red = calcFixedPointNumber(red);
+    this->green = calcFixedPointNumber(green);
+    this->blue = calcFixedPointNumber(blue);
 
 }
 
 
-float Color::checkAndReturnValid(float value) {
-    if(value>MAX_COLOR_VALUE){
-        return MAX_COLOR_VALUE;
-    }
-    if(value<MIN_COLOR_VALUE){
-        return MIN_COLOR_VALUE;
-    }
+uint16_t Color::checkAndReturnValid(uint16_t value) {
+    if(value>MAX_COLOR_VALUE_RAW) return MAX_COLOR_VALUE_RAW;
+    if(value<MIN_COLOR_VALUE) return MIN_COLOR_VALUE;
     return value;
 }
 
 
-uint32_t Color::calc() {
-
-
-    return ((uint8_t)(green*brightness) << 16) | ((uint8_t)(red*brightness) << 8) | ((uint8_t)(blue*brightness));
-
+uint32_t Color::calc() const {
+    return ((toUint8(green) << 16) | (toUint8(red)  << 8) | toUint8(blue));
 }
 
 Color::Color() {
     red = 0;
     green = 0;
     blue = 0;
-    brightness = NORMAL_BRIGHTNESS;
-
 }
-
-void Color::setBrightness(float value) {
-    if(value < MIN_BRIGHTNESS){
-        brightness = MIN_BRIGHTNESS;
-    }else if (value > MAX_BRIGHTNESS) {
-        brightness = MAX_BRIGHTNESS;
-    }else{
-            brightness = value;
-    }
-
-
-
-}
-
-float Color::getBrightness() {
-    return brightness;
-}
-
 
 
 void Color::setRed(float value) {
-    red = checkAndReturnValid(value);
+    red = calcFixedPointNumber(value);
+    red = checkAndReturnValid(red);
 
 }
 
 void Color::setGreen(float value) {
-    green = checkAndReturnValid(value);
+    green = calcFixedPointNumber(value);
+    green = checkAndReturnValid(green);
 }
 
 void Color::setBlue(float value) {
+    blue = calcFixedPointNumber(value);
+    blue = checkAndReturnValid(blue);
+}
+
+void Color::setRedRaw(uint16_t value) {
+    red = checkAndReturnValid(value);
+}
+
+void Color::setGreenRaw(uint16_t value) {
+    green = checkAndReturnValid(value);
+}
+
+void Color::setBlueRaw(uint16_t value) {
     blue = checkAndReturnValid(value);
 }
 
 
 
-float Color::getRed(bool raw) {
-    return red*(brightness*float((1-raw)));
+float Color::getRed() const {
+    return calcFloatingPointNumber(red);
 }
 
-float Color::getGreen(bool raw) {
-    return green*(brightness*float((1-raw)));
+float Color::getGreen() const {
+    return calcFloatingPointNumber(green);
 }
 
-float Color::getBlue(bool raw) {
-    return blue*(brightness*float((1-raw)));
-}
-
-void Color::setRGB(uint8_t colorNumber, float value) {
-    switch (colorNumber) {
-        case 0:
-            setRed(value);
-            break;
-        case 1:
-            setGreen(value);
-            break;
-        case 2:
-            setBlue(value);
-            break;
-    }
-
+float Color::getBlue() const {
+    return calcFloatingPointNumber(blue);
 }
 
 
 
-float Color::getRGB(uint8_t colorNumber, bool raw) {
-    switch (colorNumber) {
-        case 0:
-            getRed(raw);
-            break;
-        case 1:
-            getGreen(raw);
-            break;
-        case 2:
-            getBlue(raw);
-            break;
-        default:
-            return -1;
-    }
-    return -1;
+uint16_t Color::getRedRaw() const {
+    return red;
 }
+
+uint16_t Color::getGreenRaw() const {
+    return green;
+}
+
+uint16_t Color::getBlueRaw() const {
+    return blue;
+}
+
+
 
 void Color::set(Color *reference) {
-    setRed(reference->red);
-    setGreen(reference->green);
-    setBlue(reference->blue);
+    setRedRaw(reference->getRedRaw());
+    setGreenRaw(reference->getGreenRaw());
+    setBlueRaw(reference->getBlueRaw());
 }
 
-bool Color::equals(Color *reference) {
-    return red == reference->red && green == reference->green && blue == reference->blue;
+bool Color::equals(Color *reference) const {
+    return red == reference->getRedRaw() && green == reference->getGreenRaw() && blue == reference->getBlueRaw();
 }
 
 void Color::add(Color *addition) {
-    // if the value overflows max value will be used
-    if (red + addition->red >= MAX_COLOR_VALUE) {
-        setRed(MAX_COLOR_VALUE);
-    } else {
-        setRed(red + addition->red);
-    }
-    if (green + addition->green >= MAX_COLOR_VALUE) {
-        setGreen(MAX_COLOR_VALUE);
-    } else {
-        setGreen(green + addition->green);
-    }
-    if (blue + addition->blue >= MAX_COLOR_VALUE) {
-        setBlue(MAX_COLOR_VALUE);
-    } else {
-        setBlue(blue + addition->blue);
-    }
+    setRedRaw(red + addition->getRedRaw());
+    setGreenRaw(green + addition->getGreenRaw());
+    setBlueRaw(blue + addition->getBlueRaw());
 }
 
+// TODO: Maybe with raw values
 void Color::multiply(float factor) {
-    setRed(red * factor);
-    setGreen(green * factor);
-    setBlue(green * factor);
+    setRed(getRed()*factor);
+    setGreen(getGreen()*factor);
+    setBlue(getBlue()*factor);
+    //green = green - ((uint16_t)((float)green*(factor)));
+    //blue = blue - ((uint16_t)((float)blue*(factor)));
 }
 
 void Color::average(Color *addition) {
     // calculate the avg color
-    setRed((red + addition->red) /2);
-    setGreen((green + addition->green) /2);
-    setBlue((blue + addition->blue) /2);
+    setRedRaw((red + addition->getRedRaw()) / 2);
+    setGreenRaw((green + addition->getGreenRaw()) / 2);
+    setBlueRaw((blue + addition->getBlueRaw()) / 2);
 }
+
+uint16_t Color::calcFixedPointNumber(float value) {
+
+    // Actually relatively fast because the fraction is precompiled
+    auto data = (uint16_t)(value * (float)uint16_t((((1 << (NORMAL_BITS+(uint8_t)log2(MAX_SUBFRAMES))) - 1) / ((1 << NORMAL_BITS) - 1))));
+
+    return data;
+}
+
+float Color::calcFloatingPointNumber(uint16_t value) {
+    // Actually relatively fast because the fraction is precompiled
+    auto data = (float)((float)value / (float)uint16_t((((1 << (NORMAL_BITS+(uint8_t)log2(MAX_SUBFRAMES))) - 1) / ((1 << NORMAL_BITS) - 1))));
+    return data;
+}
+
+uint8_t Color::toUint8(uint16_t value) {
+    return value>>((uint8_t)log2(MAX_SUBFRAMES)) & 0xFF;
+}
+
+uint8_t Color::getNumberOfActiveSubframes(uint16_t value) {
+    return value&((1 << ((uint8_t)log2(MAX_SUBFRAMES))) - 1);
+}
+
+
+
+uint16_t Color::getRed8Bit() const {
+    return toUint8(red);
+}
+
+uint16_t Color::getGreen8Bit() const {
+    return toUint8(green);
+}
+
+uint16_t Color::getBlue8Bit() const {
+    return toUint8(blue);
+}
+
+
+uint8_t Color::getRedActiveSubframes() const {
+    return getNumberOfActiveSubframes(red);
+}
+
+uint8_t Color::getGreenActiveSubframes() const {
+    return getNumberOfActiveSubframes(green);
+}
+
+uint8_t Color::getBlueActiveSubframes() const {
+    return getNumberOfActiveSubframes(blue);
+}
+
+
+
+
+
+
+
 
 
 

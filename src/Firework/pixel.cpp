@@ -3,7 +3,6 @@
 //
 
 #include "pixel.h"
-#include "PIOMatrixOutput/color.h"
 
 
 details_firework::Pixel::Pixel() {
@@ -11,6 +10,6 @@ details_firework::Pixel::Pixel() {
     posY = -1;
     dirX = 0;
     dirY = 0;
-    color = &colorBlank;
+    screenColor = colorBlank;
 
 }

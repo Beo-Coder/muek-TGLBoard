@@ -28,7 +28,7 @@ namespace details_text_controller{
         uint8_t *idTextArray;
         Color *textColor;
         Color *backgroundColor;
-        Charset *charset;
+        const Charset *charset;
 
 
 
@@ -44,7 +44,7 @@ namespace details_text_controller{
 
 
     public:
-        explicit Subcontroller(uint16_t idArrayOffset, uint16_t yPos, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH], uint8_t *idTextArray, Charset *charset, Color *textColor, Color *backgroundColor);
+        explicit Subcontroller(uint16_t idArrayOffset, uint16_t yPos, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH], uint8_t *idTextArray, const Charset *charset, Color *textColor, Color *backgroundColor);
 
         void setArraySize(uint16_t size);
 

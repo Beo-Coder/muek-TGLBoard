@@ -5,14 +5,15 @@
 #ifndef TGL_BOARD_FIREWORK_PIXEL_H
 #define TGL_BOARD_FIREWORK_PIXEL_H
 
-class Color;
 
 #ifdef ARDUINO
     #include <Arduino.h>
+
+
 #else
     #include "pico/stdlib.h"
 #endif
-
+#include "PIOMatrixOutput/color.h"
 
 namespace details_firework {
     class Pixel {
@@ -23,10 +24,10 @@ namespace details_firework {
         float posX;
         float posY;
 
-        float dirX;
-        float dirY;
+        int8_t dirX;
+        int8_t dirY;
 
-        Color *color;
+        Color screenColor;
     };
 }
 

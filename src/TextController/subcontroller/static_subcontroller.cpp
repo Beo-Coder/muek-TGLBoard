@@ -7,7 +7,7 @@
 
 details_text_controller::StaticSubcontroller::StaticSubcontroller(uint16_t idArrayOffset, uint16_t yPos,
                                                                   Color (*frame)[8][16], uint8_t *idTextArray,
-                                                                  Charset *charset, Color *textColor,
+                                                                  const Charset *charset, Color *textColor,
                                                                   Color *backgroundColor) : Subcontroller(idArrayOffset,
                                                                                                           yPos, frame,
                                                                                                           idTextArray,

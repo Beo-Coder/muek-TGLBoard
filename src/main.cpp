@@ -89,17 +89,18 @@ void setup() {
 
 
 
+    ledMatrix.enableSubframes();
 
-    programs[0] = &gameOfLife;
+    programs[0] = &snake;
     programs[0]->restart();
 
-    tinyText.setColor(&color1, &color3, &color2);
-    tinyText.setText(&text);
+    scrollText.setColor(&color1, &color2);
+    scrollText.setText(&text);
 
 
 
 
-    ledMatrix.enableSubframes();
+
 
 
 

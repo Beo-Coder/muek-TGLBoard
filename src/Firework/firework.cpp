@@ -4,7 +4,6 @@
 
 #include "firework.h"
 #include "beo_common.h"
-#include "pixel.h"
 
 details_firework::Firework::Firework() {
     dead = true;
@@ -13,9 +12,7 @@ details_firework::Firework::Firework() {
     lifeTime = 0;
     startPosX = 0;
     startPosY = 0;
-    for(Pixel* & i : pixel){
-        i = new Pixel();
-    }
+
 }
 
 
@@ -29,36 +26,36 @@ void details_firework::Firework::start(int8_t posX, int8_t posY, Color *color) {
     this->startPosX = posX;
     this->startPosY = 0;
 
-    pixelColor = *color;
-    pixelColor.setBrightness(FIREWORK_EXPLOSION_BRIGHTNESS);
+    pixelColor.set(color);
+    explosionBrightness = NORMAL_BRIGHTNESS + (beo::randomInt(FIREWORK_EXPLOSION_BRIGHTNESS_MIN,FIREWORK_EXPLOSION_BRIGHTNESS_MAX));
+    pixelColor.multiply((float(explosionBrightness)/NORMAL_BRIGHTNESS)+1);
 
     // Configure each pixel
     for (int i = 0; i < PIXEL_PER_FIREWORK; i++) {
-        pixel[i]->posX = posX;
-        pixel[i]->posY = posY;
+        pixel[i].posX = posX;
+        pixel[i].posY = posY;
 
         // This could certainly be improved
         switch (i % 4) {
             case 0:
-                pixel[i]->dirX = float(beo::randomInt(0, FIREWORK_SPEED_VALUE_X + 1));
-                pixel[i]->dirY = float(beo::randomInt(0, FIREWORK_SPEED_VALUE_Y + 1));
+                pixel[i].dirX = int8_t (beo::randomInt(0, FIREWORK_SPEED_VALUE_X + 1));
+                pixel[i].dirY = int8_t(beo::randomInt(0, FIREWORK_SPEED_VALUE_Y + 1));
                 break;
             case 1:
-                pixel[i]->dirX = float(beo::randomInt(-FIREWORK_SPEED_VALUE_X, 0));
-                pixel[i]->dirY = float(beo::randomInt(0, FIREWORK_SPEED_VALUE_Y + 1));
+                pixel[i].dirX = int8_t(beo::randomInt(-FIREWORK_SPEED_VALUE_X, 0));
+                pixel[i].dirY = int8_t(beo::randomInt(0, FIREWORK_SPEED_VALUE_Y + 1));
                 break;
             case 2:
-                pixel[i]->dirX = float(beo::randomInt(0, FIREWORK_SPEED_VALUE_X + 1));
-                pixel[i]->dirY = float(beo::randomInt(-FIREWORK_SPEED_VALUE_Y, 0));
+                pixel[i].dirX = int8_t(beo::randomInt(0, FIREWORK_SPEED_VALUE_X + 1));
+                pixel[i].dirY = int8_t(beo::randomInt(-FIREWORK_SPEED_VALUE_Y, 0));
                 break;
             case 3:
-                pixel[i]->dirX = float(beo::randomInt(-FIREWORK_SPEED_VALUE_X, 0));
-                pixel[i]->dirY = float(beo::randomInt(-FIREWORK_SPEED_VALUE_Y, 0));
+                pixel[i].dirX = int8_t(beo::randomInt(-FIREWORK_SPEED_VALUE_X, 0));
+                pixel[i].dirY = int8_t(beo::randomInt(-FIREWORK_SPEED_VALUE_Y, 0));
                 break;
         }
 
-        pixel[i]->color = &pixelColor;
-
+        pixel[i].screenColor.set(&pixelColor);
 
     }
 
@@ -76,18 +73,18 @@ void details_firework::Firework::calcFrame(Color (*display)[MATRIX_HEIGHT][MATRI
 void details_firework::Firework::calcFireworkTrail(Color (*display)[MATRIX_HEIGHT][MATRIX_LENGTH]) {
 
 
-    if(startPosY >= int(pixel[0]->posY)){
+    if(startPosY >= int(pixel[0].posY)){
         arrived = true;
     }
 
-    if(startPosY >= int(pixel[0]->posY)+TIME_DELAY_ARRIVAL_EXPLOSION){
+    if(startPosY >= int(pixel[0].posY)+TIME_DELAY_ARRIVAL_EXPLOSION){
         exploded = true;
     }
 
     uint8_t trailPosY = startPosY;
 
     if(arrived){
-        trailPosY = int(pixel[0]->posY);
+        trailPosY = int(pixel[0].posY);
     }
 
 
@@ -109,23 +106,27 @@ void details_firework::Firework::calcFireworkTrail(Color (*display)[MATRIX_HEIGH
 void details_firework::Firework::calcFireworkExplosion(Color (*display)[MATRIX_HEIGHT][MATRIX_LENGTH]) {
 
     if (lifeTime < FIREWORK_LIFE_TIME) {
-        for (Pixel* & i : pixel) {
-            int8_t posX = i->posX;
-            int8_t posY = i->posY;
+        for (Pixel & i : pixel) {
+            int16_t posX = i.posX;
+            int16_t posY = i.posY;
 
-            if(lifeTime > 0){
-                i->color->setBrightness(FIREWORK_AFTER_EXPLOSION_BRIGHTNESS-(lifeTime*FIREWORK_AFTER_EXPLOSION_BRIGHTNESS_SINKRATE-1));
-                //i->color->setBrightness(1);
+
+            if(lifeTime > TIME_BETWEEN_EXPLOSION_AFTER_EXPLOSION_BRIGHTNESS) {
+                i.screenColor.multiply(1 - (float(beo::randomInt(FIREWORK_AFTER_EXPLOSION_BRIGHTNESS_SINKRATE_MIN,FIREWORK_AFTER_EXPLOSION_BRIGHTNESS_SINKRATE_MAX)) / 100));
+            }else if(lifeTime == TIME_BETWEEN_EXPLOSION_AFTER_EXPLOSION_BRIGHTNESS){
+                i.screenColor.multiply(1/(float(explosionBrightness+NORMAL_BRIGHTNESS))); // Set color value back to normale
+                i.screenColor.multiply((float(FIREWORK_AFTER_EXPLOSION_BRIGHTNESS)/NORMAL_BRIGHTNESS)+1); // Set color value to FIREWORK_AFTER_EXPLOSION_BRIGHTNESS
+
             }
 
-            i->posX += (i->dirX * (1 - (float(lifeTime) / FIREWORK_DECELERATION_VALUE_X))) /
+            i.posX += (float(i.dirX) * (1 - (float(lifeTime) / FIREWORK_DECELERATION_VALUE_X))) /
                        FIREWORK_SPEED_VALUE_X2;
-            i->posY += (i->dirY * (1 - (float(lifeTime) / FIREWORK_DECELERATION_VALUE_Y))) /
+            i.posY += (float(i.dirY) * (1 - (float(lifeTime) / FIREWORK_DECELERATION_VALUE_Y))) /
                        FIREWORK_SPEED_VALUE_Y2 - FIREWORK_SINK_RATE;
 
             // Only add to frame, when pixel is inside frame
             if (posX >= 0 && posX < MATRIX_LENGTH && posY >= 0 && posY < MATRIX_HEIGHT) {
-                (*display)[MATRIX_HEIGHT - posY - 1][posX] = *(i->color);
+                (*display)[MATRIX_HEIGHT - posY - 1][posX] = i.screenColor;
             }
 
         }

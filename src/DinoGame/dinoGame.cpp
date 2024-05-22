@@ -123,7 +123,7 @@ void DinoGame::button2ISR(bool data) {
 }
 
 
-int8_t *getRandomEnemy() {
+const int8_t *getRandomEnemy() {
 
 
     unsigned int totalWeight = 0;
@@ -149,7 +149,7 @@ int8_t *getRandomEnemy() {
 
 void DinoGame::createNewEnemy(uint8_t index) {
 
-    int8_t *enemy = getRandomEnemy();
+    const int8_t *enemy = getRandomEnemy();
 
     enemies[index]->posY = enemy[0];
     enemies[index]->enemyType = enemy[2];

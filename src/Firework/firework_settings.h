@@ -15,17 +15,20 @@
 #define PIXEL_PER_FIREWORK_TRAIL 2
 #define TIME_DELAY_ARRIVAL_EXPLOSION 2
 
-#define FIREWORK_LIFE_TIME 9
+#define FIREWORK_LIFE_TIME 10
 #define TIME_BETWEEN_FIREWORKS 7
 
-#define MAX_NUMBER_FIREWORKS 5
+#define MAX_NUMBER_FIREWORKS 4
 
 #define FIREWORK_EXPLODE_Y_MIN 4
 #define FIREWORK_EXPLODE_Y_MAX 7
 
-#define FIREWORK_EXPLOSION_BRIGHTNESS (NORMAL_BRIGHTNESS + (beo::randomInt(40,50)))
+#define FIREWORK_EXPLOSION_BRIGHTNESS_MAX 55 // actually 100 times less (more than NORMAL_BRIGHTNESS)
+#define FIREWORK_EXPLOSION_BRIGHTNESS_MIN 45 // actually 100 times less (more than NORMAL_BRIGHTNESS)
+#define TIME_BETWEEN_EXPLOSION_AFTER_EXPLOSION_BRIGHTNESS 1
 #define FIREWORK_AFTER_EXPLOSION_BRIGHTNESS (NORMAL_BRIGHTNESS + 6)
-#define FIREWORK_AFTER_EXPLOSION_BRIGHTNESS_SINKRATE (1.5)
+#define FIREWORK_AFTER_EXPLOSION_BRIGHTNESS_SINKRATE_MAX 50 // actually 100 times less
+#define FIREWORK_AFTER_EXPLOSION_BRIGHTNESS_SINKRATE_MIN 35 // actually 100 times less
 
 
 // Only Change if you know what you are doing
@@ -50,8 +53,8 @@ static Color *randomColor[NUMBER_FIREWORK_COLORS] = {&colorRed, &colorBlue, &col
 
 
 #define MIN_SPACE_BETWEEN_POSTIONS 2
-#define NUMBER_POSITIONS 6
-static uint8_t postions[NUMBER_POSITIONS] = {3, 5, 7, 9, 11, 13}; // Array of all valid x-cord positions for a firework to start
+#define NUMBER_POSITIONS 7
+static uint8_t postions[NUMBER_POSITIONS] = {2, 3, 5, 7, 9, 11, 13}; // Array of all valid x-cord positions for a firework to start
 
 
 

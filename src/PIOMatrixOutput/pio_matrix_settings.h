@@ -18,7 +18,7 @@
 
 
 #define MAX_FRAMES_IN_BUFFER 10
-#define MAX_SUBFRAMES 8
+#define MAX_SUBFRAMES 8 // Should/Must be a multiple of 2. 1 is also a legit value
 
 #define TIMER_INDEX 1
 
