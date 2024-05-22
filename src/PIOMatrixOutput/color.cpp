@@ -122,13 +122,10 @@ void Color::add(Color *addition) {
     setBlueRaw(blue + addition->getBlueRaw());
 }
 
-// TODO: Maybe with raw values
 void Color::multiply(float factor) {
-    setRed(getRed()*factor);
-    setGreen(getGreen()*factor);
-    setBlue(getBlue()*factor);
-    //green = green - ((uint16_t)((float)green*(factor)));
-    //blue = blue - ((uint16_t)((float)blue*(factor)));
+    setRedRaw(uint16_t(float(red)*factor));
+    setGreenRaw(uint16_t(float(green)*factor));
+    setBlueRaw(uint16_t(float(blue)*factor));
 }
 
 void Color::average(Color *addition) {
