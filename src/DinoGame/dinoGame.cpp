@@ -6,6 +6,7 @@
 #include "enemy.h"
 #include "player.h"
 #include "beo_common.h"
+#include "TextController/text_controller.h"
 
 
 
@@ -23,15 +24,16 @@
 
 
 
-
-DinoGame::DinoGame(MatrixOutput *ledMatrix, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]) : DisplayProgram(ledMatrix, frame) {
+DinoGame::DinoGame(MatrixOutput *ledMatrix, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH], TextController *staticController) : DisplayProgram(ledMatrix, frame) {
     //  matrix = ledMatrix;
 
+    textController = staticController;
     numberEnemies = 1;
     score = 0;
 
     refreshSpeed = 0;
     dead = false;
+    showScore = false;
 
 
     for (details_dino_game::Enemy *&enemy: enemies) {
@@ -45,42 +47,6 @@ DinoGame::DinoGame(MatrixOutput *ledMatrix, Color (*frame)[MATRIX_HEIGHT][MATRIX
     createNewEnemy(0);
 
 
-    // Color shit
-/*
-    colorDarkRed.red = 3;
-    colorRed.red = 1;
-
-    colorGrey.red = 1;
-    colorGrey.green = 1;
-    colorGrey.blue = 1;
-
-    colorGreen.green = 1;
-
-    playerColor1 = &colorGreen;
-    playerColor2 = &colorGrey;
-    playerColor3 = &colorBlank;
-    entityColorBlank = &colorBlank;
-
-
-    colorEnemyDarkRed.red = 2;
-    colorEnemyDarkRed.blue = 2;
-
-    colorEnemyOrange.red = 2;
-    colorEnemyOrange.green = 1;
-
-    enemyColor1 = &colorEnemyDarkRed;
-    enemyColor2 = &colorRed;
-
-    enemyColor3 = &colorEnemyOrange;
-
-    colorEnemyBlue.blue = 2;
-    enemyColor4 = &colorEnemyBlue;
-
-    enemyColor5 = &colorRed;
-    */
-
-
-
 }
 
 void DinoGame::restart() {
@@ -91,6 +57,7 @@ void DinoGame::restart() {
     score = 0;
     refreshSpeed = 100;
     dead = false;
+    showScore = false;
 
     for (int i = 1; i < MAX_ENEMIES; i++) {
         enemies[i]->alive = false;
@@ -104,7 +71,6 @@ void DinoGame::restart() {
 void DinoGame::button1ISR(bool data) {
     if (!dead) {
         player->duck(data);
-        // animateFrame();
     }
 
 }
@@ -115,9 +81,12 @@ void DinoGame::button2ISR(bool data) {
         if (!dead) {
             player->jump();
         } else {
-            restart();
+            if(!showScore){
+                showScore = true;
+            }else{
+                restart();
+            }
         }
-        // animateFrame();
     }
 
 }
@@ -220,17 +189,40 @@ void DinoGame::refresh() {
             if (player->checkAndMarkCollision(*enemies[i], frame)) {
                 dead = true;
                 refreshSpeed = 250;
+
+
             }
+
+        }
+        // If dead, already load score in text controller
+        if(dead){
+            stringBuffer = "";
+            stringBuffer.append(std::to_string(score));
+
+            textController->restart();
+            textController->setColor(&colorWhite, &colorBlank);
+            textController->setText(&stringBuffer);
+            showScore = false;
         }
 
     } else {
-        // Let the collision pixel blink
-        for (int i = 0; i < numberEnemies; i++) {
-            if (player->checkAndMarkCollision(*enemies[i], frame)) {
-                dead = true;
-                refreshSpeed = 250;
+        if(!showScore){
+            // Let the collision pixel blink
+            for (int i = 0; i < numberEnemies; i++) {
+                if (player->checkAndMarkCollision(*enemies[i], frame)) {
+                    dead = true;
+                    refreshSpeed = 250;
+                }
             }
+        }else{
+            // Show score
+            textController->createAndLoadFrame();
         }
+
+
+
+
+
     }
     matrix->setDisplayData(frame);
     matrix->sendData();
