@@ -158,7 +158,7 @@ namespace details_letters_normal {
     const  std::string specialChars = "HS01234l|AaOoUu()";
 
     // Gets stored in ROM
-    const uint8_t SINGLE_SPACE_INDEX = specialChars.find('1') + normalChars.length();
+    const uint16_t SINGLE_SPACE_INDEX = specialChars.find('1') + normalChars.length();
 
     const uint8_t *Letter[] = {lA, lB, lC, lD, lE, lF, lG, lH, lI, lJ, lK, lL, lM, lN, lO, lP, lQ, lR, lS, lT,
                                       lU,

@@ -149,7 +149,7 @@ namespace details_letters_normal {
     extern const std::string specialChars;
 
     // Gets stored in ROM
-    extern const uint8_t SINGLE_SPACE_INDEX;
+    extern const uint16_t SINGLE_SPACE_INDEX;
 
     extern const uint8_t *Letter[];
 
