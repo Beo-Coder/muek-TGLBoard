@@ -9,6 +9,8 @@
 
 #include "PIOMatrixOutput/pio_matrix_output.h"
 
+#include "FlashController/flash_controller.h"
+
 #include "TextController/scroll_text.h"
 #include "TextController//static_text.h"
 #include "TextController/tiny_text.h"
@@ -40,12 +42,14 @@ PIO pio = pio0;
 
 MatrixOutput ledMatrix(pio, 0, 0, 10, 11);
 
+FlashController flash;
+
 ScrollText scrollText(&ledMatrix, &frame);
 StaticText staticText(&ledMatrix, &frame);
 TinyText tinyText(&ledMatrix, &frame);
 
 
-DinoGame dinoGame(&ledMatrix, &frame);
+DinoGame dinoGame(&ledMatrix, &frame, &staticText);
 FireworkAnimation fireworks(&ledMatrix, &frame);
 Tetris tetrisGame(&ledMatrix, &frame, &staticText);
 SnakeAI snake(&ledMatrix, &frame);
@@ -57,7 +61,7 @@ GameOfLife gameOfLife(&ledMatrix, &frame);
 DisplayProgram *programs[2];
 
 
-std::string text = "Hello World 12";
+std::string text = "Hello World!  ";
 
 
 
@@ -81,7 +85,7 @@ void button_isr(uint gpio, uint32_t events){
 
 void setup() {
     Serial.begin(115200);
-    delay(3500); // Just so that the Serial Console has time to connect
+    delay(2500); // Just so that the Serial Console has time to connect
     Serial.println("Hello World");
 
     gpio_set_irq_enabled_with_callback(BUTTON1, GPIO_IRQ_EDGE_RISE | GPIO_IRQ_EDGE_FALL, true, &button_isr);
@@ -91,17 +95,11 @@ void setup() {
 
     ledMatrix.enableSubframes();
 
-    programs[0] = &snake;
+    programs[0] = &dinoGame;
     programs[0]->restart();
 
-    scrollText.setColor(&color1, &color2);
-    scrollText.setText(&text);
-
-
-
-
-
-
+    staticText.setColor(&color1, &color2);
+    staticText.setText(&text);
 
 
 

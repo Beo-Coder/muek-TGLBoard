@@ -24,6 +24,8 @@ For your own text, you can use my library.
 Documentation is here [Textcontroller](README_textController.md)
 
 
+For flash usage, read here [Flash](README_flash.md)
+
 # Hardware
 
 Schematic, layout and gerber files can be found [here](hardware)  
