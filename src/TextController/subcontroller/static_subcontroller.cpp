@@ -24,6 +24,8 @@ details_text_controller::StaticSubcontroller::StaticSubcontroller(uint16_t idArr
 
 void details_text_controller::StaticSubcontroller::initText() {
     uint16_t textLength = 0;
+    state = 0;
+    needScrolling = false;
     for(int i=0; i<idArraySize; i++){
         textLength += (charset->chars[idTextArray[i+idArrayOffset]])[charset->charHeight];
     }

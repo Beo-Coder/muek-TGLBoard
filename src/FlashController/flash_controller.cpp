@@ -13,8 +13,8 @@
 // Initiation of flash content
 
 
-FlashItem data0{4, 1};
-FlashItem data1{4, 2};
+FlashItem highScoreDinoGame{4, 1};
+FlashItem highScoreTetris{4, 2};
 FlashItem *flashContent[FLASH_ITEM];
 
 
@@ -23,8 +23,8 @@ FlashItem *flashContent[FLASH_ITEM];
 
 FlashController::FlashController() {
     // Load flash content in the array
-    flashContent[0] = &(data0);
-    flashContent[1] = &(data1);
+    flashContent[0] = &(highScoreDinoGame);
+    flashContent[1] = &(highScoreTetris);
 
     resetBuffer();
 

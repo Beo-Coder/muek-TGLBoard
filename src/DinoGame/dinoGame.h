@@ -10,6 +10,7 @@ namespace details_dino_game{
     class Player;
 }
 class TextController;
+class FlashController;
 
 
 #ifdef ARDUINO
@@ -29,6 +30,7 @@ class TextController;
 
 class DinoGame : public DisplayProgram {
 
+    FlashController *flashController;
     TextController *textController;
     std::string stringBuffer;
 
@@ -37,7 +39,7 @@ class DinoGame : public DisplayProgram {
     details_dino_game::Player *player;
 
     bool dead;
-    bool showScore;
+    uint8_t showScore;
 
     void animateFrame();
 
@@ -47,11 +49,15 @@ class DinoGame : public DisplayProgram {
 
     void checkScore();
 
+    uint32_t getHighScore();
+    void storeNewHighScore();
+    void checkHighScore();
+
 
 public:
     uint32_t score;
 
-    explicit DinoGame(MatrixOutput *ledMatrix, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH], TextController *staticController);
+    explicit DinoGame(MatrixOutput *ledMatrix, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH], TextController *staticController, FlashController *flashController);
 
     void button1ISR(bool data) override;
 

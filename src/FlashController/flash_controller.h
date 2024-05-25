@@ -68,8 +68,8 @@ struct FlashItem{
 
 
 // Flash Content
-extern FlashItem data0;
-extern FlashItem data1;
+extern FlashItem highScoreDinoGame;
+extern FlashItem highScoreTetris;
 
 
 extern FlashItem *flashContent[];
