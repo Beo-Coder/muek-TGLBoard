@@ -22,7 +22,7 @@
 #include "SnakeAI/snake_ai_animation.h"
 #include "GameOfLife/game_of_life_animation.h"
 #include "FixedAnimation/fixed_animation.h"
-
+#include "RainbowAnimation/rainbow_animation.h"
 
 
 #define BUTTON1 18
@@ -56,7 +56,7 @@ Tetris tetrisGame(&ledMatrix, &frame, &staticText, &flash);
 SnakeAI snake(&ledMatrix, &frame);
 GameOfLife gameOfLife(&ledMatrix, &frame);
 FixedAnimation fixedAnimation(&ledMatrix, &frame);
-
+RainbowAnimation rainbowAnimation(&ledMatrix, &frame);
 
 
 
@@ -103,7 +103,7 @@ void setup() {
 
     ledMatrix.enableSubframes();
 
-    programs[0] = &fixedAnimation;
+    programs[0] = &rainbowAnimation;
     programs[0]->restart();
 
     staticText.setColor(&color1, &color2);
