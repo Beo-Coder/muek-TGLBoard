@@ -47,7 +47,7 @@
 
 // Number of 4096 byte sectors we need to store our information/ we want to spare on erase-cycles.
 // Should be double of needed sectors (e.g., you need 1 sector, it should be at least 2).
-#define NUMBER_OF_SECTORS 2
+#define NUMBER_OF_SECTORS 5
 
 // Number of 256 byte pages we need to store our information. Shouldn't be greater than 16 or everything will explode
 #define NUMBER_OF_PAGES 1
