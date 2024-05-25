@@ -46,14 +46,16 @@ This is achieved through predefined datasets (FlashItem).
 Each dataset has an accessKey (ID) and a size (number of bytes).  
 To add/remove these, you must modify flash_controller.h/.cpp.  
 **Note**: An access Key must be unique.
-All the number of bytes combined should not be more than 256-1 (255), or you have to increase NUMBER_OF_PAGES by 1.
-No flash item should have more than 255 bytes of size.
+All the number of bytes combined should not be more than 256-1 (255), or you have to increase NUMBER_OF_PAGES by 1.  
+No flash item should have more than 255 bytes of size.  
+No flash item should overlap between pages (you can fill space with dummy content).
 
 ## Notes
 During writing and erasing, there are no IRQs allowed, and only one core is allowed to access the flash.
 The IRQs are handels by the flash controller itself.
 It will disable the IRQs at the beginning of a flash command and restore them at the end.  
-That only one core is running is your responsibility! 
+That only one core is running is your responsibility!  
+We can only store 4095 bytes of data (one sector - internal byte)
 
 Also see flash example.
 

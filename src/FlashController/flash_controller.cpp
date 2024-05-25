@@ -68,7 +68,7 @@ uint32_t FlashController::findNextFreeSector() {
     }
     // If flash is full
     if(address == nullptr){
-        eraseAllSectors();
+        eraseFirstSectors();
         address = (uint8_t *) FLASH_READ_OFFSET_BEGIN;
     }
 
@@ -121,6 +121,10 @@ bool FlashController::writeData(const uint8_t accessKey, const uint8_t *data) {
         // Restore IRQs
         restore_interrupts(ints);
 
+    }
+    // If we write to the beginning og the data, erase the last sector
+    if(startAddress == (uint32_t)FLASH_WRITE_OFFSET_BEGIN){
+        eraseLastSector();
     }
 
     return true;
@@ -212,6 +216,25 @@ uint32_t FlashController::getFlashContentDataLength(uint8_t accessKey) {
 
 void FlashController::eraseAllData() {
     eraseAllSectors();
+
+}
+
+void FlashController::eraseFirstSectors() {
+    // Disable IRQs
+    uint32_t ints = save_and_disable_interrupts();
+    // Erase first sectors
+    flash_range_erase((uint32_t)FLASH_WRITE_OFFSET_BEGIN, FLASH_SECTOR_SIZE*(NUMBER_OF_SECTORS-1));
+    // Restore IRQs
+    restore_interrupts(ints);
+}
+
+void FlashController::eraseLastSector() {
+    // Disable IRQs
+    uint32_t ints = save_and_disable_interrupts();
+    // Erase first sectors
+    flash_range_erase((uint32_t)FLASH_WRITE_OFFSET_BEGIN+((NUMBER_OF_SECTORS-1)*FLASH_SECTOR_SIZE), FLASH_SECTOR_SIZE);
+    // Restore IRQs
+    restore_interrupts(ints);
 
 }
 
