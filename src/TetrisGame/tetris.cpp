@@ -8,7 +8,7 @@
 #include "TextController/text_controller.h"
 #include "block.h"
 #include "beo_common.h"
-
+#include "FlashController/flash_controller.h"
 
 // pick random block
 // put it at top
@@ -18,6 +18,7 @@
 void Tetris::reset() {
     scheduleRotation = false;
     loss = false;
+    lossState = 0;
     score = 0;
     prevMillis = beo::millis();
     prevScrollMillis = beo::millis();
@@ -37,10 +38,8 @@ void Tetris::reset() {
 
 void Tetris::loop() {
     uint32_t currentMillis = beo::millis();
-    if (loss && currentMillis - prevScrollMillis >= SCORE_TEXT_SCROLL_SPEED) {
-
-        textController->createAndLoadFrame();
-
+    if (lossState != 0 && currentMillis - prevScrollMillis >= SCORE_TEXT_SCROLL_SPEED) {
+        lossTick();
         prevScrollMillis = currentMillis;
     }
     if (currentMillis - prevMillis >= frameSpeed) { // update display
@@ -54,10 +53,6 @@ void Tetris::loop() {
         prevMillis = currentMillis;
     }
 
-
-    if (loss && currentMillis - prevMillis >= LOSS_DELAY) {
-        reset();
-    }
 
 }
 
@@ -135,12 +130,13 @@ void Tetris::handleScheduledActions() {
     }
 }
 
-Tetris::Tetris(MatrixOutput *ledMatrix, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH], TextController *scrollController) : DisplayProgram(ledMatrix, frame) {
+Tetris::Tetris(MatrixOutput *ledMatrix, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH], TextController *scrollController, FlashController *flashController) : DisplayProgram(ledMatrix, frame) {
     /* redundant happens in display_program constructor already
     this->matrix = ledMatrix;
     this->frame = frame;
     */
     // reset(); // already done in main.cpp
+    this->flashController = flashController;
     this->textController = scrollController;
     refreshSpeed = frameSpeed; // we would actually prefer no delay but if we must...
 
@@ -327,6 +323,8 @@ void Tetris::detectLoss() {
     for (int i = 0; i < MATRIX_HEIGHT; ++i) {
         if (map[i][LOSS_Y]) {
             loss |= true;
+            lossState = 1;
+            checkHighScore();
             // prepare score display
             textController->restart();
             textController->setColor(&overlayWhite, &slightlyRed);
@@ -387,21 +385,75 @@ void Tetris::button1ISR(bool data) {
 }
 
 void Tetris::button2ISR(bool data) {
-    if (data) { // rising edge
-        if (button1Cache) { // rising edge whilst select is pressed
-            rotated = true;
-            rotate();
+    if(loss && data){
+        lossState++;
+    }else{
+        if (data) { // rising edge
+            if (button1Cache) { // rising edge whilst select is pressed
+                rotated = true;
+                rotate();
+            }
         }
-    }
-    if (!data) { // falling edge
-        if (!rotated) {
-            moveRight();
+        if (!data) { // falling edge
+            if (!rotated) {
+                moveRight();
+            }
+            // don't reset rotated because we did not yet release the select button
+
         }
-        // don't reset rotated because we did not yet release the select button
 
+        button2Cache = data;
     }
 
-    button2Cache = data;
+}
+
+uint32_t Tetris::getHighScore() {
+    uint8_t *address = FlashController::readData(TETRIS_FLASH_ACCESS_KEY);
+    if(address == nullptr){
+        return 0;
+    }
+    uint32_t highScore = 0;
+    for(uint32_t i=0; i<TETRIS_FLASH_SIZE; i++){
+        highScore |= ((*(address + i)) << (8 * i));
+    }
+    return highScore;
+}
+
+void Tetris::storeHighScore() {
+    uint8_t data[4];
+    for(uint32_t i=0; i<TETRIS_FLASH_SIZE; i++){
+        data[i] = (score >> (8*i)) &0xFF;
+    }
+    flashController->writeData(TETRIS_FLASH_ACCESS_KEY, data);
+
+}
+void Tetris::checkHighScore() {
+    if(score > getHighScore()){
+        storeHighScore();
+    }
+}
+
+void Tetris::lossTick() {
+    switch (lossState) {
+        case 1:
+        case 3:
+            textController->createAndLoadFrame();
+            break;
+        case 2:
+            // prepare score display
+            textController->restart();
+            textController->setColor(&overlayWhite, &slightlyRed);
+            stringBuffer = "Highest: ";
+            stringBuffer.append(std::to_string(getHighScore()));
+            textController->setText(&stringBuffer);
+            textController->createAndLoadFrame();
+            lossState = 3;
+            break;
+        default:
+            reset();
+            break;
+    }
+
 }
 
 

@@ -9,7 +9,8 @@ namespace details_dino_game{
     class Enemy;
     class Player;
 }
-
+class TextController;
+class FlashController;
 
 
 #ifdef ARDUINO
@@ -18,22 +19,27 @@ namespace details_dino_game{
     #include "pico/stdlib.h"
 #endif
 
-#include <string>
+
 
 #include "display_program.h"
 #include "dinogame_settings.h"
+#include <string>
 
 
 
 
 class DinoGame : public DisplayProgram {
 
+    FlashController *flashController;
+    TextController *textController;
+    std::string stringBuffer;
 
     details_dino_game::Enemy *enemies[MAX_ENEMIES];
     uint8_t numberEnemies;
     details_dino_game::Player *player;
 
-    bool dead = false;
+    bool dead;
+    uint8_t showScore;
 
     void animateFrame();
 
@@ -43,11 +49,15 @@ class DinoGame : public DisplayProgram {
 
     void checkScore();
 
+    uint32_t getHighScore();
+    void storeNewHighScore();
+    void checkHighScore();
+
 
 public:
     uint32_t score;
 
-    explicit DinoGame(MatrixOutput *ledMatrix, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]);
+    explicit DinoGame(MatrixOutput *ledMatrix, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH], TextController *staticController, FlashController *flashController);
 
     void button1ISR(bool data) override;
 

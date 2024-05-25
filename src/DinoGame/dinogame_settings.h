@@ -14,6 +14,11 @@
 
 #include "PIOMatrixOutput/color.h"
 
+namespace details_dino_game{
+    static const uint32_t FLASH_ACCESS_KEY_HIGH_SCORE = 1;
+    static const uint32_t FLASH_HIGH_SCORE_LENGTH = 4;
+}
+
 
 // Enemy section
 #define MAX_ENEMIES 2

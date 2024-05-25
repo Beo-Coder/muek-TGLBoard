@@ -14,6 +14,7 @@ GameOfLife::GameOfLife(MatrixOutput *ledMatrix, Color (*frame)[8][16]) : Display
         clearGeneration(i);
     }
     gameColor = &colorGreen;
+    lastColorIndex = details_game_of_life::numberCellColors;
 
 
     generationIndex = 0;
@@ -194,7 +195,12 @@ void GameOfLife::restart() {
     for(int i=0; i<3; i++){
         clearGeneration(i);
     }
-    gameColor = details_game_of_life::cellColors[beo::randomInt(0, details_game_of_life::numberCellColors)];
+    uint8_t colorIndex = beo::randomInt(0, details_game_of_life::numberCellColors);
+    if(colorIndex == lastColorIndex){
+        colorIndex = (colorIndex + 1)%details_game_of_life::numberCellColors;
+    }
+    gameColor = details_game_of_life::cellColors[colorIndex];
+    lastColorIndex = colorIndex;
 
 
     generationIndex = 0;

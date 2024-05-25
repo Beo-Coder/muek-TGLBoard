@@ -10,6 +10,8 @@
 
 #include "PIOMatrixOutput/pio_matrix_output.h"
 
+#include "FlashController/flash_controller.h"
+
 #include "TextController/scroll_text.h"
 #include "TextController//static_text.h"
 #include "TextController/tiny_text.h"
@@ -41,14 +43,16 @@ PIO pio = pio0;
 
 MatrixOutput ledMatrix(pio, 0, 0, 10, 11);
 
+FlashController flash;
+
 ScrollText scrollText(&ledMatrix, &frame);
 StaticText staticText(&ledMatrix, &frame);
 TinyText tinyText(&ledMatrix, &frame);
 
 
-DinoGame dinoGame(&ledMatrix, &frame);
+DinoGame dinoGame(&ledMatrix, &frame, &staticText, &flash);
 FireworkAnimation fireworks(&ledMatrix, &frame);
-Tetris tetrisGame(&ledMatrix, &frame, &staticText);
+Tetris tetrisGame(&ledMatrix, &frame, &staticText, &flash);
 SnakeAI snake(&ledMatrix, &frame);
 GameOfLife gameOfLife(&ledMatrix, &frame);
 
@@ -58,7 +62,7 @@ GameOfLife gameOfLife(&ledMatrix, &frame);
 DisplayProgram *programs[2];
 
 
-std::string text = "Hello World 12";
+std::string text = "Hello World!  ";
 
 
 
@@ -83,27 +87,29 @@ int main(){
     clocks_init();
     stdio_init_all();
 
-    sleep_ms(3500); // Just so that the Serial Console has time to connect
+    sleep_ms(2500); // Just so that the Serial Console has time to connect
 
     gpio_set_irq_enabled_with_callback(BUTTON1, GPIO_IRQ_EDGE_RISE | GPIO_IRQ_EDGE_FALL, true, &button_isr);
     gpio_set_irq_enabled_with_callback(BUTTON2, GPIO_IRQ_EDGE_RISE | GPIO_IRQ_EDGE_FALL, true, &button_isr);
 
-    programs[0] = &snake;
-    programs[0]->restart();
 
-
-
-
-
-    programs[0] = &gameOfLife;
-    programs[0]->restart();
-
-    tinyText.setColor(&color1, &color3, &color2);
-    tinyText.setText(&text);
+    // If no data is stored/Clean flash
+    if(FlashController::readData(1) == nullptr){
+        FlashController::eraseAllData();
+        uint8_t data[] = {0,0,0,0};
+        flash.writeData(1,data);
+        flash.writeData(2,data);
+    }
 
 
     ledMatrix.enableSubframes();
 
+    programs[0] = &dinoGame;
+    programs[0]->restart();
+
+
+    staticText.setColor(&color1, &color2);
+    staticText.setText(&text);
 
 
 

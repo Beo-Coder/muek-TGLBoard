@@ -9,9 +9,9 @@
 #include "tiny_letters.h"
 
 struct Charset{
-    uint8_t charHeight; // Same as length index-1 (So length index = charHeight +1)
+    const uint8_t charHeight; // Same as length index-1 (So length index = charHeight +1)
     const uint8_t **chars;
-    uint16_t singleSpaceIndex;
+    const uint16_t *singleSpaceIndex;
 
 };
 

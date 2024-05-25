@@ -7,6 +7,7 @@
 
 class TextController;
 class Block;
+class FlashController;
 
 #include "display_program.h"
 #include <string>
@@ -22,6 +23,9 @@ class Block;
 
 #define LOSS_Y 2
 
+#define TETRIS_FLASH_ACCESS_KEY 2
+#define TETRIS_FLASH_SIZE 4
+
 class Tetris : public DisplayProgram{
 public:
     // display program requirements:
@@ -33,7 +37,7 @@ public:
 
 
     //explicit Tetris(MatrixOutput* matrix);
-    explicit Tetris(MatrixOutput *ledMatrix, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH], TextController *scrollController);
+    explicit Tetris(MatrixOutput *ledMatrix, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH], TextController *scrollController, FlashController *flashController);
 
     void reset();
     void loop();
@@ -41,11 +45,16 @@ public:
     void moveLeft();
     void moveRight();
     void rotate();
-//protected:
-    //MatrixOutput* matrix; // already in display_program
+
 
 private:
     TextController *textController;
+    FlashController *flashController;
+
+    static uint32_t getHighScore();
+    void storeHighScore();
+    void checkHighScore();
+    void lossTick();
 
     bool rotated;
     bool button1Cache;
@@ -53,6 +62,7 @@ private:
     std::string stringBuffer;
 
     bool loss;
+    uint8_t lossState;
     unsigned int score;
 
     unsigned int tickCnt;

@@ -24,6 +24,8 @@ details_text_controller::StaticSubcontroller::StaticSubcontroller(uint16_t idArr
 
 void details_text_controller::StaticSubcontroller::initText() {
     uint16_t textLength = 0;
+    state = 0;
+    needScrolling = false;
     for(int i=0; i<idArraySize; i++){
         textLength += (charset->chars[idTextArray[i+idArrayOffset]])[charset->charHeight];
     }
@@ -33,7 +35,7 @@ void details_text_controller::StaticSubcontroller::initText() {
         shiftAllTheWayLeft();
 
         for(int i=0; i<=NUMBER_FREE_SPACES; i++){
-            idTextArray[idArraySize+idArrayOffset] = charset->singleSpaceIndex;
+            idTextArray[idArraySize+idArrayOffset] = *charset->singleSpaceIndex;
             idArraySize++;
 
         }
@@ -42,7 +44,7 @@ void details_text_controller::StaticSubcontroller::initText() {
 
         // fill it up with blank spaces
         for (int i = textLength; i < MATRIX_LENGTH; i++) {
-            idTextArray[idArraySize+idArrayOffset] = charset->singleSpaceIndex;
+            idTextArray[idArraySize+idArrayOffset] = *charset->singleSpaceIndex;
             idArraySize++;
         }
 

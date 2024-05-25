@@ -12,6 +12,8 @@
 #define AI_MOVES_MAX_SNAKE_SIZE (0.9)
 #define AI_MOVES_MIN_DISTANCE_TAIL 1
 
+#define LAST_X_PIXELS_DIMMER (MAX_SUBFRAMES-1)
+
 
 // !!!!!DO NOT CHANGE!!!!!
 namespace details_snake_ai{
