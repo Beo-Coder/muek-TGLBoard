@@ -21,6 +21,7 @@
 #include "TetrisGame/tetris.h"
 #include "SnakeAI/snake_ai_animation.h"
 #include "GameOfLife/game_of_life_animation.h"
+#include "FixedAnimation/fixed_animation.h"
 
 
 
@@ -54,6 +55,7 @@ FireworkAnimation fireworks(&ledMatrix, &frame);
 Tetris tetrisGame(&ledMatrix, &frame, &staticText, &flash);
 SnakeAI snake(&ledMatrix, &frame);
 GameOfLife gameOfLife(&ledMatrix, &frame);
+FixedAnimation fixedAnimation(&ledMatrix, &frame);
 
 
 
@@ -101,7 +103,7 @@ void setup() {
 
     ledMatrix.enableSubframes();
 
-    programs[0] = &dinoGame;
+    programs[0] = &fixedAnimation;
     programs[0]->restart();
 
     staticText.setColor(&color1, &color2);
