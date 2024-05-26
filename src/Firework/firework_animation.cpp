@@ -81,6 +81,9 @@ void FireworkAnimation::restart() {
     timeSinceLastFirework = 0;
     lastFireWorkPostion = 0;
     fireworkColor = 0;
+    for (details_firework::Firework & i : firework) {
+        i.reset();
+    }
 
 }
 

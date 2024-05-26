@@ -46,6 +46,7 @@ void MenuEntry::switchProgram(int8_t direction) {
     }
 
     program[currentProgramIndex]->restart();
+    lastLoop = 0;
 
 }
 

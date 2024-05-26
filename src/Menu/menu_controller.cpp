@@ -101,10 +101,10 @@ void MenuController::loop() {
                 }
                 break;
             case 1:
-                showText();
                 break;
             case 2:
                 switchMode = 3;
+                entries[currentEntry]->restart();
                 break;
             default:
                 break;
@@ -121,13 +121,14 @@ void MenuController::loop() {
                     switchMode = 0;
                     entries[currentEntry]->restart();
                 }
-                showText();
                 break;
             case 3:
                 switchMode = 0;
-                entries[currentEntry]->restart();
                 break;
         }
+    }
+    if(switchMode == 1 || switchMode == 2){
+        showText();
     }
 
 

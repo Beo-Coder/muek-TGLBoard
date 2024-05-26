@@ -138,3 +138,14 @@ void details_firework::Firework::calcFireworkExplosion(Color (*display)[MATRIX_H
     }
 
 }
+
+void details_firework::Firework::reset() {
+    dead = true;
+    arrived = true;
+    exploded = true;
+    lifeTime = UINT8_MAX;
+    startPosX = 0;
+    startPosY = 0;
+
+}
+

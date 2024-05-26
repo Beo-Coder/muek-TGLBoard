@@ -38,8 +38,8 @@ DinoGame::DinoGame(MatrixOutput *ledMatrix, Color (*frame)[MATRIX_HEIGHT][MATRIX
 }
 
 void DinoGame::restart() {
-
-    player->posY = PLAYER_POS_Y;
+    clearFrame();
+    player->reset();
 
     numberEnemies = 1;
     score = 0;

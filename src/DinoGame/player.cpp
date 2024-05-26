@@ -82,3 +82,11 @@ details_dino_game::Player::checkAndMarkCollision(const Enemy &entity, Color (*di
     return returnData;
 
 }
+
+void details_dino_game::Player::reset() {
+    lastJump = 0;
+    skinIndex = 0;
+    posY = PLAYER_POS_Y;
+
+
+}

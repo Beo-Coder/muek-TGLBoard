@@ -40,6 +40,8 @@ namespace details_dino_game {
 
         bool checkAndMarkCollision(const Enemy &entity, Color (*display)[MATRIX_HEIGHT][MATRIX_LENGTH]);
 
+        void reset();
+
     };
 }
 

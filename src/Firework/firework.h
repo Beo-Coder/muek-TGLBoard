@@ -52,6 +52,7 @@ namespace details_firework {
         void start(int8_t posX, int8_t posY, Color *color);
 
         void calcFrame(Color (*display)[MATRIX_HEIGHT][MATRIX_LENGTH]);
+        void reset();
     };
 
 };
