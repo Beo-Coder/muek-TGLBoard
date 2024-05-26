@@ -17,7 +17,7 @@ struct Animation{
     const Color** colorIndex;
     const uint8_t length;
     const uint8_t speed;
-    const uint8_t (*frames)[][MATRIX_HEIGHT][MATRIX_LENGTH];
+    const uint8_t ((**frames[])[MATRIX_HEIGHT][MATRIX_LENGTH]);
 };
 
 extern const Animation *animations[];
@@ -25,7 +25,7 @@ extern const Animation *animations[];
 extern const Animation jumpAnimation;
 
 
-extern const uint8_t jumpAnimationFrames[][MATRIX_HEIGHT][MATRIX_LENGTH];
+extern const uint8_t (*jumpAnimationFrames[])[MATRIX_HEIGHT][MATRIX_LENGTH];
 extern const Color* jumpAnimationColorIndex[];
 
 

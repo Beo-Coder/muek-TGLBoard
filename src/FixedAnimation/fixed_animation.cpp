@@ -26,7 +26,7 @@ void FixedAnimation::refresh() {
 
     for(int i=0; i<MATRIX_HEIGHT; i++){
         for(int j=0; j<MATRIX_LENGTH; j++){
-            (*frame)[i][j] = *currenAnimation->colorIndex[(*currenAnimation->frames)[frameIndex][i][j]];
+            (*frame)[i][j] = *currenAnimation->colorIndex[(*(*currenAnimation->frames)[frameIndex])[i][j]];
         }
     }
     matrix->setDisplayData(frame);
