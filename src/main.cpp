@@ -24,6 +24,7 @@
 #include "FixedAnimation/fixed_animation.h"
 #include "RainbowAnimation/rainbow_animation.h"
 #include "DisplayText/display_text.h"
+#include "BrightnessControl/brightness_control.h"
 
 #include "Menu/menu_controller.h"
 #include "Menu/menu_entry.h"
@@ -62,10 +63,13 @@ FixedAnimation fixedAnimation(&ledMatrix, &frame);
 RainbowAnimation rainbowAnimation(&ledMatrix, &frame);
 DisplayText displayText(&ledMatrix, &frame, &scrollText);
 
+BrightnessControl brightnessControl(&ledMatrix, &frame, &tinyText);
+
 MenuController menuController(&staticText);
 MenuEntry menuEntryAnimation;
 MenuEntry menuEntryGame;
 MenuEntry menuEntryText;
+MenuEntry menuEntrySettings;
 
 
 
@@ -144,6 +148,12 @@ void setup() {
 
     menuController.addNewEntry(&menuEntryGame);
 
+    brightnessControl.setBrightnessVar(&globalBrightness);
+    menuEntrySettings.addProgram(&brightnessControl);
+    menuEntrySettings.setName("Set Brightness");
+
+    menuController.addNewEntry(&menuEntrySettings);
+
 
 
     menuEntryText.restart();
@@ -173,5 +183,6 @@ void loop() {
 
 
 }
+
 
 

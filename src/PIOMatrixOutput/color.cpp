@@ -5,6 +5,10 @@
 #include "color.h"
 
 
+
+uint8_t globalBrightness = 4;
+
+
 Color colorBlank(0,0,0);
 
 // Some static colors
@@ -160,28 +164,28 @@ uint8_t Color::getNumberOfActiveSubframes(uint16_t value) {
 
 
 uint16_t Color::getRed8Bit() const {
-    return toUint8(red);
+    return toUint8(red*globalBrightness/4);
 }
 
 uint16_t Color::getGreen8Bit() const {
-    return toUint8(green);
+    return toUint8(green*globalBrightness/4);
 }
 
 uint16_t Color::getBlue8Bit() const {
-    return toUint8(blue);
+    return toUint8(blue*globalBrightness/4);
 }
 
 
 uint8_t Color::getRedActiveSubframes() const {
-    return getNumberOfActiveSubframes(red);
+    return getNumberOfActiveSubframes(red*globalBrightness/4);
 }
 
 uint8_t Color::getGreenActiveSubframes() const {
-    return getNumberOfActiveSubframes(green);
+    return getNumberOfActiveSubframes(green*globalBrightness/4);
 }
 
 uint8_t Color::getBlueActiveSubframes() const {
-    return getNumberOfActiveSubframes(blue);
+    return getNumberOfActiveSubframes(blue*globalBrightness/4);
 }
 
 
