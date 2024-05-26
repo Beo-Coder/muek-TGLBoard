@@ -24,6 +24,8 @@
 #include "FixedAnimation/fixed_animation.h"
 #include "RainbowAnimation/rainbow_animation.h"
 
+#include "Menu/menu_controller.h"
+#include "Menu/menu_entry.h"
 
 #define BUTTON1 18
 #define BUTTON2 19
@@ -59,6 +61,11 @@ FixedAnimation fixedAnimation(&ledMatrix, &frame);
 RainbowAnimation rainbowAnimation(&ledMatrix, &frame);
 
 
+MenuController menuController(&staticText);
+MenuEntry menuEntry1;
+MenuEntry menuEntry2;
+
+
 
 DisplayProgram *programs[2];
 
@@ -72,10 +79,12 @@ void button_isr(uint gpio, uint32_t events){
     uint8_t state = events>>3; // Rise: 8>>3 = 1; Fall: 4>>3 = 0
     switch (gpio){
         case BUTTON1:
-            programs[0]->button1ISR(state);
+            menuController.button1ISR(state);
+            // programs[0]->button1ISR(state);
             break;
         case BUTTON2:
-            programs[0]->button2ISR(events>>3);
+            menuController.button2ISR(state);
+            // programs[0]->button2ISR(events>>3);
             break;
         default:
             break;
@@ -103,11 +112,26 @@ void setup() {
 
     ledMatrix.enableSubframes();
 
-    programs[0] = &rainbowAnimation;
-    programs[0]->restart();
+    // programs[0] = &fixedAnimation;
+    // programs[0]->restart();
 
-    staticText.setColor(&color1, &color2);
-    staticText.setText(&text);
+    // staticText.setColor(&color1, &color2);
+    // staticText.setText(&text);
+
+
+    menuEntry1.addProgram(&fireworks);
+    menuEntry1.addProgram(&snake);
+    menuEntry1.addProgram(&gameOfLife);
+    menuEntry1.addProgram(&fixedAnimation);
+    menuEntry1.addProgram(&rainbowAnimation);
+    menuEntry1.setName("Animations");
+
+    menuController.addNewEntry(&menuEntry1);
+
+    menuEntry2.addProgram(&dinoGame);
+    menuEntry2.setName("Dino Game");
+
+    menuController.addNewEntry(&menuEntry2);
 
 
 
@@ -118,13 +142,16 @@ void setup() {
 
 void loop() {
 
+    menuController.loop();
 
 
+/*
     if(beo::millis()-lastMillis > programs[0]->refreshSpeed || programs[0]->refreshSpeed == 0){
         lastMillis = beo::millis();
         programs[0]->refresh();
 
     }
+    */
 
 
 }
