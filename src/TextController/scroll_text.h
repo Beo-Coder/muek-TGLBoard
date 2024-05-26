@@ -40,7 +40,7 @@ class ScrollText : public TextController{
 public:
     explicit ScrollText(MatrixOutput *matrixOutput, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]);
 
-    void setColor(Color *textColor, Color *backgroundColor) override;
+    void setColor(const Color *textColor, const Color *backgroundColor) override;
 
     void setMode(bool leftShift = true);
 

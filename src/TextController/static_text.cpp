@@ -80,7 +80,7 @@ void StaticText::createIDTextArray(const std::string *text) {
 
 }
 
-void StaticText::setColor(Color *textColor, Color *backgroundColor) {
+void StaticText::setColor(const Color *textColor, const Color *backgroundColor) {
     TextController::setColor(textColor, backgroundColor);
     subcontroller->setColor(textColor, backgroundColor);
 }

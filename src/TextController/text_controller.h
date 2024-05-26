@@ -30,8 +30,8 @@ protected:
     inline static uint16_t idTextArrayIndex{0};
 
 
-    inline static Color *textColor{nullptr};
-    inline static Color *backgroundColor{nullptr};
+    inline static const Color *textColor{nullptr};
+    inline static const Color *backgroundColor{nullptr};
 
 
     virtual void createIDTextArray(const std::string *text) = 0;
@@ -42,7 +42,7 @@ public:
 
     virtual void setText(const std::string *text);
 
-    virtual void setColor(Color *textColor, Color *backgroundColor);
+    virtual void setColor(const Color *textColor, const Color *backgroundColor);
 
     virtual void createAndLoadFrame() = 0;
 

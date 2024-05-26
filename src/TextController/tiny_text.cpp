@@ -134,7 +134,7 @@ void TinyText::createAndLoadFrame() {
 
 }
 
-void TinyText::setColor(Color *upperTextColor, Color *lowerTextColor, Color *backgroundColor) {
+void TinyText::setColor(const Color *upperTextColor, const Color *lowerTextColor, const Color *backgroundColor) {
     textColor = upperTextColor;
     this->lowerTextColor = lowerTextColor;
     TinyText::backgroundColor = backgroundColor;

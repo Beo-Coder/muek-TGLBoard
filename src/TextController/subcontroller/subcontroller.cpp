@@ -6,7 +6,7 @@
 #include "../charsets/charset.h"
 
 
-details_text_controller::Subcontroller::Subcontroller(uint16_t idArrayOffset, uint16_t yPos, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH], uint8_t *idTextArray, const Charset *charset, Color *textColor, Color *backgroundColor) {
+details_text_controller::Subcontroller::Subcontroller(uint16_t idArrayOffset, uint16_t yPos, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH], uint8_t *idTextArray, const Charset *charset, const Color *textColor, const Color *backgroundColor) {
     this->idArrayOffset = idArrayOffset;
     this->yPos = yPos;
     this->frame = frame;
@@ -114,7 +114,7 @@ void details_text_controller::Subcontroller::setIdArrayIndex(uint16_t idArrayInd
 
 }
 
-void details_text_controller::Subcontroller::setColor(Color *textColor, Color *backgroundColor) {
+void details_text_controller::Subcontroller::setColor(const Color *textColor, const Color *backgroundColor) {
     this->textColor = textColor;
     this->backgroundColor = backgroundColor;
 

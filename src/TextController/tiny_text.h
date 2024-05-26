@@ -31,7 +31,7 @@ namespace details_tiny_text{
 
 class TinyText : public TextController {
 
-    Color *lowerTextColor;
+    const Color *lowerTextColor;
 
     details_text_controller::StaticSubcontroller *upperController;
     details_text_controller::StaticSubcontroller *lowerController;
@@ -55,7 +55,7 @@ public:
     void setUpperText(const std::string *text);
     void setLowerText(const std::string *text);
 
-    void setColor(Color *upperTextColor,Color *lowerTextColor,Color *backgroundColor);
+    void setColor(const Color *upperTextColor, const Color *lowerTextColor, const Color *backgroundColor);
 
 
     void createAndLoadFrame() override;

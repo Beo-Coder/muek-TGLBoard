@@ -16,7 +16,7 @@ void TextController::setText(const std::string *text) {
     createIDTextArray(text);
 }
 
-void TextController::setColor(Color *textColor, Color *backgroundColor) {
+void TextController::setColor(const Color *textColor, const Color *backgroundColor) {
     TextController::textColor = textColor;
     TextController::backgroundColor = backgroundColor;
 

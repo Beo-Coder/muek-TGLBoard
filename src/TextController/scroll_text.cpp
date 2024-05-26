@@ -96,7 +96,7 @@ void ScrollText::restart() {
     leftShift = true;
 }
 
-void ScrollText::setColor(Color *textColor, Color *backgroundColor) {
+void ScrollText::setColor(const Color *textColor, const Color *backgroundColor) {
     TextController::setColor(textColor, backgroundColor);
     subcontroller->setColor(textColor, backgroundColor);
 }

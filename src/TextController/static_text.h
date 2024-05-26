@@ -36,7 +36,7 @@ public:
 
     void setText(const std::string *text) override;
 
-    void setColor(Color *textColor, Color *backgroundColor) override;
+    void setColor(const Color *textColor, const Color *backgroundColor) override;
 
     void createAndLoadFrame() override;
 

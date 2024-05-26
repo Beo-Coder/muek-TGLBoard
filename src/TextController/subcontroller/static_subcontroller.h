@@ -34,7 +34,7 @@ namespace details_text_controller {
 
     public:
         StaticSubcontroller(uint16_t idArrayOffset, uint16_t yPos, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH],
-                            uint8_t *idTextArray, const Charset *charset, Color *textColor, Color *backgroundColor);
+                            uint8_t *idTextArray, const Charset *charset, const Color *textColor, const Color *backgroundColor);
 
         void initText();
 
