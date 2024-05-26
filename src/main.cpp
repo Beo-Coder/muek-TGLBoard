@@ -23,6 +23,7 @@
 #include "GameOfLife/game_of_life_animation.h"
 #include "FixedAnimation/fixed_animation.h"
 #include "RainbowAnimation/rainbow_animation.h"
+#include "DisplayText/display_text.h"
 
 #include "Menu/menu_controller.h"
 #include "Menu/menu_entry.h"
@@ -59,11 +60,12 @@ SnakeAI snake(&ledMatrix, &frame);
 GameOfLife gameOfLife(&ledMatrix, &frame);
 FixedAnimation fixedAnimation(&ledMatrix, &frame);
 RainbowAnimation rainbowAnimation(&ledMatrix, &frame);
-
+DisplayText displayText(&ledMatrix, &frame, &scrollText);
 
 MenuController menuController(&staticText);
-MenuEntry menuEntry1;
-MenuEntry menuEntry2;
+MenuEntry menuEntryAnimation;
+MenuEntry menuEntryGame;
+MenuEntry menuEntryText;
 
 
 
@@ -119,19 +121,35 @@ void setup() {
     // staticText.setText(&text);
 
 
-    menuEntry1.addProgram(&fireworks);
-    menuEntry1.addProgram(&snake);
-    menuEntry1.addProgram(&gameOfLife);
-    menuEntry1.addProgram(&fixedAnimation);
-    menuEntry1.addProgram(&rainbowAnimation);
-    menuEntry1.setName("Animations");
+    menuEntryText.addProgram(&displayText);
+    menuEntryText.setName("Text");
 
-    menuController.addNewEntry(&menuEntry1);
+    menuController.addNewEntry(&menuEntryText);
 
-    menuEntry2.addProgram(&dinoGame);
-    menuEntry2.setName("Dino Game");
 
-    menuController.addNewEntry(&menuEntry2);
+
+    menuEntryAnimation.addProgram(&fireworks);
+    menuEntryAnimation.addProgram(&snake);
+    menuEntryAnimation.addProgram(&gameOfLife);
+    menuEntryAnimation.addProgram(&fixedAnimation);
+    menuEntryAnimation.addProgram(&rainbowAnimation);
+    menuEntryAnimation.setName("Animations");
+
+    menuController.addNewEntry(&menuEntryAnimation);
+
+
+
+    menuEntryGame.addProgram(&dinoGame);
+    menuEntryGame.setName("Dino Game");
+
+    menuController.addNewEntry(&menuEntryGame);
+
+
+
+    menuEntryText.restart();
+
+
+
 
 
 
