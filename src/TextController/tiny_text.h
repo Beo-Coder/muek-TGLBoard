@@ -42,18 +42,18 @@ class TinyText : public TextController {
     uint16_t lowerTextArraySize;
 
 
-    void createIDTextArray(std::string *text) override;
-    void createIDTextArray(std::string *text, uint8_t startIndex);
+    void createIDTextArray(const std::string *text) override;
+    void createIDTextArray(const std::string *text, uint8_t startIndex);
 
 
 public:
 
     explicit TinyText(MatrixOutput *matrixOutput, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]);
 
-    void setText(std::string *text) override;
+    void setText(const std::string *text) override;
 
-    void setUpperText(std::string *text);
-    void setLowerText(std::string *text);
+    void setUpperText(const std::string *text);
+    void setLowerText(const std::string *text);
 
     void setColor(Color *upperTextColor,Color *lowerTextColor,Color *backgroundColor);
 

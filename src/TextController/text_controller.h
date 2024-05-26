@@ -34,13 +34,13 @@ protected:
     inline static Color *backgroundColor{nullptr};
 
 
-    virtual void createIDTextArray(std::string *text) = 0;
+    virtual void createIDTextArray(const std::string *text) = 0;
 
 public:
 
     TextController(MatrixOutput *matrix, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]);
 
-    virtual void setText(std::string *text);
+    virtual void setText(const std::string *text);
 
     virtual void setColor(Color *textColor, Color *backgroundColor);
 

@@ -28,13 +28,13 @@ class StaticText : public TextController {
 
     details_text_controller::StaticSubcontroller *subcontroller;
 
-    void createIDTextArray(std::string *text) override;
+    void createIDTextArray(const std::string *text) override;
 
 public:
 
     explicit StaticText(MatrixOutput *matrixOutput, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]);
 
-    void setText(std::string *text) override;
+    void setText(const std::string *text) override;
 
     void setColor(Color *textColor, Color *backgroundColor) override;
 

@@ -33,7 +33,7 @@ class ScrollText : public TextController{
 
 
 
-    void createIDTextArray(std::string *text) override;
+    void createIDTextArray(const std::string *text) override;
 
 
 

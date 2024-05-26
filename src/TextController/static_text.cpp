@@ -18,7 +18,7 @@ StaticText::StaticText(MatrixOutput *matrixOutput, Color (*frame)[8][16]) : Text
 }
 
 
-void StaticText::setText(std::string *text) {
+void StaticText::setText(const std::string *text) {
     TextController::setText(text);
     textInitialized = false;
 }
@@ -48,7 +48,7 @@ void StaticText::restart() {
 
 }
 
-void StaticText::createIDTextArray(std::string *text) {
+void StaticText::createIDTextArray(const std::string *text) {
     idTextArraySize = 0;
     idTextArrayIndex = 0;
     for (unsigned int i = 0; i < text->length(); i++) {

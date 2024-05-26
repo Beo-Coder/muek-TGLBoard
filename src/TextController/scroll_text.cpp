@@ -19,7 +19,7 @@ ScrollText::ScrollText(MatrixOutput *matrixOutput, Color (*frame)[MATRIX_HEIGHT]
 
 }
 
-void ScrollText::createIDTextArray(std::string *text) {
+void ScrollText::createIDTextArray(const std::string *text) {
     idTextArraySize = 0;
     for (unsigned int i = 0; i < text->length(); i++) {
         char charAtIndex = text->at(i);
