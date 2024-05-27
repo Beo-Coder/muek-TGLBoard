@@ -14,7 +14,7 @@ class TextController;
 #endif
 
 
-#define HOLD_TIME_SWITCH (3000)
+#define HOLD_TIME_SWITCH (2000)
 #define WAIT_TIME_SELECT (10000)
 #define TEXT_SPEED (80)
 #define MAX_ENTRIES_IN_MENU 6
