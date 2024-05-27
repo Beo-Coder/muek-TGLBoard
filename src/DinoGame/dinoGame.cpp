@@ -43,7 +43,7 @@ void DinoGame::restart() {
 
     numberEnemies = 1;
     score = 0;
-    refreshSpeed = 100;
+    refreshSpeed = details_dino_game::refreshSeed;
     dead = false;
     showScore = 0;
 
@@ -210,6 +210,7 @@ void DinoGame::refresh() {
                 }
                 break;
             case 1:
+                refreshSpeed = details_dino_game::scoreRefreshSpeed;
                 // Show score
                 textController->createAndLoadFrame();
                 break;
