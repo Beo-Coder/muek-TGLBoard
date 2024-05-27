@@ -57,7 +57,7 @@ void DisplayText::restart() {
 }
 
 void DisplayText::button1ISR(bool state) {
-    if(state){
+    if(!state){
         newColor = true;
         currentColorIndex = (currentColorIndex + 1)%colorCount;
     }
@@ -65,7 +65,7 @@ void DisplayText::button1ISR(bool state) {
 }
 
 void DisplayText::button2ISR(bool state) {
-    if(state) {
+    if(!state) {
         newText = true;
         currentTextIndex = (currentTextIndex + 1) % textCount;
     }
