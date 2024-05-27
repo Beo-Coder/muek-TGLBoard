@@ -126,7 +126,7 @@ void setup() {
 
 
     menuEntryText.addProgram(&displayText);
-    menuEntryText.setName("Text");
+    menuEntryText.setName("1.%1Text");
 
     menuController.addNewEntry(&menuEntryText);
 
@@ -137,20 +137,20 @@ void setup() {
     menuEntryAnimation.addProgram(&gameOfLife);
     menuEntryAnimation.addProgram(&fixedAnimation);
     menuEntryAnimation.addProgram(&rainbowAnimation);
-    menuEntryAnimation.setName("Animations");
+    menuEntryAnimation.setName("2.%1Animations");
 
     menuController.addNewEntry(&menuEntryAnimation);
 
 
 
     menuEntryGame.addProgram(&dinoGame);
-    menuEntryGame.setName("Dino Game");
+    menuEntryGame.setName("3.%1Dino%2Game");
 
     menuController.addNewEntry(&menuEntryGame);
 
     brightnessControl.setBrightnessVar(&globalBrightness);
     menuEntrySettings.addProgram(&brightnessControl);
-    menuEntrySettings.setName("Set Brightness");
+    menuEntrySettings.setName("4.%1Set%2Brightness");
 
     menuController.addNewEntry(&menuEntrySettings);
 
