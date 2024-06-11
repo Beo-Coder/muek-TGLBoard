@@ -38,7 +38,7 @@
  */
 
 // Number of individual variables/data to store in the flash
-#define FLASH_ITEM 2
+#define FLASH_ITEM 3
 
 // !!!!DO NOT CHANGE UNLESS YOU KNOW WHAT YOU ARE DOING!!!!
 
@@ -70,6 +70,7 @@ struct FlashItem{
 // Flash Content
 extern FlashItem highScoreDinoGame;
 extern FlashItem highScoreTetris;
+extern FlashItem globalBrightnessFlash;
 
 
 extern FlashItem *flashContent[];

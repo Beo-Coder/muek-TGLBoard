@@ -4,16 +4,19 @@
 
 #include "brightness_control.h"
 #include "TextController/tiny_text.h"
-
+#include "FlashController/flash_controller.h"
 
 
 const std::string upperText = "Brightness";
 
-BrightnessControl::BrightnessControl(MatrixOutput *ledMatrix, Color (*frame)[8][16], TinyText *tinyTextController) : DisplayProgram(ledMatrix, frame) {
+BrightnessControl::BrightnessControl(MatrixOutput *ledMatrix, Color (*frame)[8][16], TinyText *tinyTextController, FlashController* flashController) : DisplayProgram(ledMatrix, frame) {
     this->tinyTextController = tinyTextController;
     stringBuffer = "";
     refreshSpeed = 120;
     lastBrightness = UINT8_MAX;
+
+    this->flashController = flashController;
+    flashKey = 0;
 
 
 
@@ -25,7 +28,7 @@ BrightnessControl::BrightnessControl(MatrixOutput *ledMatrix, Color (*frame)[8][
 
 
 
-void BrightnessControl::setBrightnessVar(uint8_t *globalBrightness) {
+void BrightnessControl::setBrightnessVar(uint32_t *globalBrightness) {
     brightness = globalBrightness;
 }
 
@@ -82,6 +85,42 @@ void BrightnessControl::restart() {
     lastBrightness = *brightness;
 
 }
+
+void BrightnessControl::saveBrightness() {
+    if(getBrightnessFromFlash() != *brightness){
+        flashController->writeData(flashKey, (uint8_t*)brightness);
+    }
+}
+
+
+void BrightnessControl::exit() {
+    saveBrightness();
+
+}
+
+void BrightnessControl::setBrightnessFlashKey(uint8_t flashKey) {
+    this->flashKey = flashKey;
+
+}
+
+uint32_t BrightnessControl::getBrightnessFromFlash() const {
+    uint8_t *address = FlashController::readData(flashKey);
+    if(address == nullptr){
+        return 0;
+    }
+    uint32_t flashBrightness = 0;
+    for(uint32_t i=0; i<flashKey; i++){
+        flashBrightness |= ((*(address+i)) << (8*i));
+    }
+    return flashBrightness;
+}
+
+void BrightnessControl::loadBrightnessFromFlash() {
+    *brightness = getBrightnessFromFlash();
+
+}
+
+
 
 
 

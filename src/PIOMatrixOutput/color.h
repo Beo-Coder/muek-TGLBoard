@@ -26,8 +26,8 @@
 
 
 #define MIN_BRIGHTNESS 1
-#define MAX_BRIGHTNESS 20
-extern uint8_t globalBrightness;
+#define MAX_BRIGHTNESS 25
+extern uint32_t globalBrightness;
 
 
 class Color {

@@ -7,6 +7,7 @@
 
 
 class TinyText;
+class FlashController;
 #ifdef ARDUINO
 #include <Arduino.h>
 #else
@@ -20,8 +21,13 @@ class TinyText;
 class BrightnessControl :public DisplayProgram{
 
     TinyText *tinyTextController;
-    uint8_t *brightness;
-    uint8_t lastBrightness;
+    uint32_t *brightness;
+    uint32_t lastBrightness;
+
+    FlashController* flashController;
+    uint8_t flashKey;
+    uint32_t getBrightnessFromFlash() const;
+
 
 
     void setBrightness(int8_t dir);
@@ -29,10 +35,12 @@ class BrightnessControl :public DisplayProgram{
     void updateText();
     std::string stringBuffer;
 
+    void saveBrightness();
+
 
 
 public:
-    explicit BrightnessControl(MatrixOutput *ledMatrix, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH], TinyText* tinyTextController);
+    explicit BrightnessControl(MatrixOutput *ledMatrix, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH], TinyText* tinyTextController, FlashController* flashController);
 
 
     void button1ISR(bool data) override;
@@ -43,7 +51,12 @@ public:
 
     void restart() override;
 
-    void setBrightnessVar(uint8_t *globalBrightness);
+    void setBrightnessVar(uint32_t *globalBrightness);
+    void setBrightnessFlashKey(uint8_t flashKey);
+
+    void loadBrightnessFromFlash();
+
+    void exit() override;
 
 
 

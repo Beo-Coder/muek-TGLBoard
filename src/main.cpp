@@ -63,7 +63,7 @@ FixedAnimation fixedAnimation(&ledMatrix, &frame);
 RainbowAnimation rainbowAnimation(&ledMatrix, &frame);
 DisplayText displayText(&ledMatrix, &frame, &scrollText);
 
-BrightnessControl brightnessControl(&ledMatrix, &frame, &tinyText);
+BrightnessControl brightnessControl(&ledMatrix, &frame, &tinyText, &flash);
 
 MenuController menuController(&staticText);
 MenuEntry menuEntryAnimation;
@@ -109,22 +109,30 @@ void setup() {
     gpio_set_irq_enabled_with_callback(BUTTON2, GPIO_IRQ_EDGE_RISE | GPIO_IRQ_EDGE_FALL, true, &button_isr);
 
     // If no data is stored/Clean flash
-    if(FlashController::readData(1) == nullptr){
-        FlashController::eraseAllData();
-        uint8_t data[] = {0,0,0,0};
-        flash.writeData(1,data);
-        flash.writeData(2,data);
+    for(int i=0; i<FLASH_ITEM; i++){
+        if(FlashController::readData(i) == nullptr){
+            FlashController::eraseAllData();
+            uint8_t data[] = {0,0,0,0};
+            flash.writeData(1,data);
+            flash.writeData(2,data);
+            data[3] = 4;
+            flash.writeData(3,data);
+            break;
+        }
     }
 
+
+    // Brightness
+    brightnessControl.setBrightnessVar(&globalBrightness);
+    brightnessControl.setBrightnessFlashKey(3);
+    brightnessControl.loadBrightnessFromFlash();
+
+    // Matrix settings
     ledMatrix.enableSubframes();
 
-    // programs[0] = &fixedAnimation;
-    // programs[0]->restart();
-
-    // staticText.setColor(&color1, &color2);
-    // staticText.setText(&text);
 
 
+    // Menu settings - begin
     menuEntryText.addProgram(&displayText);
     menuEntryText.setName("1.%1Text");
 
@@ -148,7 +156,7 @@ void setup() {
 
     menuController.addNewEntry(&menuEntryGame);
 
-    brightnessControl.setBrightnessVar(&globalBrightness);
+
     menuEntrySettings.addProgram(&brightnessControl);
     menuEntrySettings.setName("4.%1Set%2Brightness");
 
@@ -157,6 +165,7 @@ void setup() {
 
 
     menuEntryText.restart();
+    // Menu settings - end
 
 
 
@@ -171,16 +180,6 @@ void setup() {
 void loop() {
 
     menuController.loop();
-
-
-/*
-    if(beo::millis()-lastMillis > programs[0]->refreshSpeed || programs[0]->refreshSpeed == 0){
-        lastMillis = beo::millis();
-        programs[0]->refresh();
-
-    }
-    */
-
 
 }
 

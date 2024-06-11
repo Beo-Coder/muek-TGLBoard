@@ -17,3 +17,7 @@ void DisplayProgram::clearFrame() {
     }
 
 }
+
+void DisplayProgram::exit() {
+
+}

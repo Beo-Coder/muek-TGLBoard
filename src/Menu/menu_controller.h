@@ -36,6 +36,7 @@ class MenuController {
     uint32_t lastTextTime;
 
     uint8_t currentEntry;
+    uint8_t lastEntry;
     uint8_t entryCount;
     MenuEntry* entries[MAX_ENTRIES_IN_MENU];
 

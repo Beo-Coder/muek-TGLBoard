@@ -32,6 +32,8 @@ public:
     virtual void refresh() = 0;
     virtual void restart() = 0;
 
+    virtual void exit();
+
 
 };
 

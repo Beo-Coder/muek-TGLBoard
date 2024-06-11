@@ -6,7 +6,7 @@
 
 
 
-uint8_t globalBrightness = 4;
+uint32_t globalBrightness = 4;
 
 
 Color colorBlank(0,0,0);

@@ -39,6 +39,7 @@ void MenuEntry::button2ISR(bool state) {
 
 
 void MenuEntry::switchProgram(int8_t direction) {
+    program[currentProgramIndex]->exit();
     if(currentProgramIndex == 0 && direction == -1){
         currentProgramIndex = programCount -1;
     } else{
@@ -78,6 +79,10 @@ void MenuEntry::restart() {
     program[currentProgramIndex]->restart();
 
 }
+void MenuEntry::exitEntry() {
+    program[currentProgramIndex]->exit();
+}
+
 
 void MenuEntry::setName(std::string name) {
     this->name = name;
@@ -86,7 +91,6 @@ void MenuEntry::setName(std::string name) {
 std::string* MenuEntry::getName() {
     return &name;
 }
-
 
 
 

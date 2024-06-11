@@ -11,6 +11,7 @@ MenuController::MenuController(TextController *textController) {
     this->textController = textController;
 
     entryCount = 0;
+    lastEntry = 0;
     currentEntry = 0;
 
     switchMenuFlag = 0;
@@ -103,7 +104,9 @@ void MenuController::loop() {
             case 1:
                 break;
             case 2:
+
                 switchMode = 3;
+                entries[lastEntry]->exitEntry();
                 entries[currentEntry]->restart();
                 break;
             default:
@@ -119,6 +122,7 @@ void MenuController::loop() {
             case 2:
                 if(checkWaitTimeSelect()){
                     switchMode = 0;
+                    entries[lastEntry]->exitEntry();
                     entries[currentEntry]->restart();
                 }
                 break;
@@ -147,7 +151,7 @@ void MenuController::loop() {
 
 void MenuController::switchEntry(int8_t direction) {
 
-
+    lastEntry = currentEntry;
     if(currentEntry == 0 && direction == -1){
         currentEntry = entryCount-1;
     } else{

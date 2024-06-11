@@ -33,6 +33,7 @@ class MenuEntry {
 
     void switchProgram(int8_t direction);
 
+
 public:
     MenuEntry();
     void addProgram(DisplayProgram *program);
@@ -43,6 +44,7 @@ public:
 
     void loop();
     void restart();
+    void exitEntry();
     void setName(std::string name);
     std::string* getName();
 
