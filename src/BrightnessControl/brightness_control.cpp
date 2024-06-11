@@ -112,6 +112,12 @@ uint32_t BrightnessControl::getBrightnessFromFlash() const {
     for(uint32_t i=0; i<flashKey; i++){
         flashBrightness |= ((*(address+i)) << (8*i));
     }
+    if(flashBrightness > MAX_BRIGHTNESS){
+        flashBrightness = MAX_BRIGHTNESS;
+    }
+    if(flashBrightness < MIN_BRIGHTNESS){
+        flashBrightness = MIN_BRIGHTNESS;
+    }
     return flashBrightness;
 }
 

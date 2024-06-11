@@ -109,17 +109,16 @@ void setup() {
     gpio_set_irq_enabled_with_callback(BUTTON2, GPIO_IRQ_EDGE_RISE | GPIO_IRQ_EDGE_FALL, true, &button_isr);
 
     // If no data is stored/Clean flash
-    for(int i=0; i<FLASH_ITEM; i++){
-        if(FlashController::readData(i) == nullptr){
-            FlashController::eraseAllData();
-            uint8_t data[] = {0,0,0,0};
-            flash.writeData(1,data);
-            flash.writeData(2,data);
-            data[3] = 4;
-            flash.writeData(3,data);
-            break;
-        }
+    if(FlashController::readData(1) == nullptr){
+        FlashController::eraseAllData();
+        uint8_t data[] = {0,0,0,0};
+        flash.writeData(1,data);
+        flash.writeData(2,data);
+        data[3] = 4;
+        flash.writeData(3,data);
     }
+
+
 
 
     // Brightness
