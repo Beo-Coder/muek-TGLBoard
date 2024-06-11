@@ -99,6 +99,7 @@ void MenuController::loop() {
                 if(((time-button1Time) > HOLD_TIME_SWITCH) && ((time-button2Time) > HOLD_TIME_SWITCH)){
                     switchMode = 1;
                     switchEntry(0);
+                    entries[currentEntry]->exitEntry();
                 }
                 break;
             case 1:
@@ -106,7 +107,6 @@ void MenuController::loop() {
             case 2:
 
                 switchMode = 3;
-                entries[lastEntry]->exitEntry();
                 entries[currentEntry]->restart();
                 break;
             default:
@@ -122,7 +122,7 @@ void MenuController::loop() {
             case 2:
                 if(checkWaitTimeSelect()){
                     switchMode = 0;
-                    entries[lastEntry]->exitEntry();
+
                     entries[currentEntry]->restart();
                 }
                 break;
@@ -151,7 +151,7 @@ void MenuController::loop() {
 
 void MenuController::switchEntry(int8_t direction) {
 
-    lastEntry = currentEntry;
+
     if(currentEntry == 0 && direction == -1){
         currentEntry = entryCount-1;
     } else{
