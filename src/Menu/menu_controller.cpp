@@ -11,7 +11,6 @@ MenuController::MenuController(TextController *textController) {
     this->textController = textController;
 
     entryCount = 0;
-    lastEntry = 0;
     currentEntry = 0;
 
     switchMenuFlag = 0;

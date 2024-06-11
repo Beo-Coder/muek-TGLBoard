@@ -26,7 +26,7 @@ class BrightnessControl :public DisplayProgram{
 
     FlashController* flashController;
     uint8_t flashKey;
-    uint32_t getBrightnessFromFlash() const;
+    uint32_t getBrightnessFromFlash();
 
 
 

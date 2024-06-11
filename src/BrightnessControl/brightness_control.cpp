@@ -103,7 +103,7 @@ void BrightnessControl::setBrightnessFlashKey(uint8_t flashKey) {
 
 }
 
-uint32_t BrightnessControl::getBrightnessFromFlash() const {
+uint32_t BrightnessControl::getBrightnessFromFlash() {
     uint8_t *address = FlashController::readData(flashKey);
     if(address == nullptr){
         return 0;
@@ -114,9 +114,11 @@ uint32_t BrightnessControl::getBrightnessFromFlash() const {
     }
     if(flashBrightness > MAX_BRIGHTNESS){
         flashBrightness = MAX_BRIGHTNESS;
+        saveBrightness();
     }
     if(flashBrightness < MIN_BRIGHTNESS){
         flashBrightness = MIN_BRIGHTNESS;
+        saveBrightness();
     }
     return flashBrightness;
 }
