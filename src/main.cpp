@@ -25,6 +25,7 @@
 #include "RainbowAnimation/rainbow_animation.h"
 #include "DisplayText/display_text.h"
 #include "BrightnessControl/brightness_control.h"
+#include "MeteoriteAnimation/meteorite_animation.h"
 
 #include "Menu/menu_controller.h"
 #include "Menu/menu_entry.h"
@@ -62,6 +63,7 @@ GameOfLife gameOfLife(&ledMatrix, &frame);
 FixedAnimation fixedAnimation(&ledMatrix, &frame);
 RainbowAnimation rainbowAnimation(&ledMatrix, &frame);
 DisplayText displayText(&ledMatrix, &frame, &scrollText);
+MeteoriteAnimation meteoriteAnimation(&ledMatrix, &frame);
 
 BrightnessControl brightnessControl(&ledMatrix, &frame, &tinyText, &flash);
 
@@ -142,6 +144,7 @@ void setup() {
     menuEntryAnimation.addProgram(&fireworks);
     menuEntryAnimation.addProgram(&snake);
     menuEntryAnimation.addProgram(&gameOfLife);
+    menuEntryAnimation.addProgram(&meteoriteAnimation);
     menuEntryAnimation.addProgram(&fixedAnimation);
     menuEntryAnimation.addProgram(&rainbowAnimation);
     menuEntryAnimation.setName("2.%1Animations");
