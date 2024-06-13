@@ -14,14 +14,30 @@
 #include "display_program.h"
 
 
+
+enum RainbowMode{fixed = 0, smooth = 1};
+
+
 namespace details_rainbow_animation{
-    extern const uint8_t colorCount;
-    extern const Color *rainbowColors[];}
+
+    inline const float BRIGHTNESS_FACTOR = 2.0;
+
+
+
+    inline const uint8_t colorCount = 6;
+    inline const Color *rainbowColors[] = {&colorPurple, &colorBlue,&colorCyan, &colorGreen, &colorYellow, &colorRed};
+
+}
 
 
 class RainbowAnimation : public DisplayProgram{
 
+    Color pixelColor;
+
     uint8_t currentColor;
+
+    RainbowMode mode;
+    uint8_t numberColorValues;
 
     void calcFrame();
 
@@ -29,6 +45,8 @@ public:
 
     explicit RainbowAnimation(MatrixOutput *ledMatrix, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]);
 
+
+    void setMode(RainbowMode mode);
 
     void button1ISR(bool data) override;
 

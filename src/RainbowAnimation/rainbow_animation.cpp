@@ -6,17 +6,11 @@
 
 
 
-
-namespace details_rainbow_animation{
-    const uint8_t colorCount = 6;
-    const Color *rainbowColors[] = {&colorPurple, &colorBlue,&colorCyan, &colorGreen, &colorYellow, &colorRed};
-
-}
-
 RainbowAnimation::RainbowAnimation(MatrixOutput *ledMatrix, Color (*frame)[8][16]) : DisplayProgram(ledMatrix, frame) {
     refreshSpeed = 120;
 
     currentColor = 0;
+    mode = fixed;
 }
 
 
@@ -25,12 +19,34 @@ void RainbowAnimation::calcFrame() {
 
     for(int i=0; i<MATRIX_HEIGHT; i++){
         offsetColor = (MATRIX_HEIGHT/2)-(i/2);
-        for(int j=0; j<MATRIX_LENGTH; j++){
-            (*frame)[i][j] = *details_rainbow_animation::rainbowColors[(j+currentColor+offsetColor)%details_rainbow_animation::colorCount];
 
+
+
+        for(int j=0; j<MATRIX_LENGTH; j++){
+            switch(mode){
+                case fixed:
+                    (*frame)[i][j] = *details_rainbow_animation::rainbowColors[(j+currentColor+offsetColor)%details_rainbow_animation::colorCount];
+                    break;
+                case smooth:
+                    float colorData[3];
+                    for(int k=0; k<3; k++){
+
+                        colorData[k] = (float) (NORMAL_BRIGHTNESS*details_rainbow_animation::BRIGHTNESS_FACTOR * sin((2*PI/MATRIX_LENGTH)*((j+offsetColor+currentColor)%MATRIX_LENGTH-(MATRIX_LENGTH*(k/3.0)))));
+                        if(colorData[k] < 0){
+                            colorData[k] = 0;
+                        }
+                    }
+
+                    pixelColor.setRed(colorData[0]);
+                    pixelColor.setGreen(colorData[1]);
+                    pixelColor.setBlue(colorData[2]);
+
+                    (*frame)[i][j] = pixelColor;
+                    break;
+            }
         }
     }
-    currentColor = (currentColor+1)%details_rainbow_animation::colorCount;
+    currentColor = (currentColor+1)%numberColorValues;
 
 }
 
@@ -52,6 +68,23 @@ void RainbowAnimation::button1ISR(bool data) {
 }
 
 void RainbowAnimation::button2ISR(bool data) {
+
+}
+
+void RainbowAnimation::setMode(RainbowMode mode) {
+    this->mode = mode;
+    switch(mode){
+        case fixed:
+            numberColorValues = details_rainbow_animation::colorCount;
+            break;
+        case smooth:
+            numberColorValues = MATRIX_LENGTH;
+            break;
+        default:
+            this->mode = fixed;
+            numberColorValues = details_rainbow_animation::colorCount;
+            break;
+    }
 
 }
 

@@ -61,7 +61,8 @@ Tetris tetrisGame(&ledMatrix, &frame, &staticText, &flash);
 SnakeAI snake(&ledMatrix, &frame);
 GameOfLife gameOfLife(&ledMatrix, &frame);
 FixedAnimation fixedAnimation(&ledMatrix, &frame);
-RainbowAnimation rainbowAnimation(&ledMatrix, &frame);
+RainbowAnimation rainbowAnimationFixed(&ledMatrix, &frame);
+RainbowAnimation rainbowAnimationSmooth(&ledMatrix, &frame);
 DisplayText displayText(&ledMatrix, &frame, &scrollText);
 MeteoriteAnimation meteoriteAnimation(&ledMatrix, &frame);
 
@@ -128,6 +129,10 @@ void setup() {
     brightnessControl.setBrightnessFlashKey(3);
     brightnessControl.loadBrightnessFromFlash();
 
+    // Display programs settings
+    rainbowAnimationFixed.setMode(fixed);
+    rainbowAnimationSmooth.setMode(smooth);
+
     // Matrix settings
     ledMatrix.enableSubframes();
 
@@ -145,8 +150,10 @@ void setup() {
     menuEntryAnimation.addProgram(&snake);
     menuEntryAnimation.addProgram(&gameOfLife);
     menuEntryAnimation.addProgram(&meteoriteAnimation);
+    menuEntryAnimation.addProgram(&rainbowAnimationSmooth);
+    menuEntryAnimation.addProgram(&rainbowAnimationFixed);
     menuEntryAnimation.addProgram(&fixedAnimation);
-    menuEntryAnimation.addProgram(&rainbowAnimation);
+
     menuEntryAnimation.setName("2.%1Animations");
 
     menuController.addNewEntry(&menuEntryAnimation);
