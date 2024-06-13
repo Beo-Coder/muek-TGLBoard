@@ -7,11 +7,7 @@
 #include "PIOMatrixOutput/color.h"
 #include "TextController/text_controller.h"
 
-const uint8_t textCount = 3;
-const std::string text[] = {" Hello World! ", " ... ", " :) "};
 
-const uint8_t colorCount = 6;
-const Color* colors[] = {&colorPurple, &colorBlue,&colorCyan, &colorGreen, &colorYellow, &colorRed};
 
 
 
@@ -59,7 +55,7 @@ void DisplayText::restart() {
 void DisplayText::button1ISR(bool state) {
     if(!state){
         newColor = true;
-        currentColorIndex = (currentColorIndex + 1)%colorCount;
+        currentColorIndex = (currentColorIndex + 1)%details_display_text::colorCount;
     }
 
 }
@@ -67,7 +63,7 @@ void DisplayText::button1ISR(bool state) {
 void DisplayText::button2ISR(bool state) {
     if(!state) {
         newText = true;
-        currentTextIndex = (currentTextIndex + 1) % textCount;
+        currentTextIndex = (currentTextIndex + 1) % details_display_text::textCount;
     }
 
 
@@ -76,12 +72,12 @@ void DisplayText::button2ISR(bool state) {
 }
 
 void DisplayText::setText(uint8_t index) {
-    textController->setText(&(text[index]));
+    textController->setText(&(details_display_text::text[index]));
     // clearFrame();
 
 }
 
 void DisplayText::setColor(uint8_t index) {
-    textController->setColor(colors[index], &colorBlank);
+    textController->setColor(details_display_text::colors[index], &colorBlank);
 
 }

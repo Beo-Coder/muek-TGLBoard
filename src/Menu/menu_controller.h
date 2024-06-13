@@ -14,10 +14,10 @@ class TextController;
 #endif
 
 
-#define HOLD_TIME_SWITCH (2000)
-#define WAIT_TIME_SELECT (10000)
-#define TEXT_SPEED (80)
-#define MAX_ENTRIES_IN_MENU 6
+inline const uint32_t HOLD_TIME_SWITCH = 2000;
+inline const uint32_t WAIT_TIME_SELECT = 10000;
+inline const uint32_t TEXT_SPEED = 80;
+inline const uint32_t MAX_ENTRIES_IN_MENU = 6;
 
 class MenuController {
 

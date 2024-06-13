@@ -79,9 +79,6 @@ MenuEntry menuEntrySettings;
 DisplayProgram *programs[2];
 
 
-std::string text = "Hello World!  ";
-
-
 
 
 void button_isr(uint gpio, uint32_t events){

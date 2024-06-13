@@ -23,8 +23,8 @@ class MatrixOutput;
 
 
 namespace details_tiny_text{
-    static const uint8_t SUBMATRIX_HEIGHT = (MATRIX_HEIGHT/2);
-    static const uint8_t SPACE_BETWEEN_LETTERS = 1;
+    inline const uint8_t SUBMATRIX_HEIGHT = (MATRIX_HEIGHT/2);
+    inline const uint8_t SPACE_BETWEEN_LETTERS = 1;
 }
 
 

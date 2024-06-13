@@ -8,25 +8,7 @@
 
 
 
-
-
-// Initiation of flash content
-
-FlashItem highScoreDinoGame{4, 1};
-FlashItem highScoreTetris{4, 2};
-FlashItem globalBrightnessFlash{4, 3};
-FlashItem *flashContent[FLASH_ITEM];
-
-
-
-
-
 FlashController::FlashController() {
-    // Load flash content in the array
-    flashContent[0] = &(highScoreDinoGame);
-    flashContent[1] = &(highScoreTetris);
-    flashContent[2] = &(globalBrightnessFlash);
-
     resetBuffer();
 
 }

@@ -7,6 +7,7 @@ const Color darkPurple(NORMAL_BRIGHTNESS*2,0,NORMAL_BRIGHTNESS);
 const Color* jumpAnimationColorIndex[] ={&colorBlank, &darkPurple, &colorCyan};
 
 
+
 const uint8_t jumpDownNormal[MATRIX_HEIGHT][MATRIX_LENGTH] ={
         {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},

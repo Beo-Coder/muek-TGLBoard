@@ -16,9 +16,9 @@
 
 namespace details_text_controller {
 
-    static const uint8_t NUMBER_FREE_SPACES = 1; // Added after the text, if the text scrolls
-    static const uint8_t WAIT_TIME_BEGIN = 4;
-    static const uint8_t WAIT_TIME_END = 4;
+    inline const uint8_t NUMBER_FREE_SPACES = 1; // Added after the text, if the text scrolls
+    inline const uint8_t WAIT_TIME_BEGIN = 4;
+    inline const uint8_t WAIT_TIME_END = 4;
 
     class StaticSubcontroller : public Subcontroller{
 

@@ -18,7 +18,7 @@ class MatrixOutput;
 #include <string>
 
 
-#define MAX_TEXT_LENGTH 500
+inline const uint32_t MAX_TEXT_LENGTH = 500;
 
 
 class TextController : public DisplayProgram {

@@ -13,6 +13,16 @@ class TextController;
 #include "pico/stdlib.h"
 #endif
 #include "display_program.h"
+#include <string>
+
+namespace details_display_text{
+    inline const uint8_t textCount = 3;
+    inline const std::string text[] = {" Hello World! ", " ... ", " :) "};
+
+    inline const uint8_t colorCount = 6;
+    inline const Color* colors[] = {&colorPurple, &colorBlue,&colorCyan, &colorGreen, &colorYellow, &colorRed};
+}
+
 
 
 

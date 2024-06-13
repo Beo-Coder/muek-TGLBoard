@@ -34,7 +34,7 @@ class DinoGame : public DisplayProgram {
     TextController *textController;
     std::string stringBuffer;
 
-    details_dino_game::Enemy *enemies[MAX_ENEMIES];
+    details_dino_game::Enemy *enemies[details_dino_game::MAX_ENEMIES];
     uint8_t numberEnemies;
     details_dino_game::Player *player;
 

@@ -67,13 +67,16 @@ struct FlashItem{
 
 
 
-// Flash Content
-extern FlashItem highScoreDinoGame;
-extern FlashItem highScoreTetris;
-extern FlashItem globalBrightnessFlash;
 
 
-extern FlashItem *flashContent[];
+
+// Initiation of flash content
+
+inline FlashItem highScoreDinoGame{4, 1};
+inline FlashItem highScoreTetris{4, 2};
+inline FlashItem globalBrightnessFlash{4, 3};
+inline FlashItem *flashContent[] = {&highScoreDinoGame, &highScoreTetris, &globalBrightnessFlash};
+
 
 
 

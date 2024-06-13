@@ -10,21 +10,21 @@
 
 namespace details_game_of_life{
 
-    const static uint16_t waitTicksBeforeReset = 3;
+    inline const uint16_t waitTicksBeforeReset = 3;
 
-    const static Color *cellColors[] = {&colorGreen, &colorRed, &colorPurple, &colorCyan, &colorYellow};
-    const static uint8_t numberCellColors = 5;
-
-
+    inline const Color *cellColors[] = {&colorGreen, &colorRed, &colorPurple, &colorCyan, &colorYellow};
+    inline const uint8_t numberCellColors = 5;
 
 
 
 
-    const static uint8_t startPattern[3][3] ={{0,1,0},
+
+
+    inline const uint8_t startPattern[3][3] ={{0,1,0},
                                               {0,0,1},
                                               {1,1,1}};
-    const static uint8_t startPatternXPos = MATRIX_LENGTH/2 - 2;
-    const static uint8_t startPatternYPos = MATRIX_HEIGHT/2 - 2;
+    inline const uint8_t startPatternXPos = MATRIX_LENGTH/2 - 2;
+    inline const uint8_t startPatternYPos = MATRIX_HEIGHT/2 - 2;
 
 }
 

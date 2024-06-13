@@ -20,13 +20,22 @@ struct Animation{
     const uint8_t ((**frames[])[MATRIX_HEIGHT][MATRIX_LENGTH]);
 };
 
-extern const Animation *animations[];
-
-extern const Animation jumpAnimation;
-
-
+// Jump animation
 extern const uint8_t (*jumpAnimationFrames[])[MATRIX_HEIGHT][MATRIX_LENGTH];
 extern const Color* jumpAnimationColorIndex[];
+
+inline const Animation jumpAnimation{jumpAnimationColorIndex,45,150,{jumpAnimationFrames}};
+
+
+
+
+// All animations
+inline const Animation *animations[] = {&jumpAnimation};
+
+
+
+
+
 
 
 

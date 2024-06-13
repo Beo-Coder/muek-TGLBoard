@@ -19,7 +19,7 @@ namespace details_text_controller{
 
 
 namespace details_static_text{
-    static const uint8_t SPACE_BETWEEN_LETTERS = 1;
+    inline const uint8_t SPACE_BETWEEN_LETTERS = 1;
 }
 
 class StaticText : public TextController {
