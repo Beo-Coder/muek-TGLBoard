@@ -4,6 +4,7 @@
     #include "pico/stdlib.h"
 #endif
 
+#include "hardware/watchdog.h"
 
 #include "beo_common.h"
 
@@ -32,6 +33,9 @@
 
 #define BUTTON1 18
 #define BUTTON2 19
+
+#define WATCHDOG_RESET_TIME 50
+uint32_t lastWatchdogReset = 0;
 
 Color color1(1,0,0);
 Color color3(0,1,0);
@@ -101,9 +105,18 @@ void button_isr(uint gpio, uint32_t events){
 
 
 void setup() {
+
     Serial.begin(115200);
     delay(2500); // Just so that the Serial Console has time to connect
+
+    // Watchdog must be reset every 100 ms.
+    // Watchdog is disabled when cores are in debug mode
+    watchdog_enable(100, true);
+
     Serial.println("Hello World");
+
+
+
 
     gpio_set_irq_enabled_with_callback(BUTTON1, GPIO_IRQ_EDGE_RISE | GPIO_IRQ_EDGE_FALL, true, &button_isr);
     gpio_set_irq_enabled_with_callback(BUTTON2, GPIO_IRQ_EDGE_RISE | GPIO_IRQ_EDGE_FALL, true, &button_isr);
@@ -178,6 +191,8 @@ void setup() {
 
 
 
+
+
 }
 
 
@@ -186,6 +201,11 @@ void setup() {
 void loop() {
 
     menuController.loop();
+
+    if(millis() - lastWatchdogReset > WATCHDOG_RESET_TIME){
+        lastWatchdogReset = millis();
+        watchdog_update();
+    }
 
 }
 
