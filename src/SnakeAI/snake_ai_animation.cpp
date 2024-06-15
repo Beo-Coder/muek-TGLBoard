@@ -57,8 +57,7 @@ void SnakeAI::refresh() {
         }
 
 
-    } else if (!stopDead) {
-        stopDead = true;
+    }else{
         return restart();
     }
 
@@ -205,9 +204,7 @@ uint16_t SnakeAI::aiGetDistanceFood(uint16_t potentialMovePathIndex) {
     uint16_t pathIndexFood = getPathIndex(food.getPosition());
 
     distance = pathIndexFood - potentialMovePathIndex;
-    if (distance < 0) {
-        distance = MATRIX_SIZE - absolut(distance);
-    }
+
     return distance;
 }
 
@@ -246,7 +243,6 @@ void SnakeAI::button2ISR(bool state) {
 
 void SnakeAI::restart() {
     snake.reset();
-    stopDead = false;
 
     hamiltonianCircle.generate();
 

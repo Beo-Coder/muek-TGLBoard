@@ -41,7 +41,6 @@ class SnakeAI : public DisplayProgram{
     details_snake_ai::HamiltonianCircle hamiltonianCircle;
 
 
-    bool stopDead = false;
     uint8_t moves;
 
     void placeNewFood();
