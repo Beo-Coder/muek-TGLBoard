@@ -19,7 +19,7 @@ void SnakeAI::refresh() {
     if (!snake.getDead()) {
 
 
-        if (snake.getLength() <= MATRIX_SIZE * AI_MOVES_MAX_SNAKE_SIZE) {
+        if (snake.getLength() <= MATRIX_SIZE * details_snake_ai::AI_MOVES_MAX_SNAKE_SIZE) {
             calcNextAIMove();
         }
 
@@ -84,10 +84,10 @@ void SnakeAI::renderFrame() {
 
 
 
-    uint8_t lastXPixels = LAST_X_PIXELS_DIMMER;
+    uint8_t lastXPixels = details_snake_ai::LAST_X_PIXELS_DIMMER;
     // Body postion
-    if(snake.getLength() > LAST_X_PIXELS_DIMMER){
-        for (int i = 1; i <= snake.getLength()-LAST_X_PIXELS_DIMMER; i++) {
+    if(snake.getLength() > details_snake_ai::LAST_X_PIXELS_DIMMER){
+        for (int i = 1; i <= snake.getLength()-details_snake_ai::LAST_X_PIXELS_DIMMER; i++) {
             posX = getXPos(snake.snakeBody[i]);
             posY = getYPos(snake.snakeBody[i]);
             (*frame)[MATRIX_HEIGHT - posY - 1][posX] = *snakeColor;
@@ -185,13 +185,13 @@ bool SnakeAI::aiCheckIfSnakeOrdered(uint16_t potentialMovePathIndex) {
     if (snakeHeadPathIndex > snakeTailPathIndex) {
         // [_____|======|_____]
 
-        if (potentialMovePathIndex <= snakeHeadPathIndex && potentialMovePathIndex >= snakeTailPathIndex - AI_MOVES_MIN_DISTANCE_TAIL) {
+        if (potentialMovePathIndex <= snakeHeadPathIndex && potentialMovePathIndex >= snakeTailPathIndex - details_snake_ai::AI_MOVES_MIN_DISTANCE_TAIL) {
             return false;
         }
     } else {
         // [===|__________|===]
 
-        if (potentialMovePathIndex <= snakeHeadPathIndex || potentialMovePathIndex >= snakeTailPathIndex - AI_MOVES_MIN_DISTANCE_TAIL) {
+        if (potentialMovePathIndex <= snakeHeadPathIndex || potentialMovePathIndex >= snakeTailPathIndex - details_snake_ai::AI_MOVES_MIN_DISTANCE_TAIL) {
             return false;
         }
     }
