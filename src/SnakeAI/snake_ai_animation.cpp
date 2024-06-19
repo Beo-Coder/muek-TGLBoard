@@ -204,6 +204,9 @@ uint16_t SnakeAI::aiGetDistanceFood(uint16_t potentialMovePathIndex) {
     uint16_t pathIndexFood = getPathIndex(food.getPosition());
 
     distance = pathIndexFood - potentialMovePathIndex;
+    if(distance < 0){
+        distance = MATRIX_SIZE - absolute(distance);
+    }
 
     return distance;
 }
