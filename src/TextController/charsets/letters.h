@@ -50,12 +50,12 @@ namespace details_letters_normal {
     inline const uint8_t lc[] = {0b00000, 0b00000, 0b00111, 0b01000, 0b01000, 0b01000, 0b01000, 0b00111, 4}; // c
     inline const uint8_t ld[] = {0b00001, 0b00001, 0b00001, 0b01111, 0b10001, 0b10001, 0b10001, 0b01111, 5}; // d
     inline const uint8_t le[] = {0b00000, 0b00000, 0b01110, 0b10001, 0b11111, 0b10000, 0b10001, 0b01110, 5}; // e
-    inline const uint8_t lf[] = {0b00011, 0b00100, 0b00100, 0b00100, 0b01110, 0b00100, 0b00100, 0b00100, 4}; // f
+    inline const uint8_t lf[] = {0b00011, 0b00100, 0b00100, 0b01110, 0b00100, 0b00100, 0b00100, 0b00100, 4}; // f
     inline const uint8_t lg[] = {0b00000, 0b00000, 0b01111, 0b10001, 0b10001, 0b01111, 0b00001, 0b01110, 5}; // g
     inline const uint8_t lh[] = {0b10000, 0b10000, 0b10000, 0b11110, 0b10001, 0b10001, 0b10001, 0b10001, 5}; // h
     inline const uint8_t li[] = {0b00000, 0b00001, 0b00000, 0b00001, 0b00001, 0b00001, 0b00001, 0b00001, 1}; // i
     inline const uint8_t lj[] = {0b00000, 0b00001, 0b00000, 0b00001, 0b00001, 0b00001, 0b01001, 0b00110, 2}; // j
-    inline const uint8_t lk[] = {0b00000, 0b01000, 0b01001, 0b01010, 0b01100, 0b01100, 0b01010, 0b01001, 4}; // k
+    inline const uint8_t lk[] = {0b01000, 0b01000, 0b01001, 0b01010, 0b01100, 0b01100, 0b01010, 0b01001, 4}; // k
     inline const uint8_t ll[] = {0b00100, 0b00100, 0b00100, 0b00100, 0b00100, 0b00100, 0b00100, 0b00011, 3}; // l
     inline const uint8_t lm[] = {0b00000, 0b00000, 0b11110, 0b10101, 0b10101, 0b10101, 0b10101, 0b10101, 5}; // m
     inline const uint8_t ln[] = {0b00000, 0b00000, 0b11110, 0b10001, 0b10001, 0b10001, 0b10001, 0b10001, 5}; // n
@@ -64,7 +64,7 @@ namespace details_letters_normal {
     inline const uint8_t lq[] = {0b00000, 0b00000, 0b01111, 0b10001, 0b10001, 0b01111, 0b00001, 0b00001, 5}; // q
     inline const uint8_t lr[] = {0b00000, 0b00000, 0b11110, 0b10001, 0b10000, 0b10000, 0b10000, 0b10000, 5}; // r
     inline const uint8_t ls[] = {0b00000, 0b00000, 0b01111, 0b10000, 0b01110, 0b00001, 0b10001, 0b01110, 5}; // s
-    inline const uint8_t lt[] = {0b00000, 0b00100, 0b00100, 0b01110, 0b00100, 0b00100, 0b00100, 0b00011, 4}; // t
+    inline const uint8_t lt[] = {0b00100, 0b00100, 0b00100, 0b01110, 0b00100, 0b00100, 0b00100, 0b00011, 4}; // t
     inline const uint8_t lu[] = {0b00000, 0b00000, 0b00000, 0b10001, 0b10001, 0b10001, 0b10001, 0b01111, 5}; // u
     inline const uint8_t lv[] = {0b00000, 0b00000, 0b10001, 0b10001, 0b10001, 0b01010, 0b01010, 0b00100, 5}; // v
     inline const uint8_t lw[] = {0b00000, 0b00000, 0b10001, 0b10001, 0b10101, 0b10101, 0b11011, 0b10001, 5}; // w
