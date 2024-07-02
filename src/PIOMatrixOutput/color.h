@@ -133,6 +133,10 @@ inline Color colorYellow(NORMAL_BRIGHTNESS,NORMAL_BRIGHTNESS,0);
 inline Color colorCyan(0,NORMAL_BRIGHTNESS,NORMAL_BRIGHTNESS);
 inline Color colorPurple(NORMAL_BRIGHTNESS,0,NORMAL_BRIGHTNESS);
 
+inline Color colorOrange(NORMAL_BRIGHTNESS,NORMAL_BRIGHTNESS*0.5,0);
+inline Color colorPink(NORMAL_BRIGHTNESS, 0, NORMAL_BRIGHTNESS * 0.5);
+
+
 inline Color *allColors[] = {&colorRed, &colorBlue, &colorGreen, &colorWhite, &colorYellow, &colorCyan, &colorPurple};
 
 #endif //TGL_BOARD_PIO_MATRIX_OUTPUT_COLOR_H

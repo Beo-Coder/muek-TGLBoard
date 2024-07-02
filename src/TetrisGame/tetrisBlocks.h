@@ -43,7 +43,6 @@ static const bool (*blocks[BLOCK_COUNT])[4][4] = {&pieceI, &pieceJ, &pieceL, &pi
 
 static Color slightlyRed(0.125, 0, 0);
 static Color overlayWhite(0.5, 0.5, 0.5);
-static Color colorOrange(1, 0.5, 0);
 // we don't want white so... allColors without white
 #define COLOR_COUNT 6
 static Color *blockColors[COLOR_COUNT] = {&colorBlue, &colorCyan, &colorGreen, &colorPurple, &colorRed, &colorYellow};

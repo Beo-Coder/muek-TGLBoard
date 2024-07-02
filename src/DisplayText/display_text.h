@@ -21,8 +21,8 @@ namespace details_display_text{
     extern const uint8_t textCount;
     extern const std::string text[];
 
-    inline const uint8_t colorCount = 6;
-    inline const Color* colors[] = {&colorPurple, &colorBlue,&colorCyan, &colorGreen, &colorYellow, &colorRed};
+    inline const uint8_t colorCount = 9;
+    inline const Color* colors[] = {&colorPink, &colorPurple, &colorRed, &colorOrange, &colorYellow, &colorGreen, &colorBlue, &colorCyan, &colorWhite};
 }
 
 

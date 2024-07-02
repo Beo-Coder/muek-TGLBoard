@@ -3,8 +3,7 @@
 //
 #include "animations.h"
 
-const Color darkPurple(NORMAL_BRIGHTNESS*2,0,NORMAL_BRIGHTNESS);
-const Color* jumpAnimationColorIndex[] ={&colorBlank, &darkPurple, &colorCyan};
+const Color* jumpAnimationColorIndex[] ={&colorBlank, &colorPink, &colorCyan};
 
 
 
