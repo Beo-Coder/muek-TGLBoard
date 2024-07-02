@@ -4,27 +4,7 @@
 
 #include "color.h"
 
-
-
 uint32_t globalBrightness = 4;
-
-
-Color colorBlank(0,0,0);
-
-// Some static colors
-Color colorRed(NORMAL_BRIGHTNESS,0,0);
-Color colorGreen(0,NORMAL_BRIGHTNESS,0);
-Color colorBlue(0,0,NORMAL_BRIGHTNESS);
-
-Color colorWhite(NORMAL_BRIGHTNESS,NORMAL_BRIGHTNESS,NORMAL_BRIGHTNESS);
-Color colorYellow(NORMAL_BRIGHTNESS,NORMAL_BRIGHTNESS,0);
-Color colorCyan(0,NORMAL_BRIGHTNESS,NORMAL_BRIGHTNESS);
-Color colorPurple(NORMAL_BRIGHTNESS,0,NORMAL_BRIGHTNESS);
-
-Color *allColors[] = {&colorRed, &colorBlue, &colorGreen, &colorWhite, &colorYellow, &colorCyan, &colorPurple};
-
-
-
 
 Color::Color(float red, float green, float blue) {
     this->red = calcFixedPointNumber(red);
