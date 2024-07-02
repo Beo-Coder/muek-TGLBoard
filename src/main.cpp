@@ -202,8 +202,8 @@ void loop() {
 
     menuController.loop();
 
-    if(millis() - lastWatchdogReset > WATCHDOG_RESET_TIME){
-        lastWatchdogReset = millis();
+    if(beo::millis() - lastWatchdogReset > WATCHDOG_RESET_TIME){
+        lastWatchdogReset = beo::millis();
         watchdog_update();
     }
 
