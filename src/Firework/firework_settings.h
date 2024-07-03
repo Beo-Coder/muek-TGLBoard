@@ -24,8 +24,8 @@ namespace details_firework{
     inline const uint8_t FIREWORK_EXPLODE_Y_MIN = 4;
     inline const uint8_t FIREWORK_EXPLODE_Y_MAX = 7;
 
-    inline const uint8_t FIREWORK_EXPLOSION_BRIGHTNESS_MAX = 55; // actually 100 times less (more than NORMAL_BRIGHTNESS)
-    inline const uint8_t FIREWORK_EXPLOSION_BRIGHTNESS_MIN = 45; // actually 100 times less (more than NORMAL_BRIGHTNESS)
+    inline const uint8_t FIREWORK_EXPLOSION_BRIGHTNESS_MAX = 55; // more than NORMAL_BRIGHTNESS
+    inline const uint8_t FIREWORK_EXPLOSION_BRIGHTNESS_MIN = 45; // more than NORMAL_BRIGHTNESS
     inline const uint8_t TIME_BETWEEN_EXPLOSION_AFTER_EXPLOSION_BRIGHTNESS = 1;
     inline const uint8_t FIREWORK_AFTER_EXPLOSION_BRIGHTNESS = (NORMAL_BRIGHTNESS + 6);
     inline const uint8_t FIREWORK_AFTER_EXPLOSION_BRIGHTNESS_SINKRATE_MAX = 50; // actually 100 times less
