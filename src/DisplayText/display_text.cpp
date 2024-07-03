@@ -20,7 +20,7 @@ DisplayText::DisplayText(MatrixOutput *ledMatrix, Color (*frame)[8][16], TextCon
     newText = false;
     newColor = false;
 
-    refreshSpeed = 120;
+    refreshSpeed = details_display_text::REFRESH_SPEED;
 
 
 }

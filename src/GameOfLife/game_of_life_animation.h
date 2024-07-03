@@ -10,6 +10,8 @@
 
 namespace details_game_of_life{
 
+    inline const uint32_t REFRESH_SPEED = 150;
+
     inline const uint16_t waitTicksBeforeReset = 3;
 
     inline const Color *cellColors[] = {&colorGreen, &colorRed, &colorPurple, &colorCyan, &colorYellow};

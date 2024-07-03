@@ -68,7 +68,7 @@ void MenuEntry::loop() {
 
 
 void MenuEntry::addProgram(DisplayProgram *newProgram) {
-    if(programCount <=MAX_PROGRAMS_IN_ENTRY){
+    if(programCount <= details_menu_entry::MAX_PROGRAMS_IN_ENTRY){
         program[programCount] = newProgram;
         programCount++;
     }

@@ -30,7 +30,7 @@ MenuController::MenuController(TextController *textController) {
 
 
 void MenuController::addNewEntry(MenuEntry *entry) {
-    if(entryCount <= MAX_ENTRIES_IN_MENU){
+    if(entryCount <= details_menu_controller::MAX_ENTRIES_IN_MENU){
         entries[entryCount] = entry;
         entryCount++;
     }
@@ -95,7 +95,7 @@ void MenuController::loop() {
         uint32_t time =  beo::millis();
         switch (switchMode){
             case 0:
-                if(((time-button1Time) > HOLD_TIME_SWITCH) && ((time-button2Time) > HOLD_TIME_SWITCH)){
+                if(((time-button1Time) > details_menu_controller::HOLD_TIME_SWITCH) && ((time-button2Time) > details_menu_controller::HOLD_TIME_SWITCH)){
                     switchMode = 1;
                     switchEntry(0);
                     entries[currentEntry]->exitEntry();
@@ -165,11 +165,11 @@ void MenuController::switchEntry(int8_t direction) {
 }
 
 bool MenuController::checkWaitTimeSelect() {
-    return (beo::millis()-timeWaitSwitchMode) > WAIT_TIME_SELECT;
+    return (beo::millis()-timeWaitSwitchMode) > details_menu_controller::WAIT_TIME_SELECT;
 }
 
 void MenuController::showText() {
-    if((beo::millis()-lastTextTime) > TEXT_SPEED){
+    if((beo::millis()-lastTextTime) > details_menu_controller::TEXT_SPEED){
         lastTextTime = beo::millis();
         textController->refresh();
     }

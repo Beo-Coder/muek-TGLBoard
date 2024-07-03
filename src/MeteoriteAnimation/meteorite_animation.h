@@ -15,6 +15,8 @@
 
 namespace details_meteorite_animation{
 
+    inline const uint32_t REFRESH_SPEED = 70;
+
     inline const float BRIGHTNESS_FACTOR = 2.0;
     inline const uint8_t MAX_NUMBER_METEORITE_TRAILS = 20;
     inline const uint8_t MIN_DISTANCE_TRAILS = 2;

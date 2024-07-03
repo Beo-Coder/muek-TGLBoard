@@ -6,6 +6,8 @@
 #define TGL_BOARD_SNAKE_AI_SNAKE_AI_SETTINGS_H
 
 namespace details_snake_ai{
+    inline const uint32_t REFRESH_SPEED = 50;
+
     inline const uint8_t LENGTH_GROWTH = 1;
     inline const uint8_t START_LENGTH = 3;
 

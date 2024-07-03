@@ -18,6 +18,9 @@ class TextController;
 #include "board_text_config.h"
 
 namespace details_display_text{
+
+    inline const uint32_t REFRESH_SPEED = 90;
+
     extern const uint8_t textCount;
     extern const std::string text[];
 

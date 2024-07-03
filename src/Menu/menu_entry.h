@@ -16,8 +16,9 @@ class Color;
 #include "PIOMatrixOutput/pio_matrix_settings.h"
 #include <string>
 
-#define MAX_PROGRAMS_IN_ENTRY 10
-
+namespace details_menu_entry{
+    inline const uint8_t MAX_PROGRAMS_IN_ENTRY = 10;
+}
 
 class MenuEntry {
 
@@ -27,7 +28,7 @@ class MenuEntry {
 
     uint8_t currentProgramIndex;
     uint8_t programCount;
-    DisplayProgram *program[MAX_PROGRAMS_IN_ENTRY];
+    DisplayProgram *program[details_menu_entry::MAX_PROGRAMS_IN_ENTRY];
 
     std::string name;
 

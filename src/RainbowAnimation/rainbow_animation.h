@@ -20,6 +20,7 @@ enum RainbowMode{fixed = 0, smooth = 1};
 
 namespace details_rainbow_animation{
 
+    inline const uint32_t REFRESH_SPEED = 120;
     inline const float BRIGHTNESS_FACTOR = 2.0;
 
 

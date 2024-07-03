@@ -13,11 +13,13 @@ class TextController;
 #include "pico/stdlib.h"
 #endif
 
+namespace details_menu_controller{
+    inline const uint32_t HOLD_TIME_SWITCH = 2000;
+    inline const uint32_t WAIT_TIME_SELECT = 10000;
+    inline const uint32_t TEXT_SPEED = 80;
+    inline const uint32_t MAX_ENTRIES_IN_MENU = 6;
+}
 
-inline const uint32_t HOLD_TIME_SWITCH = 2000;
-inline const uint32_t WAIT_TIME_SELECT = 10000;
-inline const uint32_t TEXT_SPEED = 80;
-inline const uint32_t MAX_ENTRIES_IN_MENU = 6;
 
 class MenuController {
 
@@ -37,7 +39,7 @@ class MenuController {
 
     uint8_t currentEntry;
     uint8_t entryCount;
-    MenuEntry* entries[MAX_ENTRIES_IN_MENU];
+    MenuEntry* entries[details_menu_controller::MAX_ENTRIES_IN_MENU];
 
     void switchEntry(int8_t direction);
     bool checkWaitTimeSelect();

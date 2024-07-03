@@ -7,7 +7,7 @@
 
 
 GameOfLife::GameOfLife(MatrixOutput *ledMatrix, Color (*frame)[8][16]) : DisplayProgram(ledMatrix, frame) {
-    refreshSpeed = 150;
+    refreshSpeed = details_game_of_life::REFRESH_SPEED;
     gameTicks = 0;
     deadGameTicks = 0;
     for(int i=0; i<3; i++){

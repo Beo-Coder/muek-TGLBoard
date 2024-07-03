@@ -7,7 +7,7 @@
 
 
 RainbowAnimation::RainbowAnimation(MatrixOutput *ledMatrix, Color (*frame)[8][16]) : DisplayProgram(ledMatrix, frame) {
-    refreshSpeed = 120;
+    refreshSpeed = details_rainbow_animation::REFRESH_SPEED;
 
     currentColor = 0;
     mode = fixed;

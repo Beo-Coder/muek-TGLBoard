@@ -9,7 +9,7 @@
 
 MeteoriteAnimation::MeteoriteAnimation(MatrixOutput *ledMatrix, Color (*frame)[8][16]) : DisplayProgram(ledMatrix,
                                                                                                         frame) {
-    refreshSpeed = 70;
+    refreshSpeed = details_meteorite_animation::REFRESH_SPEED;
 
 
     counterNewTrail = 0;
