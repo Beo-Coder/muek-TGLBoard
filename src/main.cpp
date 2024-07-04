@@ -37,14 +37,8 @@
 #define WATCHDOG_RESET_TIME 30
 uint32_t lastWatchdogReset = 0;
 
-Color color1(1,0,0);
-Color color3(0,1,0);
-Color color2(0,0,0);
-
 
 Color frame[8][16];
-
-uint32_t lastMillis = 0;
 
 
 PIO pio = pio0;
@@ -80,9 +74,6 @@ MenuEntry menuEntrySettings;
 
 
 
-DisplayProgram *programs[2];
-
-
 
 
 void button_isr(uint gpio, uint32_t events){
@@ -90,11 +81,9 @@ void button_isr(uint gpio, uint32_t events){
     switch (gpio){
         case BUTTON1:
             menuController.button1ISR(state);
-            // programs[0]->button1ISR(state);
             break;
         case BUTTON2:
             menuController.button2ISR(state);
-            // programs[0]->button2ISR(events>>3);
             break;
         default:
             break;
