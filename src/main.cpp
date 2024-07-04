@@ -114,8 +114,8 @@ void setup() {
         uint8_t data[] = {0,0,0,0};
         flash.writeData(1,data);
         flash.writeData(2,data);
-        data[3] = 4;
-        flash.writeData(3,data);
+        uint32_t value = 10;
+        flash.writeData(3,(uint8_t*)&value);
     }
 
     // Watchdog must be reset every 100 ms.

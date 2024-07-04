@@ -35,7 +35,7 @@ class BrightnessControl :public DisplayProgram{
     void updateText();
     std::string stringBuffer;
 
-    void saveBrightness();
+    void saveBrightness(bool readOverride = false);
 
 
 
