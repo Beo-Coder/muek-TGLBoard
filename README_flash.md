@@ -52,7 +52,7 @@ No flash item should overlap between pages (you can fill space with dummy conten
 
 ## Notes
 During writing and erasing, there are no IRQs allowed, and only one core is allowed to access the flash.
-The IRQs are handels by the flash controller itself.
+The IRQs are handled by the flash controller itself.
 It will disable the IRQs at the beginning of a flash command and restore them at the end.  
 That only one core is running is your responsibility!  
 We can only store 4095 bytes of data (one sector - internal byte)

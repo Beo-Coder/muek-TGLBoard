@@ -34,7 +34,7 @@
 #define BUTTON1 18
 #define BUTTON2 19
 
-#define WATCHDOG_RESET_TIME 50
+#define WATCHDOG_RESET_TIME 30
 uint32_t lastWatchdogReset = 0;
 
 Color color1(1,0,0);
@@ -107,13 +107,11 @@ void button_isr(uint gpio, uint32_t events){
 void setup() {
 
     Serial.begin(115200);
-    delay(2500); // Just so that the Serial Console has time to connect
 
-    // Watchdog must be reset every 100 ms.
-    // Watchdog is disabled when cores are in debug mode
-    watchdog_enable(100, true);
 
-    Serial.println("Hello World");
+
+    Serial.println("TGL-Board V1.0");
+    Serial.println("Leonhard Baschang 2024");
 
 
 
@@ -130,6 +128,10 @@ void setup() {
         data[3] = 4;
         flash.writeData(3,data);
     }
+
+    // Watchdog must be reset every 100 ms.
+    // Watchdog is disabled when cores are in debug mode
+    watchdog_enable(100, true);
 
 
 
