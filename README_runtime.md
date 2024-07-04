@@ -52,6 +52,7 @@ Code wise in C/C++ there are no changes.
 
 Note that `pico_fast` is not well tested and can crash or behave "weird".
 
-To learn more and read about the performance increases, see the documentation of the C/C++ SDK page 24–28.
+To learn more and read about the performance increases,
+see the documentation of the [C/C++ SDK section 2.7](https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-c-sdk.pdf#sdk-runtime-section).
 
 And yes, "math magic" is a real word! :^)

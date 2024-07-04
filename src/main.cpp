@@ -170,8 +170,8 @@ void setup() {
 
 
 
-    menuEntryGame.addProgram(&dinoGame);
-    menuEntryGame.setName("3.%1Dino%2Game");
+    menuEntryGame.addProgram(&dinoGame); // menuEntryGame.addProgram(&tetrisGame); // For tetris
+    menuEntryGame.setName("3.%1Dino%2Game");// menuEntryGame.setName("3.%1Tetris"); // For tetris
 
     menuController.addNewEntry(&menuEntryGame);
 

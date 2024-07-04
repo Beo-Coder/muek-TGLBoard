@@ -198,7 +198,8 @@ Each machine has one input and one output buffer to get data to and from the mac
 This data can be output to the GPIO pins.
 Inside these machines you can programm a small programm, to output the data just as you want.
 And the output is parallel on as many pins as you want.  
-To learn more about PIO, read the documentation of the RP2040 Chapter 3.
+To learn more about PIO,
+read the [documentation of the RP2040 Chapter 3](https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf#section_pio).
 
 These state machines run independently of the CPU. 
 The CPU only needs to set up the machine and handel the data in the input/output registers.

@@ -1,6 +1,6 @@
 # Textcontroller Library
 
-### Library the multiple text controllers to display different kinds of text in the matrix
+### Library for multiple text controllers to display different kinds of text
 
 
 # Overview
