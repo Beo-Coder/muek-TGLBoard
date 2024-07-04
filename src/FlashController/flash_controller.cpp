@@ -118,7 +118,7 @@ uint8_t *FlashController::readData(const uint8_t accessKey) {
 
     auto *data = (uint8_t *) findLastDataSector();
 
-    if(findLastDataSector() == 0){
+    if(*data == 0){
         return nullptr;
     }
 
@@ -149,7 +149,7 @@ void FlashController::prepareBufferData(uint8_t pageIndex) {
 
     auto *data = (uint8_t *) findLastDataSector();
     // If flash is completely clear, use the beginning
-    if(findLastDataSector() == 0){
+    if(*data == 0){
         data = (uint8_t*) FLASH_READ_OFFSET_BEGIN;
     }
 

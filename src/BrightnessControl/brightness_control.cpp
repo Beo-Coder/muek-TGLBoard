@@ -86,8 +86,8 @@ void BrightnessControl::restart() {
 
 }
 
-void BrightnessControl::saveBrightness(bool overrideRead) {
-    if(getBrightnessFromFlash() != *brightness || overrideRead){
+void BrightnessControl::saveBrightness() {
+    if(getBrightnessFromFlash() != *brightness){
         flashController->writeData(flashKey, (uint8_t*)brightness);
     }
 }
@@ -127,7 +127,7 @@ uint32_t BrightnessControl::getBrightnessFromFlash() {
 
 void BrightnessControl::loadBrightnessFromFlash() {
     *brightness = getBrightnessFromFlash();
-    saveBrightness(true);
+    saveBrightness();
 
 }
 
