@@ -223,5 +223,5 @@ While the DMA and the PIO are output the data and loading the LEDs with data, th
 When using subframes and/or the framebuffer, please don't use the `delay` instruction.
 It can mess up everything.
 
-
+© 2024 Leonhard Baschang
 

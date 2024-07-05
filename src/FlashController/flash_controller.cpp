@@ -1,5 +1,5 @@
 //
-// Created by leo on 22.05.24.
+// © 2024 Leonhard Baschang
 //
 
 #include "flash_controller.h"

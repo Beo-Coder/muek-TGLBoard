@@ -1,5 +1,5 @@
 //
-// Created by leo on 26.05.24.
+// © 2024 Leonhard Baschang
 //
 
 #ifndef TGL_BOARD_MENU_MENU_CONTROLLER_H

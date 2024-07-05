@@ -1,5 +1,5 @@
 //
-// Created by leo on 19.05.24.
+// © 2024 Leonhard Baschang
 //
 
 #ifndef TGL_BOARD_GAME_OF_LIFE_GAME_OF_LIFE_ANIMATION_H

@@ -14,3 +14,5 @@ If you encounter some sort of watchdog related problems, you can simply disable 
 
 ![resistor placement](assets/images/resistorPlacement.png "resistorPlacement")
 ![resistor placement close](assets/images/resistorPlacementClose.png "resistorPlacementClose")
+
+© 2024 Leonhard Baschang

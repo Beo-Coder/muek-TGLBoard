@@ -1,3 +1,6 @@
+//
+// © 2024 Leonhard Baschang
+//
 
 #include <Arduino.h>
 

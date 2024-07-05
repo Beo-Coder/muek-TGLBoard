@@ -1,5 +1,5 @@
 //
-// Created by leo on 25.05.24.
+// © 2024 Leonhard Baschang
 //
 
 #ifndef TGL_BOARD_METEORITE_ANIMATION_METEORITE_ANIMATION_H

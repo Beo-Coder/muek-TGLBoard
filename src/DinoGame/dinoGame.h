@@ -1,5 +1,5 @@
 //
-// Created by leo on 25.04.24.
+// © 2024 Leonhard Baschang
 //
 
 #ifndef TGL_BOARD_FIREWORK_DINO_GAME_DINO_GAME_H

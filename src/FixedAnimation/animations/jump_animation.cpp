@@ -1,6 +1,7 @@
 //
-// Created by leo on 25.05.24.
+// © 2024 Leonhard Baschang
 //
+
 #include "animations.h"
 
 const Color* jumpAnimationColorIndex[] ={&colorBlank, &colorPink, &colorCyan};

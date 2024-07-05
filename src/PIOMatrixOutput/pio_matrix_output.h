@@ -1,5 +1,5 @@
 //
-// Created by Leo Baschang on 02.03.24.
+// © 2024 Leonhard Baschang
 //
 
 #ifndef TGL_BOARD_PIO_MATRIX_OUTPUT_PIO_MATRIX_OUTPUT_H

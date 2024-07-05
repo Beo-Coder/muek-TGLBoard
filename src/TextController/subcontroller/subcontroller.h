@@ -1,5 +1,5 @@
 //
-// Created by leo on 17.05.24.
+// © 2024 Leonhard Baschang
 //
 
 #ifndef TGL_BOARD_TEXTCONTROLLER_SUBCONTROLLER_H

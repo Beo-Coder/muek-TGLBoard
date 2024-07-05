@@ -1,5 +1,5 @@
 //
-// Created by leo on 11.05.24.
+// © 2024 Leonhard Baschang
 //
 
 #include "text_controller.h"

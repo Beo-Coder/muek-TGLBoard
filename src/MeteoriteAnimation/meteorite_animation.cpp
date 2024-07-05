@@ -1,5 +1,5 @@
 //
-// Created by leo on 25.05.24.
+// © 2024 Leonhard Baschang
 //
 
 #include "meteorite_animation.h"

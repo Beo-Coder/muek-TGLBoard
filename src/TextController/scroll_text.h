@@ -1,5 +1,5 @@
 //
-// Created by leo on 06.03.24.
+// © 2024 Leonhard Baschang
 //
 
 #ifndef TGL_BOARD_TEXTCONTROLLER_SCROLL_TEXT_H

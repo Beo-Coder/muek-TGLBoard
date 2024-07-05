@@ -1,5 +1,5 @@
 //
-// Created by leo on 06.03.24.
+// © 2024 Leonhard Baschang
 //
 
 #include "scroll_text.h"

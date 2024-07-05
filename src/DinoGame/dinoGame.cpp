@@ -1,5 +1,5 @@
 //
-// Created by leo on 25.04.24.
+// © 2024 Leonhard Baschang
 //
 
 #include "dinoGame.h"

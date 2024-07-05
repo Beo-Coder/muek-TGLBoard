@@ -178,3 +178,7 @@ If you want to insert those coins, you need to stop the print mid-way and insert
 3mf and STL files can be found [here](hardware/Stand)
 
 ![stand](assets/images/stand.png "stand")
+
+If you have any questions, please contact me.
+
+© 2024 Leonhard Baschang

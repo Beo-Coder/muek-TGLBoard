@@ -1,5 +1,5 @@
 //
-// Created by leo on 27.04.24.
+// © 2024 Leonhard Baschang
 //
 
 #include "firework_animation.h"

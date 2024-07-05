@@ -1,5 +1,5 @@
 //
-// Created by leo on 01.05.24.
+// © 2024 Leonhard Baschang
 //
 
 #ifndef TGL_BOARD_SNAKE_AI_SNAKE_AI_ANIMATION_H

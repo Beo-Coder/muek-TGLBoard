@@ -211,3 +211,5 @@ For example:
 `Hello%nWorld` would become  
 `Hello` (upper half)  
 `World` (lower half)  
+
+© 2024 Leonhard Baschang

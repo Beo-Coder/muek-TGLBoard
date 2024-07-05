@@ -83,3 +83,6 @@ With this pattern, we can easily detect a full / empty page of data.
 To even further decrease erase-cycles, we could divide each page in smaller pieces.  
 But this functionality is an idea for the future. :^)   
 ( ._.)
+
+
+© 2024 Leonhard Baschang

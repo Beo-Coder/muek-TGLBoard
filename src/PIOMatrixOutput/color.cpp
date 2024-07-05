@@ -1,5 +1,5 @@
 //
-// Created by leo on 03.04.24.
+// © 2024 Leonhard Baschang
 //
 
 #include "color.h"

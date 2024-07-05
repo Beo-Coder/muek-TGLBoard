@@ -1,3 +1,7 @@
+//
+// © 2024 Leonhard Baschang
+//
+
 #ifdef ARDUINO
     #include <Arduino.h>
 #else

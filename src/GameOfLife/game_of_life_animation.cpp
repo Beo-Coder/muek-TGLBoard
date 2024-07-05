@@ -1,5 +1,5 @@
 //
-// Created by leo on 19.05.24.
+// © 2024 Leonhard Baschang
 //
 
 #include "game_of_life_animation.h"
