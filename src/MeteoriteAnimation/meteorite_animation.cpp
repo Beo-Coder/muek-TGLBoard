@@ -4,7 +4,7 @@
 
 #include "meteorite_animation.h"
 #include "beo_common.h"
-
+#include <math.h>
 
 
 MeteoriteAnimation::MeteoriteAnimation(MatrixOutput *ledMatrix, Color (*frame)[8][16]) : DisplayProgram(ledMatrix,
@@ -141,7 +141,7 @@ Color *MeteoriteAnimation::getColor(uint8_t posX) {
 
     float colorData[3];
     for(int i=0; i<3; i++){
-        colorData[i] = (float) (NORMAL_BRIGHTNESS*details_meteorite_animation::BRIGHTNESS_FACTOR * sin((2*PI/MATRIX_LENGTH)*(posX+(MATRIX_LENGTH*1.0/6.0)-(MATRIX_LENGTH*(i/3.0)))));
+        colorData[i] = (float) (NORMAL_BRIGHTNESS*details_meteorite_animation::BRIGHTNESS_FACTOR * sin((2*M_PI/MATRIX_LENGTH)*(posX+(MATRIX_LENGTH*1.0/6.0)-(MATRIX_LENGTH*(i/3.0)))));
         if(colorData[i] < 0){
             colorData[i] = 0;
         }
