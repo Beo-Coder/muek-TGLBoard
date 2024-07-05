@@ -1,5 +1,5 @@
 //
-// Created by leo on 14.05.24.
+// © 2024 Leonhard Baschang
 //
 
 #ifndef TGL_BOARD_TEXTCONTROLLER_TINY_TEXT_H
@@ -23,15 +23,15 @@ class MatrixOutput;
 
 
 namespace details_tiny_text{
-    static const uint8_t SUBMATRIX_HEIGHT = (MATRIX_HEIGHT/2);
-    static const uint8_t SPACE_BETWEEN_LETTERS = 1;
+    inline const uint8_t SUBMATRIX_HEIGHT = (MATRIX_HEIGHT/2);
+    inline const uint8_t SPACE_BETWEEN_LETTERS = 1;
 }
 
 
 
 class TinyText : public TextController {
 
-    Color *lowerTextColor;
+    const Color *lowerTextColor;
 
     details_text_controller::StaticSubcontroller *upperController;
     details_text_controller::StaticSubcontroller *lowerController;
@@ -42,20 +42,20 @@ class TinyText : public TextController {
     uint16_t lowerTextArraySize;
 
 
-    void createIDTextArray(std::string *text) override;
-    void createIDTextArray(std::string *text, uint8_t startIndex);
+    void createIDTextArray(const std::string *text) override;
+    void createIDTextArray(const std::string *text, uint8_t startIndex);
 
 
 public:
 
     explicit TinyText(MatrixOutput *matrixOutput, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]);
 
-    void setText(std::string *text) override;
+    void setText(const std::string *text) override;
 
-    void setUpperText(std::string *text);
-    void setLowerText(std::string *text);
+    void setUpperText(const std::string *text);
+    void setLowerText(const std::string *text);
 
-    void setColor(Color *upperTextColor,Color *lowerTextColor,Color *backgroundColor);
+    void setColor(const Color *upperTextColor, const Color *lowerTextColor, const Color *backgroundColor);
 
 
     void createAndLoadFrame() override;

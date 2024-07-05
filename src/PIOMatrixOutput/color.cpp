@@ -1,26 +1,10 @@
 //
-// Created by leo on 03.04.24.
+// © 2024 Leonhard Baschang
 //
 
 #include "color.h"
 
-
-Color colorBlank(0,0,0);
-
-// Some static colors
-Color colorRed(NORMAL_BRIGHTNESS,0,0);
-Color colorGreen(0,NORMAL_BRIGHTNESS,0);
-Color colorBlue(0,0,NORMAL_BRIGHTNESS);
-
-Color colorWhite(NORMAL_BRIGHTNESS,NORMAL_BRIGHTNESS,NORMAL_BRIGHTNESS);
-Color colorYellow(NORMAL_BRIGHTNESS,NORMAL_BRIGHTNESS,0);
-Color colorCyan(0,NORMAL_BRIGHTNESS,NORMAL_BRIGHTNESS);
-Color colorPurple(NORMAL_BRIGHTNESS,0,NORMAL_BRIGHTNESS);
-
-Color *allColors[] = {&colorRed, &colorBlue, &colorGreen, &colorWhite, &colorYellow, &colorCyan, &colorPurple};
-
-
-
+uint32_t globalBrightness = 4;
 
 Color::Color(float red, float green, float blue) {
     this->red = calcFixedPointNumber(red);
@@ -160,28 +144,28 @@ uint8_t Color::getNumberOfActiveSubframes(uint16_t value) {
 
 
 uint16_t Color::getRed8Bit() const {
-    return toUint8(red);
+    return toUint8(red*globalBrightness/4);
 }
 
 uint16_t Color::getGreen8Bit() const {
-    return toUint8(green);
+    return toUint8(green*globalBrightness/4);
 }
 
 uint16_t Color::getBlue8Bit() const {
-    return toUint8(blue);
+    return toUint8(blue*globalBrightness/4);
 }
 
 
 uint8_t Color::getRedActiveSubframes() const {
-    return getNumberOfActiveSubframes(red);
+    return getNumberOfActiveSubframes(red*globalBrightness/4);
 }
 
 uint8_t Color::getGreenActiveSubframes() const {
-    return getNumberOfActiveSubframes(green);
+    return getNumberOfActiveSubframes(green*globalBrightness/4);
 }
 
 uint8_t Color::getBlueActiveSubframes() const {
-    return getNumberOfActiveSubframes(blue);
+    return getNumberOfActiveSubframes(blue*globalBrightness/4);
 }
 
 

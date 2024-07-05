@@ -1,5 +1,5 @@
 //
-// Created by leo on 06.03.24.
+// © 2024 Leonhard Baschang
 //
 
 #ifndef TGL_BOARD_TEXTCONTROLLER_SCROLL_TEXT_H
@@ -20,7 +20,7 @@ namespace details_text_controller{
 
 
 namespace details_scroll_text{
-    static const uint8_t SPACE_BETWEEN_LETTERS = 1;
+    inline const uint8_t SPACE_BETWEEN_LETTERS = 1;
 }
 
 
@@ -33,14 +33,14 @@ class ScrollText : public TextController{
 
 
 
-    void createIDTextArray(std::string *text) override;
+    void createIDTextArray(const std::string *text) override;
 
 
 
 public:
     explicit ScrollText(MatrixOutput *matrixOutput, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]);
 
-    void setColor(Color *textColor, Color *backgroundColor) override;
+    void setColor(const Color *textColor, const Color *backgroundColor) override;
 
     void setMode(bool leftShift = true);
 

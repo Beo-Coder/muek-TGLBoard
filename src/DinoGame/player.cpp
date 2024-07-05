@@ -1,5 +1,5 @@
 //
-// Created by leo on 01.05.24.
+// © 2024 Leonhard Baschang
 //
 
 #include "player.h"
@@ -80,5 +80,13 @@ details_dino_game::Player::checkAndMarkCollision(const Enemy &entity, Color (*di
 
     }
     return returnData;
+
+}
+
+void details_dino_game::Player::reset() {
+    lastJump = PLAYER_JUMP_LENGTH;
+    skinIndex = 0;
+    posY = PLAYER_POS_Y;
+
 
 }

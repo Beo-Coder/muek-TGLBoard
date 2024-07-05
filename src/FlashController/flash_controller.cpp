@@ -1,5 +1,5 @@
 //
-// Created by leo on 22.05.24.
+// © 2024 Leonhard Baschang
 //
 
 #include "flash_controller.h"
@@ -8,24 +8,7 @@
 
 
 
-
-
-// Initiation of flash content
-
-
-FlashItem highScoreDinoGame{4, 1};
-FlashItem highScoreTetris{4, 2};
-FlashItem *flashContent[FLASH_ITEM];
-
-
-
-
-
 FlashController::FlashController() {
-    // Load flash content in the array
-    flashContent[0] = &(highScoreDinoGame);
-    flashContent[1] = &(highScoreTetris);
-
     resetBuffer();
 
 }
@@ -122,7 +105,7 @@ bool FlashController::writeData(const uint8_t accessKey, const uint8_t *data) {
         restore_interrupts(ints);
 
     }
-    // If we write to the beginning og the data, erase the last sector
+    // If we write to the beginning of the data, erase the last sector
     if(startAddress == (uint32_t)FLASH_WRITE_OFFSET_BEGIN){
         eraseLastSector();
     }
@@ -134,7 +117,11 @@ bool FlashController::writeData(const uint8_t accessKey, const uint8_t *data) {
 uint8_t *FlashController::readData(const uint8_t accessKey) {
 
     auto *data = (uint8_t *) findLastDataSector();
-    if(data == nullptr)return nullptr;
+
+    if(*data == 0){
+        return nullptr;
+    }
+
     // Add offset for buffer
     data += findBufferOffsetWriteData(accessKey);
     // Add offset for first byte
@@ -162,9 +149,10 @@ void FlashController::prepareBufferData(uint8_t pageIndex) {
 
     auto *data = (uint8_t *) findLastDataSector();
     // If flash is completely clear, use the beginning
-    if(data == nullptr){
+    if(*data == 0){
         data = (uint8_t*) FLASH_READ_OFFSET_BEGIN;
     }
+
     data = data + FLASH_PAGE_SIZE*pageIndex;
 
     // Load write buffer data with old flash data

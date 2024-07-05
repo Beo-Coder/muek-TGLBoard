@@ -1,5 +1,5 @@
 //
-// Created by leo on 11.05.24.
+// © 2024 Leonhard Baschang
 //
 
 #include "static_text.h"
@@ -18,7 +18,7 @@ StaticText::StaticText(MatrixOutput *matrixOutput, Color (*frame)[8][16]) : Text
 }
 
 
-void StaticText::setText(std::string *text) {
+void StaticText::setText(const std::string *text) {
     TextController::setText(text);
     textInitialized = false;
 }
@@ -48,7 +48,7 @@ void StaticText::restart() {
 
 }
 
-void StaticText::createIDTextArray(std::string *text) {
+void StaticText::createIDTextArray(const std::string *text) {
     idTextArraySize = 0;
     idTextArrayIndex = 0;
     for (unsigned int i = 0; i < text->length(); i++) {
@@ -80,7 +80,7 @@ void StaticText::createIDTextArray(std::string *text) {
 
 }
 
-void StaticText::setColor(Color *textColor, Color *backgroundColor) {
+void StaticText::setColor(const Color *textColor, const Color *backgroundColor) {
     TextController::setColor(textColor, backgroundColor);
     subcontroller->setColor(textColor, backgroundColor);
 }

@@ -1,3 +1,7 @@
+//
+// © 2024 Leonhard Baschang
+//
+
 #include <Arduino.h>
 
 #include "PIOMatrixOutput/pio_matrix_output.h"

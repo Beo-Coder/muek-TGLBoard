@@ -1,5 +1,5 @@
 //
-// Created by leo on 28.04.24.
+// © 2024 Leonhard Baschang
 //
 
 #ifndef TGL_BOARD_DISPLAY_PROGRAM_H
@@ -31,6 +31,8 @@ public:
 
     virtual void refresh() = 0;
     virtual void restart() = 0;
+
+    virtual void exit();
 
 
 };

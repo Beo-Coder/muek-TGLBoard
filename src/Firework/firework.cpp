@@ -1,5 +1,5 @@
 //
-// Created by leo on 01.05.24.
+// © 2024 Leonhard Baschang
 //
 
 #include "firework.h"
@@ -126,7 +126,10 @@ void details_firework::Firework::calcFireworkExplosion(Color (*display)[MATRIX_H
 
             // Only add to frame, when pixel is inside frame
             if (posX >= 0 && posX < MATRIX_LENGTH && posY >= 0 && posY < MATRIX_HEIGHT) {
-                (*display)[MATRIX_HEIGHT - posY - 1][posX] = i.screenColor;
+                if ((*display)[MATRIX_HEIGHT - posY - 1][posX].equals(&colorBlank)) {
+                    (*display)[MATRIX_HEIGHT - posY - 1][posX] = i.screenColor;
+                }
+
             }
 
         }
@@ -138,3 +141,14 @@ void details_firework::Firework::calcFireworkExplosion(Color (*display)[MATRIX_H
     }
 
 }
+
+void details_firework::Firework::reset() {
+    dead = true;
+    arrived = true;
+    exploded = true;
+    lifeTime = UINT8_MAX;
+    startPosX = 0;
+    startPosY = 0;
+
+}
+

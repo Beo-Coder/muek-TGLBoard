@@ -1,11 +1,11 @@
 //
-// Created by leo on 27.04.24.
+// © 2024 Leonhard Baschang
 //
 
 #ifndef TGL_BOARD_BEO_COMMON_H
 #define TGL_BOARD_BEO_COMMON_H
 
-#define absolut(x) ((x)>0?(x):-(x))
+#define absolute(x) ((x)>0?(x):-(x))
 
 namespace beo{
     int randomInt(int min, int max);

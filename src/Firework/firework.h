@@ -1,5 +1,5 @@
 //
-// Created by leo on 01.05.24.
+// © 2024 Leonhard Baschang
 //
 
 #ifndef TGL_BOARD_FIREWORK_FIREWORK_H
@@ -52,6 +52,7 @@ namespace details_firework {
         void start(int8_t posX, int8_t posY, Color *color);
 
         void calcFrame(Color (*display)[MATRIX_HEIGHT][MATRIX_LENGTH]);
+        void reset();
     };
 
 };

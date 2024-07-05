@@ -1,5 +1,5 @@
 //
-// Created by leo on 01.05.24.
+// © 2024 Leonhard Baschang
 //
 
 #ifndef TGL_BOARD_SNAKE_AI_SNAKE_AI_ANIMATION_H
@@ -25,9 +25,9 @@
 
 
 
-static Color *snakeColor = &colorGreen;
-static Color *snakeHeadColor = &colorGreen;
-static Color *foodColor = &colorRed;
+inline Color *snakeColor = &colorGreen;
+inline Color *snakeHeadColor = &colorGreen;
+inline Color *foodColor = &colorRed;
 
 
 
@@ -41,7 +41,6 @@ class SnakeAI : public DisplayProgram{
     details_snake_ai::HamiltonianCircle hamiltonianCircle;
 
 
-    bool stopDead = false;
     uint8_t moves;
 
     void placeNewFood();

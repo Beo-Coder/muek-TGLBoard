@@ -1,5 +1,5 @@
 //
-// Created by Leo Baschang on 02.03.24.
+// © 2024 Leonhard Baschang
 //
 
 #include "pio_matrix_output.h"

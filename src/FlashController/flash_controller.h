@@ -1,5 +1,5 @@
 //
-// Created by leo on 22.05.24.
+// © 2024 Leonhard Baschang
 //
 
 #ifndef TGL_BOARD_FLASH_CONTROLLER_FLASH_CONTROLLER_H
@@ -38,7 +38,7 @@
  */
 
 // Number of individual variables/data to store in the flash
-#define FLASH_ITEM 2
+#define FLASH_ITEM 3
 
 // !!!!DO NOT CHANGE UNLESS YOU KNOW WHAT YOU ARE DOING!!!!
 
@@ -67,12 +67,16 @@ struct FlashItem{
 
 
 
-// Flash Content
-extern FlashItem highScoreDinoGame;
-extern FlashItem highScoreTetris;
 
 
-extern FlashItem *flashContent[];
+
+// Initiation of flash content
+
+inline FlashItem highScoreDinoGame{4, 1};
+inline FlashItem highScoreTetris{4, 2};
+inline FlashItem globalBrightnessFlash{4, 3};
+inline FlashItem *flashContent[] = {&highScoreDinoGame, &highScoreTetris, &globalBrightnessFlash};
+
 
 
 

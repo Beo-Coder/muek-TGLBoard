@@ -1,5 +1,5 @@
 //
-// Created by leo on 06.03.24.
+// © 2024 Leonhard Baschang
 //
 
 #include "scroll_text.h"
@@ -19,7 +19,7 @@ ScrollText::ScrollText(MatrixOutput *matrixOutput, Color (*frame)[MATRIX_HEIGHT]
 
 }
 
-void ScrollText::createIDTextArray(std::string *text) {
+void ScrollText::createIDTextArray(const std::string *text) {
     idTextArraySize = 0;
     for (unsigned int i = 0; i < text->length(); i++) {
         char charAtIndex = text->at(i);
@@ -96,7 +96,7 @@ void ScrollText::restart() {
     leftShift = true;
 }
 
-void ScrollText::setColor(Color *textColor, Color *backgroundColor) {
+void ScrollText::setColor(const Color *textColor, const Color *backgroundColor) {
     TextController::setColor(textColor, backgroundColor);
     subcontroller->setColor(textColor, backgroundColor);
 }

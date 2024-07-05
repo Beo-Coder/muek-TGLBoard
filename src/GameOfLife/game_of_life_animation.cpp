@@ -1,5 +1,5 @@
 //
-// Created by leo on 19.05.24.
+// © 2024 Leonhard Baschang
 //
 
 #include "game_of_life_animation.h"
@@ -7,7 +7,7 @@
 
 
 GameOfLife::GameOfLife(MatrixOutput *ledMatrix, Color (*frame)[8][16]) : DisplayProgram(ledMatrix, frame) {
-    refreshSpeed = 150;
+    refreshSpeed = details_game_of_life::REFRESH_SPEED;
     gameTicks = 0;
     deadGameTicks = 0;
     for(int i=0; i<3; i++){

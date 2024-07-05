@@ -1,5 +1,5 @@
 //
-// Created by leo on 14.05.24.
+// © 2024 Leonhard Baschang
 //
 
 #include "tiny_text.h"
@@ -27,13 +27,13 @@ TinyText::TinyText(MatrixOutput *matrixOutput, Color (*frame)[8][16]) : TextCont
 
 
 
-void TinyText::createIDTextArray(std::string *text) {
+void TinyText::createIDTextArray(const std::string *text) {
     createIDTextArray(text, 0);
 
 }
 
 
-void TinyText::createIDTextArray(std::string *text, uint8_t startIndex) {
+void TinyText::createIDTextArray(const std::string *text, uint8_t startIndex) {
     uint16_t *localIdTextArraySize = upperTextArraySize;
     uint16_t bitOffset = 0;
     if(startIndex == 0){
@@ -101,7 +101,7 @@ void TinyText::createIDTextArray(std::string *text, uint8_t startIndex) {
 
 
 
-void TinyText::setText(std::string *text) {
+void TinyText::setText(const std::string *text) {
     createIDTextArray(text);
 
     upperController->setArraySize(*upperTextArraySize);
@@ -134,7 +134,7 @@ void TinyText::createAndLoadFrame() {
 
 }
 
-void TinyText::setColor(Color *upperTextColor, Color *lowerTextColor, Color *backgroundColor) {
+void TinyText::setColor(const Color *upperTextColor, const Color *lowerTextColor, const Color *backgroundColor) {
     textColor = upperTextColor;
     this->lowerTextColor = lowerTextColor;
     TinyText::backgroundColor = backgroundColor;
@@ -143,12 +143,12 @@ void TinyText::setColor(Color *upperTextColor, Color *lowerTextColor, Color *bac
 
 }
 
-void TinyText::setUpperText(std::string *text) {
+void TinyText::setUpperText(const std::string *text) {
     createIDTextArray(text, 0);
 
 }
 
-void TinyText::setLowerText(std::string *text) {
+void TinyText::setLowerText(const std::string *text) {
     createIDTextArray(text, 1);
 
 }

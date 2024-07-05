@@ -1,5 +1,5 @@
 //
-// Created by leo on 25.04.24.
+// © 2024 Leonhard Baschang
 //
 
 #include "dinoGame.h"
@@ -29,7 +29,7 @@ DinoGame::DinoGame(MatrixOutput *ledMatrix, Color (*frame)[MATRIX_HEIGHT][MATRIX
     }
 
 
-    player = new details_dino_game::Player(PLAYER_POS_X, PLAYER_POS_Y, PLAYER_SIZE_X, PLAYER_SIZE_Y);
+    player = new details_dino_game::Player(details_dino_game::PLAYER_POS_X, details_dino_game::PLAYER_POS_Y, details_dino_game::PLAYER_SIZE_X, details_dino_game::PLAYER_SIZE_Y);
 
 
     createNewEnemy(0);
@@ -38,16 +38,16 @@ DinoGame::DinoGame(MatrixOutput *ledMatrix, Color (*frame)[MATRIX_HEIGHT][MATRIX
 }
 
 void DinoGame::restart() {
-
-    player->posY = PLAYER_POS_Y;
+    clearFrame();
+    player->reset();
 
     numberEnemies = 1;
     score = 0;
-    refreshSpeed = 100;
+    refreshSpeed = details_dino_game::refreshSeed;
     dead = false;
     showScore = 0;
 
-    for (int i = 1; i < MAX_ENEMIES; i++) {
+    for (int i = 1; i < details_dino_game::MAX_ENEMIES; i++) {
         enemies[i]->alive = false;
     }
 
@@ -86,18 +86,18 @@ const int8_t *getRandomEnemy() {
 
 
     unsigned int totalWeight = 0;
-    for (int i = 0; i < ENEMY_TYPES; i++) {
-        totalWeight += enemyHeights[i][1];
+    for (int i = 0; i < details_dino_game::ENEMY_TYPES; i++) {
+        totalWeight += details_dino_game::enemyHeights[i][1];
     }
 
     unsigned int randomValue = beo::randomInt(0, totalWeight);
 
 
     unsigned int cumulativeWeight = 0;
-    for (int i = 0; i < ENEMY_TYPES; i++) {
-        cumulativeWeight += enemyHeights[i][1];
+    for (int i = 0; i < details_dino_game::ENEMY_TYPES; i++) {
+        cumulativeWeight += details_dino_game::enemyHeights[i][1];
         if (randomValue < cumulativeWeight) {
-            return enemyHeights[i];
+            return details_dino_game::enemyHeights[i];
         }
     }
     return nullptr;
@@ -113,8 +113,8 @@ void DinoGame::createNewEnemy(uint8_t index) {
     enemies[index]->posY = enemy[0];
     enemies[index]->enemyType = enemy[2];
 
-    enemies[index]->sizeX = enemySize[enemy[3]][0];
-    enemies[index]->sizeY = enemySize[enemy[3]][1];
+    enemies[index]->sizeX = details_dino_game::enemySize[enemy[3]][0];
+    enemies[index]->sizeY = details_dino_game::enemySize[enemy[3]][1];
 
 
     enemies[index]->posX = MATRIX_LENGTH + enemies[numberEnemies - 1 - index]->sizeX; // For more randomness (could make the levels impossible): - (randomInt(0,2)) + (randomInt(0,2));
@@ -142,10 +142,10 @@ void DinoGame::moveEntities() {
 }
 
 void DinoGame::checkScore() {
-    for (int i = 0; i < LEVELS; i++) {
-        if (score > levels[i][0]) {
-            refreshSpeed = levels[i][1];
-            if (numberEnemies < levels[i][2]) {
+    for (int i = 0; i < details_dino_game::LEVELS; i++) {
+        if (score > details_dino_game::levels[i][0]) {
+            refreshSpeed = details_dino_game::levels[i][1];
+            if (numberEnemies < details_dino_game::levels[i][2]) {
                 if (enemies[numberEnemies - 1]->posX == 15) {
                     createNewEnemy(numberEnemies);
                     enemies[numberEnemies]->posX =
@@ -210,6 +210,7 @@ void DinoGame::refresh() {
                 }
                 break;
             case 1:
+                refreshSpeed = details_dino_game::scoreRefreshSpeed;
                 // Show score
                 textController->createAndLoadFrame();
                 break;

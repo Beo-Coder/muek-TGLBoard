@@ -1,5 +1,5 @@
 //
-// Created by Leo Baschang on 02.03.24.
+// © 2024 Leonhard Baschang
 //
 
 #ifndef TGL_BOARD_PIO_MATRIX_OUTPUT_PIO_MATRIX_OUTPUT_H
@@ -28,7 +28,7 @@ class MatrixOutput {
 
     dma_channel_config dmac;
 
-    uint32_t lastSendData;
+    uint64_t lastSendData;
 
 
     uint32_t frameBuffer[MAX_FRAMES_IN_BUFFER][MAX_SUBFRAMES][MATRIX_SIZE * 3 / 4];

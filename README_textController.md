@@ -1,6 +1,6 @@
 # Textcontroller Library
 
-### Library the multiple text controllers to display different kinds of text in the matrix
+### Library for multiple text controllers to display different kinds of text
 
 
 # Overview
@@ -211,3 +211,5 @@ For example:
 `Hello%nWorld` would become  
 `Hello` (upper half)  
 `World` (lower half)  
+
+© 2024 Leonhard Baschang

@@ -1,5 +1,5 @@
 //
-// Created by leo on 11.05.24.
+// © 2024 Leonhard Baschang
 //
 
 #include "text_controller.h"
@@ -12,11 +12,11 @@ TextController::TextController(MatrixOutput *matrix, Color (*frame)[8][16]) : Di
     backgroundColor = &colorBlank;
 }
 
-void TextController::setText(std::string *text) {
+void TextController::setText(const std::string *text) {
     createIDTextArray(text);
 }
 
-void TextController::setColor(Color *textColor, Color *backgroundColor) {
+void TextController::setColor(const Color *textColor, const Color *backgroundColor) {
     TextController::textColor = textColor;
     TextController::backgroundColor = backgroundColor;
 

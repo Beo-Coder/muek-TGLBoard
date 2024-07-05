@@ -1,5 +1,5 @@
 //
-// Created by leo on 01.05.24.
+// © 2024 Leonhard Baschang
 //
 
 #ifndef TGL_BOARD_FIREWORK_DINO_GAME_PLAYER_H
@@ -39,6 +39,8 @@ namespace details_dino_game {
         void animate(Color (*display)[MATRIX_HEIGHT][MATRIX_LENGTH]) override;
 
         bool checkAndMarkCollision(const Enemy &entity, Color (*display)[MATRIX_HEIGHT][MATRIX_LENGTH]);
+
+        void reset();
 
     };
 }

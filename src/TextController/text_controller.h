@@ -1,5 +1,5 @@
 //
-// Created by leo on 11.05.24.
+// © 2024 Leonhard Baschang
 //
 
 #ifndef TGL_BOARD_TEXTCONTROLLER_TEXT_CONTROLLER_H
@@ -18,7 +18,7 @@ class MatrixOutput;
 #include <string>
 
 
-#define MAX_TEXT_LENGTH 500
+inline const uint32_t MAX_TEXT_LENGTH = 500;
 
 
 class TextController : public DisplayProgram {
@@ -30,19 +30,19 @@ protected:
     inline static uint16_t idTextArrayIndex{0};
 
 
-    inline static Color *textColor{nullptr};
-    inline static Color *backgroundColor{nullptr};
+    inline static const Color *textColor{nullptr};
+    inline static const Color *backgroundColor{nullptr};
 
 
-    virtual void createIDTextArray(std::string *text) = 0;
+    virtual void createIDTextArray(const std::string *text) = 0;
 
 public:
 
     TextController(MatrixOutput *matrix, Color (*frame)[MATRIX_HEIGHT][MATRIX_LENGTH]);
 
-    virtual void setText(std::string *text);
+    virtual void setText(const std::string *text);
 
-    virtual void setColor(Color *textColor, Color *backgroundColor);
+    virtual void setColor(const Color *textColor, const Color *backgroundColor);
 
     virtual void createAndLoadFrame() = 0;
 

@@ -1,6 +1,7 @@
 //
-// Created by leo on 29.04.24.
+// © 2024 Leonhard Baschang
 //
+
 #include "display_program.h"
 #include "PIOMatrixOutput/pio_matrix_output.h"
 
@@ -15,5 +16,9 @@ void DisplayProgram::clearFrame() {
             (*frame)[i][j] = colorBlank;
         }
     }
+
+}
+
+void DisplayProgram::exit() {
 
 }

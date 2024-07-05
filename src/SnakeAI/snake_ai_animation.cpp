@@ -1,5 +1,5 @@
 //
-// Created by leo on 01.05.24.
+// © 2024 Leonhard Baschang
 //
 
 #include "snake_ai_animation.h"
@@ -7,7 +7,7 @@
 #include "beo_common.h"
 
 SnakeAI::SnakeAI(MatrixOutput *ledMatrix, Color (*frame)[8][16]) : DisplayProgram(ledMatrix, frame) {
-    refreshSpeed = 50;
+    refreshSpeed = details_snake_ai::REFRESH_SPEED;
     moves = 0;
 
 }
@@ -19,7 +19,7 @@ void SnakeAI::refresh() {
     if (!snake.getDead()) {
 
 
-        if (snake.getLength() <= MATRIX_SIZE * AI_MOVES_MAX_SNAKE_SIZE) {
+        if (snake.getLength() <= MATRIX_SIZE * details_snake_ai::AI_MOVES_MAX_SNAKE_SIZE) {
             calcNextAIMove();
         }
 
@@ -57,8 +57,7 @@ void SnakeAI::refresh() {
         }
 
 
-    } else if (!stopDead) {
-        stopDead = true;
+    }else{
         return restart();
     }
 
@@ -85,10 +84,10 @@ void SnakeAI::renderFrame() {
 
 
 
-    uint8_t lastXPixels = LAST_X_PIXELS_DIMMER;
+    uint8_t lastXPixels = details_snake_ai::LAST_X_PIXELS_DIMMER;
     // Body postion
-    if(snake.getLength() > LAST_X_PIXELS_DIMMER){
-        for (int i = 1; i <= snake.getLength()-LAST_X_PIXELS_DIMMER; i++) {
+    if(snake.getLength() > details_snake_ai::LAST_X_PIXELS_DIMMER){
+        for (int i = 1; i <= snake.getLength()-details_snake_ai::LAST_X_PIXELS_DIMMER; i++) {
             posX = getXPos(snake.snakeBody[i]);
             posY = getYPos(snake.snakeBody[i]);
             (*frame)[MATRIX_HEIGHT - posY - 1][posX] = *snakeColor;
@@ -186,13 +185,13 @@ bool SnakeAI::aiCheckIfSnakeOrdered(uint16_t potentialMovePathIndex) {
     if (snakeHeadPathIndex > snakeTailPathIndex) {
         // [_____|======|_____]
 
-        if (potentialMovePathIndex <= snakeHeadPathIndex && potentialMovePathIndex >= snakeTailPathIndex - AI_MOVES_MIN_DISTANCE_TAIL) {
+        if (potentialMovePathIndex <= snakeHeadPathIndex && potentialMovePathIndex >= snakeTailPathIndex - details_snake_ai::AI_MOVES_MIN_DISTANCE_TAIL) {
             return false;
         }
     } else {
         // [===|__________|===]
 
-        if (potentialMovePathIndex <= snakeHeadPathIndex || potentialMovePathIndex >= snakeTailPathIndex - AI_MOVES_MIN_DISTANCE_TAIL) {
+        if (potentialMovePathIndex <= snakeHeadPathIndex || potentialMovePathIndex >= snakeTailPathIndex - details_snake_ai::AI_MOVES_MIN_DISTANCE_TAIL) {
             return false;
         }
     }
@@ -205,9 +204,10 @@ uint16_t SnakeAI::aiGetDistanceFood(uint16_t potentialMovePathIndex) {
     uint16_t pathIndexFood = getPathIndex(food.getPosition());
 
     distance = pathIndexFood - potentialMovePathIndex;
-    if (distance < 0) {
-        distance = MATRIX_SIZE - absolut(distance);
+    if(distance < 0){
+        distance = MATRIX_SIZE - absolute(distance);
     }
+
     return distance;
 }
 
@@ -246,7 +246,6 @@ void SnakeAI::button2ISR(bool state) {
 
 void SnakeAI::restart() {
     snake.reset();
-    stopDead = false;
 
     hamiltonianCircle.generate();
 

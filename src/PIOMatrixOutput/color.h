@@ -1,5 +1,5 @@
 //
-// Created by leo on 03.04.24.
+// © 2024 Leonhard Baschang
 //
 
 #ifndef TGL_BOARD_PIO_MATRIX_OUTPUT_COLOR_H
@@ -25,6 +25,9 @@
 #define NORMAL_BRIGHTNESS 1
 
 
+#define MIN_BRIGHTNESS 1
+#define MAX_BRIGHTNESS 25
+extern uint32_t globalBrightness;
 
 
 class Color {
@@ -117,21 +120,23 @@ public:
 
 };
 
-// Clear "color"
-extern Color colorBlank;
+
+inline Color colorBlank(0,0,0);
 
 // Some static colors
-extern Color colorRed;
-extern Color colorGreen;
-extern Color colorBlue;
+inline Color colorRed(NORMAL_BRIGHTNESS,0,0);
+inline Color colorGreen(0,NORMAL_BRIGHTNESS,0);
+inline Color colorBlue(0,0,NORMAL_BRIGHTNESS);
 
-extern Color colorWhite;
-extern Color colorYellow;
-extern Color colorCyan;
-extern Color colorPurple;
+inline Color colorWhite(NORMAL_BRIGHTNESS,NORMAL_BRIGHTNESS,NORMAL_BRIGHTNESS);
+inline Color colorYellow(NORMAL_BRIGHTNESS,NORMAL_BRIGHTNESS,0);
+inline Color colorCyan(0,NORMAL_BRIGHTNESS,NORMAL_BRIGHTNESS);
+inline Color colorPurple(NORMAL_BRIGHTNESS,0,NORMAL_BRIGHTNESS);
 
-#define NUMBER_NORMAL_COLORS 7
-extern Color *allColors[NUMBER_NORMAL_COLORS];
+inline Color colorOrange(NORMAL_BRIGHTNESS,NORMAL_BRIGHTNESS*0.5,0);
+inline Color colorPink(NORMAL_BRIGHTNESS, 0, NORMAL_BRIGHTNESS * 0.5);
 
+
+inline Color *allColors[] = {&colorRed, &colorBlue, &colorGreen, &colorWhite, &colorYellow, &colorCyan, &colorPurple};
 
 #endif //TGL_BOARD_PIO_MATRIX_OUTPUT_COLOR_H
