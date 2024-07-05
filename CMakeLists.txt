@@ -10,7 +10,8 @@ pico_sdk_init()
 
 
 
-add_executable(TGL-Board src/main.cpp
+add_executable(TGL-Board
+        src/main.cpp
         src/display_program.cpp
         src/beo_common.cpp
         src/TextController/tiny_text.cpp
@@ -19,26 +20,31 @@ add_executable(TGL-Board src/main.cpp
         src/TextController/scroll_text.cpp
         src/TextController/subcontroller/subcontroller.cpp
         src/TextController/subcontroller/static_subcontroller.cpp
-        src/TetrisGame/tetris.cpp
         src/TetrisGame/block.cpp
-        src/SnakeAI/snake_ai_animation.cpp
-        src/SnakeAI/snake.cpp
+        src/TetrisGame/tetris.cpp
         src/SnakeAI/hamiltonian_circle.cpp
         src/SnakeAI/food.cpp
+        src/SnakeAI/snake_ai_animation.cpp
+        src/SnakeAI/snake.cpp
+        src/RainbowAnimation/rainbow_animation.cpp
         src/PIOMatrixOutput/pio_matrix_output.cpp
         src/PIOMatrixOutput/color.cpp
-        src/Firework/pixel.cpp
-        src/Firework/firework_animation.cpp
-        src/Firework/firework.cpp
-        src/DinoGame/player.cpp
-        src/DinoGame/enemy.cpp
-        src/DinoGame/dinoGame.cpp
-        src/DinoGame/entity.cpp
+        src/MeteoriteAnimation/meteorite_animation.cpp
+        src/Menu/menu_controller.cpp
+        src/Menu/menu_entry.cpp
         src/GameOfLife/game_of_life_animation.cpp
-        src/TextController/charsets/charset.cpp
-        src/TextController/charsets/letters.cpp
-        src/TextController/charsets/tiny_letters.cpp
-        src/FlashController/flash_controller.cpp)
+        src/FlashController/flash_controller.cpp
+        src/FixedAnimation/fixed_animation.cpp
+        src/FixedAnimation/animations/jump_animation.cpp
+        src/Firework/firework.cpp
+        src/Firework/firework_animation.cpp
+        src/Firework/pixel.cpp
+        src/DisplayText/display_text.cpp
+        src/DinoGame/dinoGame.cpp
+        src/DinoGame/enemy.cpp
+        src/DinoGame/entity.cpp
+        src/DinoGame/player.cpp
+        src/BrightnessControl/brightness_control.cpp)
 
 target_include_directories(TGL-Board PUBLIC ${CMAKE_CURRENT_LIST_DIR}/src)
 

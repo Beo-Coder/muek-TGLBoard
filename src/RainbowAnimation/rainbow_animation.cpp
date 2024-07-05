@@ -3,7 +3,7 @@
 //
 
 #include "rainbow_animation.h"
-
+#include <math.h>
 
 
 RainbowAnimation::RainbowAnimation(MatrixOutput *ledMatrix, Color (*frame)[8][16]) : DisplayProgram(ledMatrix, frame) {
@@ -31,7 +31,7 @@ void RainbowAnimation::calcFrame() {
                     float colorData[3];
                     for(int k=0; k<3; k++){
 
-                        colorData[k] = (float) (NORMAL_BRIGHTNESS*details_rainbow_animation::BRIGHTNESS_FACTOR * sin((2*PI/MATRIX_LENGTH)*((j+offsetColor+currentColor)%MATRIX_LENGTH-(MATRIX_LENGTH*(k/3.0)))));
+                        colorData[k] = (float) (NORMAL_BRIGHTNESS*details_rainbow_animation::BRIGHTNESS_FACTOR * sin((2*M_PI/MATRIX_LENGTH)*((j+offsetColor+currentColor)%MATRIX_LENGTH-(MATRIX_LENGTH*(k/3.0)))));
                         if(colorData[k] < 0){
                             colorData[k] = 0;
                         }
